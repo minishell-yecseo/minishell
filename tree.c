@@ -12,13 +12,14 @@ t_tree	*init_tree(void)
 	return (tree);
 }
 
-t_node	*create_node(void *value)
+t_node	*create_node(void *value, t_token type)
 {
 	t_node	*node;
 
 	node = (t_node *) malloc(sizeof(t_node));
 	if (!node)
 		exit(0);
+	node->type = type;
 	node->value = value;
 	node->left = NULL;
 	node->right = NULL;
@@ -41,14 +42,24 @@ void	insert_right(t_tree *tree, t_node *parent, t_node *child)
 	tree->size += 1;
 }
 
+void	print_token_type(t_node *node)
+{
+	if (node->type == PIPE)
+		printf("PIPE");
+	else if (node->type == CMD)
+		printf("CMD");
+	else if (node->type == REDIRECT)
+		printf("REDIRECT");
+	else if (node->type == SIMPLE_CMD)
+		printf("SIMPLE_CMD");
+}
+
 int	traverse(t_node *root, t_node *cur)
 {
 	if (!cur)
 		return (0);
-	// 현재 노드에 대해서 어떤 동작을 할지는 실행부의 역할
-	// 일단 value에 string이 들어온다는 가정을 하고
-	// printf로 value를 출력하겠습니다.
-	printf("%s\n", (char *) cur->value);
+	print_token_type(cur);
+	printf(":: %s\n", (char *) cur->value);
 	traverse(root, cur->left);
 	traverse(root, cur->right);
 	return (0);
