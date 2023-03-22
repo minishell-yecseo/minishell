@@ -2,6 +2,9 @@
 # define TREE_H
 #endif
 
+#include <stdlib.h>
+#include <stdio.h>
+
 typedef struct	s_node {
 	void			*value;
 	struct s_node	*left;

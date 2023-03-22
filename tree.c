@@ -12,14 +12,14 @@ t_tree	*init_tree(void)
 	return (tree);
 }
 
-t_node	*create_node(void)
+t_node	*create_node(void *value)
 {
 	t_node	*node;
 
 	node = (t_node *) malloc(sizeof(t_node));
 	if (!node)
 		exit(0);
-	node->value = NULL;
+	node->value = value;
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
