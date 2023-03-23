@@ -2,8 +2,10 @@
 # define TREE_H
 
 # include "token.h"
+# include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <unistd.h>
 
 typedef struct s_node
 {
@@ -18,8 +20,10 @@ typedef struct s_tree
 {
 	struct s_node	*head;
 	int				size;
+	int				last;
 	int				fds[2];
 	int				filefds[2];
+	int				err;
 }					t_tree;
 
 t_tree	*init_tree(void);
@@ -31,5 +35,8 @@ int		traverse(t_tree *tree, t_node *cur);
 
 void	print_token_type(t_node *node);
 void	print_cont(t_cont *cont, t_token type);
+
+void	exe_cur(t_tree *tree, t_node *cur);
+
 
 #endif

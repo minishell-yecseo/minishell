@@ -11,7 +11,8 @@ static void	setting(t_tree *tree);
 int	main(int argc, char **argv, char **envp)
 {
 	t_tree	*tree;
-
+	int status;
+	int pid;
 	// 정보들을 담고 있는 cont 구조체 생성.
 	// 모든 type 에서 각기 필요한 정보를
 	// cont 구조체를 참고하여 사용하면 됨.
@@ -23,6 +24,8 @@ int	main(int argc, char **argv, char **envp)
 	tree = init_tree();
 	setting(tree);
 	traverse(tree, tree->head);
+	while ((pid = wait(&status)) != -1)
+		;
 	return 0;
 }
 
@@ -44,25 +47,30 @@ static void	setting(t_tree *tree)
 
 	insert_left(tree, tmp, create_node(REDIR));
 	insert_right(tree, tmp, create_node(SIMPLE_CMD));
-	(tmp->left->cont).redir_type = IN;
+	(tmp->left->cont).redir_type = OUT_A;
 	(tmp->left->cont).file_name = "test.txt";
 	tmp->left->cont.fd = -1;
 
 	tmp->right->cont.path = "/bin/cat";
-	args1 = (char **)malloc(sizeof(char *) * 2);
+	args1 = (char **)malloc(sizeof(char *) * 3);
 	args1[0] = "cat";
-	args1[1] = NULL;
+	args1[1] = "main.c";
+	args1[2] = 0;
+
 	tmp->right->cont.args = args1;
 
 	tmp = tree->head;
-	insert_right(tree, tmp, create_node(CMD));
+	insert_right(tree, tmp, create_node(PIPE));
 	tmp = tmp->right;
 
-	insert_right(tree, tmp, create_node(SIMPLE_CMD));
-	tmp->right->cont.path = "/bin/grep";
+	insert_left(tree, tmp, create_node(CMD));
+	tmp = tmp->left;//cmd
+
+	insert_right(tree, tmp, create_node(SIMPLE_CMD));//cmd->right
+	tmp->right->cont.path = "/usr/bin/grep";//cmd->right 의 contents
 	args2 = (char **)malloc(sizeof(char *) * 3);
 	args2[0] = "grep";
-	args2[1] = "hello";
+	args2[1] = "main";
 	args2[2] = NULL;
 	tmp->right->cont.args = args2;
 }
