@@ -72,8 +72,8 @@ void	print_cont(t_cont *cont, t_token type)
 
 	if (type == PIPE)
 	{
-		printf("\tpipe fds :%d, %d\n", (cont->pipe.fds)[0], (cont->pipe.fds)[1]);
-		printf("\tis_pipe :%d\n\n", cont->pipe.is_pipe);
+		printf("\tpipe fds :%d, %d\n", (cont->fds)[0], (cont->fds)[1]);
+		printf("\tis_pipe :%d\n\n", cont->is_pipe);
 	}
 	else if (type == CMD)
 	{
@@ -82,21 +82,21 @@ void	print_cont(t_cont *cont, t_token type)
 	else if (type == REDIR)
 	{
 		printf("\tredirection type :");
-		if (cont->redir.type == IN)
+		if (cont->redir_type == IN)
 			printf("IN\n");
-		else if (cont->redir.type == HERE_DOC)
+		else if (cont->redir_type == HERE_DOC)
 			printf("HERE_DOC\n");
-		else if (cont->redir.type == OUT_T)
+		else if (cont->redir_type == OUT_T)
 			printf("OUT_T\n");
 		else
 			printf(" OUT_A\n");
-		printf("\tfile_name :%s\n", cont->redir.file_name);
-		printf("\tfd :%d\n\n", cont->redir.fd);
+		printf("\tfile_name :%s\n", cont->file_name);
+		printf("\tfd :%d\n\n", cont->fd);
 	}
 	else if (type == SIMPLE_CMD)
 	{
-		tmp = cont->simple_cmd.args;
-		printf("\n\tpath :%s\n", cont->simple_cmd.path);
+		tmp = cont->args;
+		printf("\n\tpath :%s\n", cont->path);
 		printf("\targs :");
 		while (*tmp)
 		{

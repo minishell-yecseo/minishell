@@ -17,6 +17,18 @@ typedef enum e_redir_type
 	OUT_A
 }			t_redir_type;
 
+typedef struct s_cont
+{
+	int				is_pipe;
+	int				fds[2];
+	t_redir_type	redir_type;
+	char			*file_name;
+	int				fd;
+	char			*path;
+	char			**args;
+}			t_cont;
+
+/*
 typedef struct s_pipe
 {
 	int		fds[2];
@@ -48,4 +60,6 @@ typedef union u_cont
 	t_redir			redir;
 	t_simple_cmd	simple_cmd;
 }			t_cont;
+*/
+
 #endif
