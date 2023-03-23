@@ -8,7 +8,8 @@
 typedef struct s_node
 {
 	enum e_token	type;//can be PIPE, CMD, REDIR, SIMPLE_CMD
-	union u_cont	cont;//can be a pointer of struct s_pipe, s_cmd, s_redir, s_simple_cmd
+	struct s_cont	cont;
+	//union u_cont	cont;//can be a pointer of struct s_pipe, s_cmd, s_redir, s_simple_cmd
 	struct s_node	*left;
 	struct s_node	*right;
 }					t_node;
