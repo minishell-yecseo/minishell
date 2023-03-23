@@ -18,6 +18,8 @@ typedef struct s_tree
 {
 	struct s_node	*head;
 	int				size;
+	int				fds[2];
+	int				filefds[2];
 }					t_tree;
 
 t_tree	*init_tree(void);
