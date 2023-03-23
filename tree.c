@@ -12,7 +12,7 @@ t_tree	*init_tree(void)
 	return (tree);
 }
 
-t_node	*create_node(void *value, t_token type)
+t_node	*create_node(t_token type)
 {
 	t_node	*node;
 
@@ -20,7 +20,6 @@ t_node	*create_node(void *value, t_token type)
 	if (!node)
 		exit(0);
 	node->type = type;
-	node->value = value;
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
@@ -42,25 +41,68 @@ void	insert_right(t_tree *tree, t_node *parent, t_node *child)
 	tree->size += 1;
 }
 
-void	print_token_type(t_node *node)
+int	traverse(t_tree *tree, t_node *cur)
 {
-	if (node->type == PIPE)
-		printf("PIPE");
-	else if (node->type == CMD)
-		printf("CMD");
-	else if (node->type == REDIRECT)
-		printf("REDIRECT");
-	else if (node->type == SIMPLE_CMD)
-		printf("SIMPLE_CMD");
-}
-
-int	traverse(t_node *root, t_node *cur)
-{
+	if (!tree)
+		return (0);
 	if (!cur)
 		return (0);
 	print_token_type(cur);
-	printf(":: %s\n", (char *) cur->value);
-	traverse(root, cur->left);
-	traverse(root, cur->right);
+	print_cont(&(cur->cont), cur->type);
+	traverse(tree, cur->left);
+	traverse(tree, cur->right);
 	return (0);
+}
+
+void	print_token_type(t_node *node)
+{
+	if (node->type == PIPE)
+		printf("PIPE::");
+	else if (node->type == CMD)
+		printf("CMD::");
+	else if (node->type == REDIR)
+		printf("REDIR::");
+	else if (node->type == SIMPLE_CMD)
+		printf("SIMPLE_CMD::");
+}
+
+void	print_cont(t_cont *cont, t_token type)
+{
+	char	**tmp;
+
+	if (type == PIPE)
+	{
+		printf("\tpipe fds :%d, %d\n", (cont->pipe.fds)[0], (cont->pipe.fds)[1]);
+		printf("\tis_pipe :%d\n\n", cont->pipe.is_pipe);
+	}
+	else if (type == CMD)
+	{
+		printf("\tnone\n\n");
+	}
+	else if (type == REDIR)
+	{
+		printf("\tredirection type :");
+		if (cont->redir.type == IN)
+			printf("IN\n");
+		else if (cont->redir.type == HERE_DOC)
+			printf("HERE_DOC\n");
+		else if (cont->redir.type == OUT_T)
+			printf("OUT_T\n");
+		else
+			printf(" OUT_A\n");
+		printf("\tfile_name :%s\n", cont->redir.file_name);
+		printf("\tfd :%d\n\n", cont->redir.fd);
+	}
+	else if (type == SIMPLE_CMD)
+	{
+		tmp = cont->simple_cmd.args;
+		printf("\n\tpath :%s\n", cont->simple_cmd.path);
+		printf("\targs :");
+		while (*tmp)
+		{
+			printf("%s ", *tmp);
+			tmp++;
+		}
+		printf("\n\n");
+	}
 }
