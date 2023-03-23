@@ -21,6 +21,7 @@ typedef struct s_cont
 {
 	int				is_pipe;
 	int				fds[2];
+	int				filefds[2];
 	t_redir_type	redir_type;
 	char			*file_name;
 	int				fd;
