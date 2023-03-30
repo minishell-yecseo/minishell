@@ -6,7 +6,8 @@ typedef enum e_token
 	PIPE,
 	CMD,
 	REDIR,
-	SIMPLE_CMD
+	SIMPLE_CMD,
+	NO_CMD
 }			t_token;
 
 typedef enum e_redir_type
