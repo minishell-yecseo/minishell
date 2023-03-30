@@ -25,20 +25,14 @@ t_node	*create_node(t_token type)
 	return (node);
 }
 
-void	insert_left(t_tree *tree, t_node *parent, t_node *child)
+void	insert_left(t_node *parent, t_node *child)
 {
-	if (!tree || !(tree->head))
-		return ;
 	parent->left = child;
-	tree->size += 1;
 }
 
-void	insert_right(t_tree *tree, t_node *parent, t_node *child)
+void	insert_right(t_node *parent, t_node *child)
 {
-	if (!tree || !(tree->head))
-		return ;
 	parent->right = child;
-	tree->size += 1;
 }
 
 int	traverse(t_tree *tree, t_node *cur)

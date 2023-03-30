@@ -28,8 +28,8 @@ typedef struct s_tree
 
 t_tree	*init_tree(void);
 t_node	*create_node(t_token type);
-void	insert_left(t_tree *tree, t_node *parent, t_node *child);
-void	insert_right(t_tree *tree, t_node *parent, t_node *child);
+void	insert_left(t_node *parent, t_node *child);
+void	insert_right(t_node *parent, t_node *child);
 
 int		traverse(t_tree *tree, t_node *cur);
 
