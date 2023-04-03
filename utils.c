@@ -16,8 +16,7 @@ void	set_test_list(t_list **head)
 
 	*head = ft_lstnew(L_PIPE, "|");
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-	//ft_lstadd_back(head, ft_lstnew(L_WORD, 0));
-/*	
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
 	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
@@ -49,7 +48,6 @@ void	set_test_list(t_list **head)
 
 	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-	*/
 }
 
 t_list	*ft_lstnew(t_l_type type, char *line)

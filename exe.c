@@ -5,7 +5,9 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 {
 	tree->filefds[0] = 0;
 	tree->filefds[1] = 0;
-	if (cur->right != 0)
+	if (cur->left == 0)
+		return ;
+	if (cur->right->left != 0)
 	{
 		pipe(tree->fds);
 		tree->first += 1;
