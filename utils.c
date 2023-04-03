@@ -15,7 +15,7 @@ int	main(int argc, char **argv, char **envp)
 
 	root = create_node(PIPE);
 	tree->head = root;
-	set_pipe(root, head, ft_lstlast(head));
+	set_pipe(root, head->next, ft_lstlast(head));
 	traverse(tree, root);
 	return (0);
 }
@@ -25,14 +25,23 @@ void	set_test_list(t_list **head)
 {
 	/*
 	 * 이 문장을 넣은 것입니닷.
-	 * <a ls -al >b <c | <d grep hello >e >f
-	 *
+	 * cat Makefile | >a |<a ls -al >b < c | <d grep Makefile >e >f | >last cat | cat
+	 * 
 	 * ft_lstnew(t_l_type type, char *line)
 	 * => t_l_type 에는 세 종류가 있습니다.
 	 *		L_PIPE, L_REDIR, L_WORD
 	 */
 
-	*head = ft_lstnew(L_REDIR, "<");
+	*head = ft_lstnew(L_PIPE, "|");
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
+	
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
+
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "-al"));
@@ -40,17 +49,24 @@ void	set_test_list(t_list **head)
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "b"));
 	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "c"));
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "d"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "grep"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "hello"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
 	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "e"));
 	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "f"));
-	
+
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "last"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
 }
 
 t_list	*ft_lstnew(t_l_type type, char *line)
@@ -96,28 +112,26 @@ t_list	*ft_lstlast(t_list *lst)
 void	set_pipe(t_node *parent, t_list *start, t_list *last)
 {
 	t_list	*tmp;
-	t_list	*l_pipe;
+	t_list	*lst_pipe;
 	t_node	*node;
 
-	if (start == last || start == NULL)
+	if (start == NULL)
 		return ;
-	l_pipe = start;
-	while (l_pipe->type != L_PIPE && l_pipe->next != NULL)
-		l_pipe = l_pipe->next;
+	lst_pipe = start;
+	//while (lst_pipe->next != NULL && lst_pipe->next->type != L_PIPE)
+	//	lst_pipe = lst_pipe->next;
+	while (lst_pipe->type != L_PIPE && lst_pipe->next != NULL)
+		lst_pipe = lst_pipe->next;
 	// 왼쪽 node에 CMD type node 만들어서 삽입
-	set_cmd(parent, start, l_pipe);
+	set_cmd(parent, start, lst_pipe);
 	// 오른쪽에 PIPE type node 만들어서 삽입
-	tmp = l_pipe;
+	tmp = lst_pipe;
 	while (tmp->type != L_PIPE && tmp->next != NULL)
 		tmp = tmp->next;
-	if (tmp->next != last)
-	{
-		node = create_node(PIPE);
-		insert_right(parent, node);
-		//set_pipe(node, start->next, last);
-	}
+	node = create_node(PIPE);
+	insert_right(parent, node);
 	// 다시 set_pipe()
-	set_pipe(node, l_pipe->next, last);
+	set_pipe(node, lst_pipe->next, last);
 }
 
 void	set_cmd(t_node *parent, t_list *start, t_list *last)
@@ -135,11 +149,13 @@ void	set_redir(t_node *parent, t_list *start, t_list *last)
 	t_node	*node;
 	t_list	*tmp;
 
-	if (start == last || start == NULL)
+	if (start == NULL || start->type == L_PIPE)
 		return ;
 	tmp = start;
-	while (tmp->type != L_REDIR)
+	while (tmp->type != L_REDIR && tmp != last)
 		tmp = tmp->next;
+	if (tmp->type != L_REDIR)
+		return ;//범위를 다 훑었는데 redir 타입이 없을 경우 그냥 종료
 	node = create_node(REDIR);
 	if (ft_strcmp(tmp->line, "<") == 0)
 		node->cont.redir_type = IN;
@@ -157,29 +173,87 @@ void	set_redir(t_node *parent, t_list *start, t_list *last)
 void	set_simple_cmd(t_node *parent, t_list *start, t_list *last)
 {
 	t_node	*node;
-	t_list	*w_end;
+	t_list	*word_end;
+	int		range_size;
+	int		redir_num;
 
+	range_size = get_list_range_size(start, last);
+	redir_num = get_redir_num_in_range(start, last);
+	if (redir_num * 2 == range_size)
+		node = create_node(NO_CMD);
+	else
+	{
+		start = get_word_start_list(start, last, redir_num);
+		word_end = get_word_end_list(start, last);
+		node = create_node(SIMPLE_CMD);
+		node->cont.args = get_args(start, word_end);
+		node->cont.path = start->line;
+	}
+	insert_right(parent, node);
+}
+
+t_list	*get_word_start_list(t_list *start, t_list *last, int redir_num)
+{
+	t_list	*tmp;
+
+	tmp = start;
+	if (redir_num == 0)
+		return (start);
+	while (tmp != last)
+	{
+		if (tmp->type == L_WORD)
+		{
+			if (tmp->prev == NULL || tmp->prev->type == L_WORD ||\
+				tmp->prev->type == L_PIPE)
+				break ;
+		}
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
+t_list	*get_word_end_list(t_list *start, t_list *last)
+{
+	t_list	*end;
+
+	end = start;
+	while (end != last)
+	{
+		if (end->next == NULL || end->next->type == L_PIPE \
+			|| end->next->type == L_REDIR)
+			break ;
+		end = end->next;
+	}
+	return (end);
+}
+
+int	get_list_range_size(t_list *start, t_list *last)
+{
+	int	size;
+
+	size = 1;
 	while (start != last)
 	{
-		if ((start->type == L_WORD) && (start->prev->type == L_WORD \
-										||start->prev->type == L_PIPE \
-										||start->prev == NULL))
-			break ;
+		start = start->next;
+		size++;
+	}
+	if (last->type == L_PIPE)
+		size--;
+	return (size);
+}
+
+int	get_redir_num_in_range(t_list *start, t_list *last)
+{
+	int	num;
+
+	num = 0;
+	while (start != last)
+	{
+		if (start->type == L_REDIR)
+			num++;
 		start = start->next;
 	}
-	if (start->prev->type == L_REDIR || start->prev->type == L_PIPE)
-	{
-		node = create_node(NO_CMD);
-		insert_right(parent, node);
-		return ;
-	}
-	w_end = start;
-	while (w_end->next->type == L_WORD)
-		w_end = w_end->next;
-	node = create_node(SIMPLE_CMD);
-	node->cont.path = NULL;
-	node->cont.args = get_args(start, w_end);
-	insert_right(parent, node);
+	return (num);
 }
 
 int	add_redir(t_list **list, char *line, char **envp)
