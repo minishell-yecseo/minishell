@@ -35,7 +35,7 @@ void	insert_right(t_node *parent, t_node *child)
 	parent->right = child;
 }
 
-int	traverse(t_tree *tree, t_node *cur)
+int	traverse(t_tree *tree, t_node *cur, char ***envp)
 {
 	if (!tree)
 		return (0);
@@ -43,9 +43,9 @@ int	traverse(t_tree *tree, t_node *cur)
 		return (0);
 	print_token_type(cur);
 	print_cont(&(cur->cont), cur->type);
-	//exe_cur(tree, cur);
-	traverse(tree, cur->left);
-	traverse(tree, cur->right);
+	exe_cur(tree, cur, envp);
+	traverse(tree, cur->left, envp);
+	traverse(tree, cur->right, envp);
 	return (0);
 }
 

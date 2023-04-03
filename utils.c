@@ -3,24 +3,6 @@
 int			get_w_len(char *s, char *delimiters);
 void		set_test_list(t_list **head);
 
-// test main function.
-int	main(int argc, char **argv, char **envp)
-{
-	t_tree	*tree;
-	t_node	*root;
-	t_list	*head;
-
-	tree = (t_tree *) malloc(sizeof(tree));
-	set_test_list(&head);
-
-	root = create_node(PIPE);
-	tree->head = root;
-	set_pipe(root, head->next, ft_lstlast(head));
-	traverse(tree, root);
-	return (0);
-}
-
-//		test set list codes
 void	set_test_list(t_list **head)
 {
 	/*
@@ -34,8 +16,8 @@ void	set_test_list(t_list **head)
 
 	*head = ft_lstnew(L_PIPE, "|");
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
-	
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, 0));
+/*	
 	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
@@ -67,6 +49,7 @@ void	set_test_list(t_list **head)
 
 	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+	*/
 }
 
 t_list	*ft_lstnew(t_l_type type, char *line)
