@@ -41,9 +41,9 @@ int	traverse(t_tree *tree, t_node *cur)
 		return (0);
 	if (!cur)
 		return (0);
-	//print_token_type(cur);
-	//print_cont(&(cur->cont), cur->type);
-	exe_cur(tree, cur);
+	print_token_type(cur);
+	print_cont(&(cur->cont), cur->type);
+	//exe_cur(tree, cur);
 	traverse(tree, cur->left);
 	traverse(tree, cur->right);
 	return (0);
@@ -55,6 +55,8 @@ void	print_token_type(t_node *node)
 		printf("PIPE::");
 	else if (node->type == CMD)
 		printf("CMD::");
+	else if (node->type == NO_CMD)
+		printf("NO_CMD::");
 	else if (node->type == REDIR)
 		printf("REDIR::");
 	else if (node->type == SIMPLE_CMD)
@@ -71,9 +73,9 @@ void	print_cont(t_cont *cont, t_token type)
 		printf("\tis_pipe :%d\n\n", cont->is_pipe);
 	}
 	else if (type == CMD)
-	{
 		printf("\tnone\n\n");
-	}
+	else if (type == NO_CMD)
+		printf("\tnone\n\n");
 	else if (type == REDIR)
 	{
 		printf("\tredirection type :");
