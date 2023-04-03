@@ -35,6 +35,10 @@ void		set_redir(t_node *parent, t_list *start, t_list *last);
 void		set_simple_cmd(t_node *parent, t_list *start, t_list *last);
 char		*get_path(t_list *start, char **envps);
 char		**get_args(t_list *start, t_list *last);
+int			get_list_range_size(t_list *start, t_list *last);
+int			get_redir_num_in_range(t_list *start, t_list *last);
+t_list		*get_word_start_list(t_list *start, t_list *last, int redir_num);
+t_list		*get_word_end_list(t_list *start, t_list *last);
 
 int			add_redir(t_list **list, char *line, char **envp);
 int			add_quotes(t_list **list, char *line, char **envp);
