@@ -66,6 +66,4 @@ void		ft_strcpy(char *dst, const char *src);
 void		ft_strncpy(char *dest, const char *src, size_t len);
 size_t		ft_strlcpy(char *dest, const char *src, size_t destsize);
 
-void		set_test_list(t_list **head);
-
 #endif

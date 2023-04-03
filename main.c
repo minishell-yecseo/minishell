@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "minishell.h"
 
-static void	setting(t_tree *tree);
+static void	set_test_list(t_list **head);
 int	g_last_exit_code;
 
 void	sigint_handler(int sig)
@@ -87,51 +87,49 @@ int	main(int argc, char **argv, char **en)
 	return 0;
 }
 
-//static void	setting(t_tree *tree)
-//{
-//	t_node	*tmp;
-//	char	**args1;
-//	char	**args2;
+static void	set_test_list(t_list **head)
+{
+	/*
+	 * 이 문장을 넣은 것입니닷.
+	 * cat Makefile | >a |<a ls -al >b < c | <d grep Makefile >e >f | >last cat | cat
+	 *
+	 * ft_lstnew(t_l_type type, char *line)
+	 * => t_l_type 에는 세 종류가 있습니다.
+	 *		L_PIPE, L_REDIR, L_WORD
+	 */
 
-//	tree->head = create_node(PIPE);
-//	tree->head->cont.fds[0] = 0;
-//	tree->head->cont.fds[0] = 1;
-//	tree->head->cont.is_pipe = 1;
+	*head = ft_lstnew(L_PIPE, "|");
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
 
-//	tmp = tree->head;
-//	tree->size += 1;
-//	insert_left(tree, tmp, create_node(CMD));
-//	tmp = tmp->left;
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "-al"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "b"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "c"));
 
-//	//insert_left(tree, tmp, create_node(REDIR));
-//	insert_right(tree, tmp, create_node(SIMPLE_CMD));
-//	//(tmp->left->cont).redir_type = OUT_T;
-//	//(tmp->left->cont).file_name = "a";
-//	//tmp->left->cont.fd = -1;
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "d"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "grep"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "e"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "f"));
 
-//	tmp->right->cont.path = 0;
-//	args1 = (char **)malloc(sizeof(char *) * 5);
-//	args1[0] = "echo";
-//	args1[1] = "-nnnndnn";
-//	args1[2] = "as\n\n\ndf";
-//	args1[3] = 0;
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "last"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
 
-//	tmp->right->cont.args = args1;
-
-//	tmp = tree->head;
-//	insert_right(tree, tmp, create_node(PIPE));
-//	tmp = tmp->right;
-
-//	insert_left(tree, tmp, create_node(CMD));
-//	tmp = tmp->left;//cmd
-
-//	insert_right(tree, tmp, create_node(SIMPLE_CMD));//cmd->right
-//	tmp->right->cont.path = 0;//"/bin/ls";//cmd->right 의 contents
-//	args2 = (char **)malloc(sizeof(char *) * 6);
-//	args2[0] = "./asdf";
-//	args2[1] = 0;
-//	args2[3] = "asdf";
-//	args2[4] = "aasdfafd";
-//	args2[5] = 0;
-//	tmp->right->cont.args = args2;
-//}
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+}

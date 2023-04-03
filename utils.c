@@ -50,45 +50,6 @@ void	set_test_list(t_list **head)
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
 }
 
-t_list	*ft_lstnew(t_l_type type, char *line)
-{
-	t_list	*ret;
-
-	ret = (t_list *) malloc(sizeof (t_list));
-	if (!ret)
-		return (NULL);
-	ret->type = type;
-	ret->line = line;
-	ret->prev = NULL;
-	ret->next = NULL;
-	return (ret);
-}
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*lstlast;
-
-	if (new == NULL || lst == NULL)
-		return ;
-	lstlast = ft_lstlast(*lst);
-	if (lstlast == NULL)
-		*lst = new;
-	else
-	{
-		new->prev = lstlast;
-		lstlast->next = new;
-	}
-}
-
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
 // set_pipe 직전, root에 pipe node가 있음.
 void	set_pipe(t_node *parent, t_list *start, t_list *last)
 {
@@ -235,86 +196,6 @@ int	get_redir_num_in_range(t_list *start, t_list *last)
 		start = start->next;
 	}
 	return (num);
-}
-
-int	add_redir(t_list **list, char *line, char **envp)
-{
-	t_list	*new;
-	int		len;
-
-	if (*line == '<' && *(line + 1) != '<')
-		new = ft_lstnew(L_REDIR, "<");
-	else if (*line == '<' && *(line + 1) == '<')
-		new = ft_lstnew(L_REDIR, "<<");
-	else if (*line == '>' && *(line + 1) != '>')
-		new = ft_lstnew(L_REDIR, ">");
-	else if (*line == '>' && *(line + 1) == '>')
-		new = ft_lstnew(L_REDIR, ">>");
-	if (!new)
-		exit(0);
-	ft_lstadd_back(list, new);
-	len = ft_strlen(new->line);
-	return (len);
-}
-
-int	add_pipe(t_list **list, char *line, char **envp)
-{
-	t_list	*new;
-
-	new = ft_lstnew(L_PIPE, "|");
-	if (!new)
-		exit(0);
-	ft_lstadd_back(list, new);
-	return (1);
-}
-
-int	add_quotes(t_list **list, char *line, char **envp)
-{
-	t_list	*new;
-	char	*new_line;
-	char	quote_type;
-	int		len;
-
-	len = 1;
-	quote_type = *line;
-	line++;
-	while (line[len] == quote_type || line[len] == '\0')
-		len++;
-	new_line = ft_substr(line, 0, len);
-	if (!new_line)
-		exit(0);
-	new = ft_lstnew(L_WORD, new_line);
-	if (!new)
-		exit(0);
-	ft_lstadd_back(list, new);
-	return (len);
-}
-
-int	add_word(t_list **list, char *line, char **envp)
-{
-	t_list	*new;
-	char	*new_line;
-	int		len;
-
-	len = 0;
-	while (line[len])
-	{
-		if (line[len] == ' ' || (line[len] > 8 && line[len] < 14))
-			break ;
-		if (line[len] == '<' || line[len] == '>' || line[len] == '|')
-			break ;
-		len++;
-	}
-	if (len == 0)
-		return (1);
-	new_line = ft_substr(line, 0, len);
-	if (!new_line)
-		exit(0);
-	new = ft_lstnew(L_WORD, new_line);
-	if (!new)
-		exit(0);
-	ft_lstadd_back(list, new);
-	return (len);
 }
 
 //Not Implemeted yet
