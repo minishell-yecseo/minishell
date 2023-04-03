@@ -32,7 +32,7 @@ int check_exefile(t_node *cur, char **envp)
 	i = 0;
 	while (paths[i])
 	{
-		cur->cont.path = ft_strjoin(paths[i], cur->cont.args[0]);
+		cur->cont.path = path_strjoin(paths[i], cur->cont.args[0]);
 		if (!cur->cont.path)
 			exit(1);
 		if (access(cur->cont.path, F_OK) == 0)

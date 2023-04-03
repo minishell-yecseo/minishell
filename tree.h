@@ -24,7 +24,7 @@ typedef struct s_tree
 	int				size;
 	int				last;
 	int				err;
-	int				pid;
+	pid_t			pid;
 	int				first;
 	int				fds[2];
 	int				stdfds[2];
@@ -73,5 +73,6 @@ int	export(char **arg, char ***envp);
 int	pwd(void);
 int	cd(char **args, char ***envp);
 int	ft_envpcmp(char *s1, char *s2);
+char	*path_strjoin(char const *s1, char const *s2);
 
 #endif

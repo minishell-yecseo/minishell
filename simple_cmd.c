@@ -74,9 +74,9 @@ void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 		dup2(tree->stdfds[1], 1);
 	close(tree->stdfds[1]);
 	if (check_char(cur->cont.args[0], '/'))
-		;//it is file -> fork -> exe
+		printf("///\n\n");//it is file -> fork -> exe
 	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
-		;
+		printf("built-in\n");
 	else if (!check_path(*envp))
 	{
 		execve(cur->cont.args[0], cur->cont.args, *envp);
@@ -96,7 +96,7 @@ void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 
 void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 {
-	int pid;
+	pid_t	pid;
 
 	if (tree->err == 0)
 	{

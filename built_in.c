@@ -29,15 +29,15 @@ int	check_built_in(char *s, char **args, char ***envp)
 {
 	int out;
 
-	if (ft_strcmp(s, "echo"))
+	if (!ft_strcmp(s, "echo"))
 		out = echo(args);
-	else if (ft_strcmp(s, "cd"))
+	else if (!ft_strcmp(s, "cd"))
 		out = cd(args, envp);
-	else if (ft_strcmp(s, "pwd"))
+	else if (!ft_strcmp(s, "pwd"))
 		out = pwd();
-	else if (ft_strcmp(s, "export"))
+	else if (!ft_strcmp(s, "export"))
 		out = export(args, envp);
-	else if (ft_strcmp(s, "unset"))
+	else if (!ft_strcmp(s, "unset"))
 		out = unset(args, envp);
 	//else if (ft_strcmp(s, "env"))
 	//	out = env(args, envp);
