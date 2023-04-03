@@ -1,54 +1,6 @@
 #include "utils.h"
 
 int			get_w_len(char *s, char *delimiters);
-void		set_test_list(t_list **head);
-
-void	set_test_list(t_list **head)
-{
-	/*
-	 * 이 문장을 넣은 것입니닷.
-	 * cat Makefile | >a |<a ls -al >b < c | <d grep Makefile >e >f | >last cat | cat
-	 * 
-	 * ft_lstnew(t_l_type type, char *line)
-	 * => t_l_type 에는 세 종류가 있습니다.
-	 *		L_PIPE, L_REDIR, L_WORD
-	 */
-
-	*head = ft_lstnew(L_PIPE, "|");
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
-
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "-al"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "b"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "c"));
-
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "d"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "grep"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "e"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "f"));
-
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "last"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-}
 
 // set_pipe 직전, root에 pipe node가 있음.
 void	set_pipe(t_node *parent, t_list *start, t_list *last)
