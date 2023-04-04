@@ -4,7 +4,7 @@
 static void	set_test_list(t_list **head);
 int	g_last_exit_code;
 
-void	unset_old_path(char ***envp)
+void	unset_oldpath(char ***envp)
 {
 	*envp = add_envp(envp, "OLDPWD");
 }
@@ -28,7 +28,7 @@ char	**cp_envp(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-en = (char **)malloc(sizeof(char *) * (i + 1));
+	en = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!en)
 		exit(1);
 	i = 0;
@@ -76,14 +76,22 @@ int	main(int argc, char **argv, char **en)
 	tree->stdfds[0] = dup(0);
 	tree->stdfds[1] = dup(1);
 	envp = cp_envp(en);
-	unset_oldpath(envp);
+	unset_oldpath(&envp);
 	int i = 0;
-	//while (envp[i])
-	//{
-	//	printf("%s\n", envp[i]);
-	//	i++;
-	//}
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
 	traverse(tree, tree->head, &envp);
+	
+	printf("\n\n\n\n");
+	i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
 	wait_forks(tree);
 	//dup2(tree->stdfds[0], 0);
 	dup2(tree->stdfds[1], 1);
@@ -108,15 +116,14 @@ static void	set_test_list(t_list **head)
 	 */
 
 	*head = ft_lstnew(L_PIPE, "|");
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "casfdat"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, ""));
-	
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "cd"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "headers"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "abcdedaaa"));
+	////ft_lstadd_back(head, ft_lstnew(L_WORD, "exit"));
+	////ft_lstadd_back(head, ft_lstnew(L_WORD, "100"));
+	////ft_lstadd_back(head, ft_lstnew(L_WORD, ""));
 	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	//ft_lstadd_back(head, ft_lstnew(L_WORD, "exit"));
-	//ft_lstadd_back(head, ft_lstnew(L_WORD, "100"));
-	//ft_lstadd_back(head, ft_lstnew(L_WORD, ""));
-	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	//ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "export"));
 
 	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	//ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
