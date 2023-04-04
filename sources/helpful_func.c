@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "tree.h"
 
 int	check_char(char *s, char c)
 {
@@ -14,20 +13,6 @@ int	check_char(char *s, char c)
 	}
 	return (0);
 }
-
-//int	ft_strcmp(char *s1, char *s2)
-//{
-//	int	i;
-
-//	i = 0;
-//	while (s1[i] || s2[i])
-//	{
-//		if (s1[i] != s2[i])
-//			return (0);
-//		i++;
-//	}
-//	return (1);
-//}
 
 int	check_path(char **envp)
 {
@@ -70,4 +55,32 @@ void	ft_print_err(char *str)
 		write(2, &str[i], 1);
 		i++;
 	}
+}
+
+char	*path_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		len1;
+	int		len2;
+	int		i;
+
+	i = 0;
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (len1 + len2 + 2));
+	if (!str)
+		return (0);
+	while (i < len1)
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i++] = '/';
+	while (i < len1 + len2 + 1)
+	{
+		str[i] = s2[i - len1 - 1];
+		i++;
+	}
+	str[i] = 0;
+	return (str);
 }

@@ -1,5 +1,21 @@
 #include "utils.h"
 
+t_tree	*tree_builder(t_list *head)
+{
+	t_tree	*tree;
+	t_node	*root;
+	t_list	*last;
+
+	tree = init_tree();
+	root = create_node(PIPE);
+	tree_set_root(tree, root);
+	last = ft_lstlast(head);
+	if (!last)
+		exit(0);
+	set_pipe(root, head, last);
+	return (tree);
+}
+
 // set_pipe 직전, root에 pipe node가 있음.
 void	set_pipe(t_node *parent, t_list *start, t_list *last)
 {
@@ -146,4 +162,33 @@ int	get_redir_num_in_range(t_list *start, t_list *last)
 		start = start->next;
 	}
 	return (num);
+}
+
+char	**get_args(t_list *start, t_list *last)
+{
+	char	**ret;
+	t_list	*tmp;
+	int		size;
+	int		idx;
+
+	size = 1;
+	tmp = start;
+	while (tmp != last)
+	{
+		tmp = tmp->next;
+		size++;
+	}
+	ret = (char **) malloc(sizeof(char *) * (size + 1));
+	if (!ret)
+		exit(0);
+	ret[size] = NULL;
+	idx = 0;
+	while (idx < size)
+	{
+		ret[idx] = ft_strdup(start->line);
+		if (!ret[idx++])
+			exit(0);
+		start = start->next;
+	}
+	return (ret);
 }
