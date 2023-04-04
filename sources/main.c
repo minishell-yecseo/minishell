@@ -4,6 +4,11 @@
 static void	set_test_list(t_list **head);
 int	g_last_exit_code;
 
+void	unset_old_path(char ***envp)
+{
+	*envp = add_envp(envp, "OLDPWD");
+}
+
 void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
@@ -23,7 +28,7 @@ char	**cp_envp(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	en = (char **)malloc(sizeof(char *) * (i + 1));
+en = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!en)
 		exit(1);
 	i = 0;
@@ -70,9 +75,8 @@ int	main(int argc, char **argv, char **en)
 
 	tree->stdfds[0] = dup(0);
 	tree->stdfds[1] = dup(1);
-	tree->fds[0] = dup(0);
-	tree->fds[1] = dup(1);
 	envp = cp_envp(en);
+	unset_oldpath(envp);
 	int i = 0;
 	//while (envp[i])
 	//{
@@ -81,9 +85,14 @@ int	main(int argc, char **argv, char **en)
 	//}
 	traverse(tree, tree->head, &envp);
 	wait_forks(tree);
-	dup2(tree->stdfds[0], 0);
+	//dup2(tree->stdfds[0], 0);
 	dup2(tree->stdfds[1], 1);
+	close(tree->stdfds[0]);
+	close(tree->stdfds[1]);
 	printf("$? : %d\n", g_last_exit_code);
+	//char	buffer[100];
+	//read(0, buffer, 100);
+	//printf("%s\n", buffer);
 	return 0;
 }
 
@@ -99,17 +108,46 @@ static void	set_test_list(t_list **head)
 	 */
 
 	*head = ft_lstnew(L_PIPE, "|");
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "casfdat"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, ""));
+	
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "exit"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "100"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, ""));
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
 
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "wc"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "-l"));
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
 
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "wc"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "-w"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "-al"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "b"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "c"));
 
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "wc"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "-l"));
-	}
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "d"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "grep"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "e"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "f"));
+
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "last"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+}

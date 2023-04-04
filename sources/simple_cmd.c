@@ -5,14 +5,8 @@ extern int	g_last_exit_code;
 
 void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
-	//close(tree->fds[0]);
-	//if (tree->filefds[1] > 0)
-	//	close(tree->fds[1]);
-	//else
-	//{
-	//	dup2(tree->fds[1], 1);
-	//	close(tree->fds[1]);
-	//}
+	close(tree->stdfds[0]);
+	close(tree->stdfds[1]);
 	close(tree->fds[0]);
 	if (tree->filefds[1] <= 0)
 		dup2(tree->fds[1], 1);
@@ -31,6 +25,7 @@ void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	}
 	else
 	{
+		ft_print_err("cur->cont.args[0]: ");
 		write(2, "command not found\n", 18);
 		exit(1);
 	}
@@ -67,7 +62,6 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 	}
 }
 
-
 void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
 	if (tree->filefds[1] <= 0)
@@ -76,10 +70,12 @@ void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	if (check_char(cur->cont.args[0], '/'))
 		printf("///\n\n");//it is file -> fork -> exe
 	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
-		printf("built-in\n");
+		;
 	else if (!check_path(*envp))
 	{
 		execve(cur->cont.args[0], cur->cont.args, *envp);
+		perror(cur->cont.args[0]);
+		exit(2);
 	}
 	else if (check_exefile(cur, *envp))
 	{
@@ -87,7 +83,8 @@ void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	}
 	else
 	{
-		write(2, "command not found\n", 18);
+		ft_print_err(cur->cont.args[0]);
+		ft_print_err(": command not found\n");
 		exit(2);
 	}
 	perror(cur->cont.args[0]);
@@ -100,17 +97,18 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 
 	if (tree->err == 0)
 	{
-		//if (tree->first == 0 && only_check_built_in(cur->cont.args[0]))
-		//{
-		//	one_built_in(cur->cont.args, envp);
-		//}
-		//else
+		if (tree->first == 0 && only_check_built_in(cur->cont.args[0]))
+			g_last_exit_code = one_exe_built_in(cur->cont.args[0], cur->cont.args, envp);
+		else
 		{
 			pid = fork();
 			if (pid == 0)
 				last_forked_exe(tree, cur, envp);
 			else if (pid > 0)
+			{
 				tree->pid = pid;
+				dup2(tree->stdfds[0], 0);
+			}
 			else
 			{
 				perror("fork");
