@@ -6,7 +6,7 @@ int	g_last_exit_code;
 
 void	unset_oldpath(char ***envp)
 {
-	*envp = add_envp(envp, "OLDPWD");
+	*envp = oldpwd_envp(envp, "OLDPWD");
 }
 
 void	sigint_handler(int sig)

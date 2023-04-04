@@ -80,4 +80,8 @@ int		one_exe_built_in(char *s, char **args, char ***envp);
 int		only_check_built_in(char *s);
 char	**add_envp(char ***envp, char *str);
 
+char	**oldpwd_envp(char ***envp, char *str);
+int		f_envpcmp(char *s1, char *s2);
+char	**make_big_arr(char ***envp);
+
 #endif
