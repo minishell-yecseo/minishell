@@ -8,7 +8,7 @@ SRC			= main.c export.c unset.c cd_pwd.c\
 				helpful_func3.c \
 				utils.c ft_strings.c utils_list.c utils_tokenizer.c\
 				utils_tree_build.c \
-				exit.c one_built_in.c env.c
+				exit.c one_built_in.c env.c unset_oldpath.c
 
 OBJS			= $(SRCS:.c=.o)
 

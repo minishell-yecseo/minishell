@@ -25,6 +25,8 @@ int	ft_envpcmp(char *s1, char *s2)
 	len2 = 0;
 	if (!s1 || !s2)
 		return (0);
+	if (!check_char(s2, '='))
+		return (0);
 	while (s1[len1] && s1[len1] != '=')
 		len1++;
 	while (s2[len2] && s2[len2] != '=')
@@ -61,7 +63,7 @@ char	**del_envp(char **envp, char *str)
 	k = 0;
 	while (envp[i])
 	{
-		if (!ft_envpcmp(envp[i], str))
+		if (!f_envpcmp(envp[i], str))
 		{
 			en[k] = ft_strdup(envp[i]);
 			if (!en[k])
