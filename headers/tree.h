@@ -74,5 +74,9 @@ int	pwd(void);
 int	cd(char **args, char ***envp);
 int	ft_envpcmp(char *s1, char *s2);
 char	*path_strjoin(char const *s1, char const *s2);
+int ft_exit(char **args);
+int	env(char **envp);
+int	one_exe_built_in(char *s, char **args, char ***envp);
+int	only_check_built_in(char *s);
 
 #endif

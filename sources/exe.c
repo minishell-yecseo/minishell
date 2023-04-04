@@ -5,12 +5,21 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 {
 	tree->filefds[0] = 0;
 	tree->filefds[1] = 0;
+
+	///STDIN, STDTOUT restore
+	//dup2(tree->stdfds[0], 0);
+	//dup2(tree->stdfds[1], 1);
+	//close(tree->stdfds[0]);
+	//close(tree->stdfds[1]);
+	//tree->stdfds[0] = dup(0);
+	//tree->stdfds[1] = dup(1);
 	if (cur->left == 0)
 		return ;
 	if (cur->right->left != 0)
 	{
 		pipe(tree->fds);
 		tree->first += 1;
+		//printf("+1\n");
 	}
 	else
 	{
@@ -62,75 +71,6 @@ void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
 		close(tree->filefds[1]);
 	}
 }
-
-//void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
-//{
-//	int pid;
-
-//	pid = fork();
-//	if (pid == 0)
-//	{
-//		if (tree->filefds[1] > 0)
-//			;
-//		else
-//		{
-//			dup2(tree->stdfds[1], 1);
-//			close(tree->stdfds[1]);
-//		}
-//		execve(cur->cont.path, cur->cont.args, 0);
-//		perror("");
-//		exit(errno);
-//	}
-//	else
-//	{
-//		tree->pid = pid;
-//		return ;
-//	}
-//}
-
-//void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
-//{
-//	int pid;
-	
-//	if (tree->err == 0)
-//	{
-//		if (tree->last == 1)
-//		{
-//			last_simple_com(tree, cur, envp);
-//			return ;
-//		}
-//		pid = fork();
-//		if (pid == 0)
-//		{
-			//close(tree->fds[0]);
-			//if (tree->filefds[1] > 0)
-			//	close(tree->fds[1]);
-			//else
-			//{
-			//	dup2(tree->fds[1], 1);
-			//	close(tree->fds[1]);
-			//}
-//			execve(cur->cont.path, cur->cont.args, *envp);
-//			perror("");
-//			//errno 확인해서 exit하셈
-//			exit(1);
-//		}
-//		else
-//		{
-//			close(tree->fds[1]);
-//			dup2(tree->fds[0], 0);
-//			close(tree->fds[0]);
-//			return ;
-//		}
-//	}
-//	else
-//	{
-//		close(tree->fds[1]);
-//		close(tree->fds[0]);
-//		tree->err = 0;
-//		return ;
-//	}
-//}
 
 void	exe_cur(t_tree *tree, t_node *cur, char ***envp)
 {

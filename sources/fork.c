@@ -1,6 +1,6 @@
 #include "tree.h"
 #include "minishell.h"
-#define WEXITSTATUS(x)  ((_W_INT(x) >> 8) & 0x000000ff)
+//#define WEXITSTATUS(x)  ((_W_INT(x) >> 8) & 0x000000ff)
 
 extern int	g_last_exit_code;
 
@@ -23,8 +23,10 @@ void	wait_forks(t_tree *tree)
 				g_last_exit_code = 126;
 			else if (err == 0)
 				g_last_exit_code = 0;
-			else
+			else if (err == 1)
 				g_last_exit_code = 1;
+			else
+				g_last_exit_code = err;
 		}
 	}
 }

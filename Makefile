@@ -19,8 +19,8 @@ INC				= ./headers
 
 CC				= cc
 CFLAGS			= -g #-Wall -Wextra -Werror
-READLINE		= -lreadline -L/Users/saseo/.brew/opt/readline/lib 
-OBJS_READLINE	= -I/Users/saseo/.brew/opt/readline/include
+READLINE		= -lreadline -L/Users/yecnam/.brew/opt/readline/lib 
+OBJS_READLINE	= -I/Users/yecnam/.brew/opt/readline/include
 
 #READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
 #OBJS_READLINE	= -I/opt/homebrew/opt/readline/include

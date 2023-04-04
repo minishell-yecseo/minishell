@@ -3,14 +3,15 @@
 
 int	cd(char **args, char ***envp)
 {
-	char *old_pwd;
+	char	*pwd;
+	char	*old_pwd;
 
 	if (chdir(args[1]))
 	{
 		perror(args[1]);
 		return (1);
 	}
-	//add_envp(envp, )
+	add_envp(envp, "PWD=")
 	return (0);
 }
 
