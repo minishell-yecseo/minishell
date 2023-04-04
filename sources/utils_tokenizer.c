@@ -6,13 +6,15 @@
 /*   By: saseo <saseo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:31:16 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/03 19:08:41 by saseo            ###   ########.fr       */
+/*   Updated: 2023/04/04 12:13:15 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
 //cat Makefile | >a |<a ls -al >b < c | <d grep Makefile >e >f | >last cat | cat
+
+
 
 int	add_redir(t_list **list, char *line, char **envp)
 {

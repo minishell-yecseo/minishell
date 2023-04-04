@@ -40,6 +40,7 @@ int			get_redir_num_in_range(t_list *start, t_list *last);
 t_list		*get_word_start_list(t_list *start, t_list *last, int redir_num);
 t_list		*get_word_end_list(t_list *start, t_list *last);
 
+
 int			add_redir(t_list **list, char *line, char **envp);
 int			add_quotes(t_list **list, char *line, char **envp);
 int			add_pipe(t_list **list, char *line, char **envp);
