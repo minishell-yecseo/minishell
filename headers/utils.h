@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "ft_strings.h"
 #include "tree.h"
 
 typedef enum e_l_type
@@ -23,12 +24,13 @@ typedef struct s_list
 
 t_tree		*get_tree(char *line);
 
+t_list		*get_lexical_list(char *line);
 t_list		*lexer(char *line);
 char		*replace_envp(char *line);
 
 int			syntax(t_list *head);
 
-t_tree		*tree_bulider(t_list *head);
+t_tree		*tree_builder(t_list *head);
 void		set_pipe(t_node *parent, t_list *start, t_list *last);
 void		set_cmd(t_node *parent, t_list *start, t_list *last);
 void		set_redir(t_node *parent, t_list *start, t_list *last);

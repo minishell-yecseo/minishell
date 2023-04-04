@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "minishell.h"
 
 t_tree	*init_tree(void)
 {
@@ -7,7 +7,7 @@ t_tree	*init_tree(void)
 	tree = (t_tree *) malloc(sizeof(t_tree));
 	if (!tree)
 		exit(0);
-	tree->head = NULL;
+	tree->root = NULL;
 	tree->size = 0;
 	return (tree);
 }
@@ -23,6 +23,13 @@ t_node	*create_node(t_token type)
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
+}
+
+void	tree_set_root(t_tree *tree, t_node *root)
+{
+	if (!tree)
+		return ;
+	tree->root = root;
 }
 
 void	insert_left(t_node *parent, t_node *child)
@@ -47,6 +54,12 @@ int	traverse(t_tree *tree, t_node *cur, char ***envp)
 	traverse(tree, cur->left, envp);
 	traverse(tree, cur->right, envp);
 	return (0);
+}
+
+void	free_tree(t_tree *tree)
+{
+	//free tree!
+	return ;
 }
 
 void	print_token_type(t_node *node)

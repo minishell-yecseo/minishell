@@ -1,4 +1,3 @@
-#include "utils.h"
 #include "minishell.h"
 
 static void	set_test_list(t_list **head);
@@ -66,12 +65,13 @@ int	main(int argc, char **argv, char **en)
 	t_node	*root;
 	t_list	*head;
 
-	tree = init_tree();
+	//tree = init_tree();
 	set_test_list(&head);
+	tree = tree_builder(head);
 
-	root = create_node(PIPE);
-	tree->head = root;
-	set_pipe(root, head->next, ft_lstlast(head));
+	//root = create_node(PIPE);
+	//tree->head = root;
+	//set_pipe(root, head->next, ft_lstlast(head));
 
 	tree->stdfds[0] = dup(0);
 	tree->stdfds[1] = dup(1);
@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **en)
 		printf("%s\n", envp[i]);
 		i++;
 	}
-	traverse(tree, tree->head, &envp);
+	traverse(tree, tree->root, &envp);
 	
 	printf("\n\n\n\n");
 	i = 0;

@@ -10,9 +10,10 @@ t_tree	*get_tree(char *line)
 	// syntax checker	: return 0 if syntax has no error else -1
 	// tree builder		: return pointer of tree
 	//					: each level call their lower process functs recursively
-	//					: 1) set_pipe
-	//						1-1) set_cmd
-	//							1-1-1) set_redir
-	//							1-1-2) set_simple_cmd
+
+	//list = get_lexica(line);
+	tree = tree_builder(list);
+	if (!tree)
+		free_tree(tree);
 	return (tree);
 }
