@@ -1,7 +1,5 @@
 #include "utils.h"
 
-int			get_w_len(char *s, char *delimiters);
-
 // set_pipe 직전, root에 pipe node가 있음.
 void	set_pipe(t_node *parent, t_list *start, t_list *last)
 {
@@ -148,21 +146,4 @@ int	get_redir_num_in_range(t_list *start, t_list *last)
 		start = start->next;
 	}
 	return (num);
-}
-
-//Not Implemeted yet
-t_tree	*get_tree(char *line)
-{
-	t_tree	*tree;
-	t_list	*list;
-
-	// lexer			: return list of lexical_tokens	
-	// syntax checker	: return 0 if syntax has no error else -1
-	// tree builder		: return pointer of tree
-	//					: each level call their lower process functs recursively
-	//					: 1) set_pipe
-	//						1-1) set_cmd
-	//							1-1-1) set_redir
-	//							1-1-2) set_simple_cmd
-	return (tree);
 }

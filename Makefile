@@ -1,30 +1,38 @@
-NAME = minishell
 
-SRCS = main.c export.c unset.c cd_pwd.c\
-		tree.c exe.c fork.c helpful_func.c simple_cmd.c \
-		exefile.c helpful_func2.c built_in.c echo.c export.c \
-		helpful_func3.c \
-		utils.c ft_strings.c
+NAME			= minishell
 
-OBJS = $(SRCS:.c=.o)
-INC = ./
+SRC_DIR			= sources/
 
-CC = cc
-CFLAGS = -g #-Wall -Wextra -Werror
-READLINE = -lreadline -L/Users/yecnam/.brew/opt/readline/lib 
-OBJS_READLINE = -I/Users/yecnam/.brew/opt/readline/include
+SRC			= main.c export.c unset.c cd_pwd.c\
+				tree.c exe.c fork.c helpful_func.c simple_cmd.c \
+				exefile.c helpful_func2.c built_in.c echo.c export.c \
+				helpful_func3.c \
+				utils.c ft_strings.c utils_list.c utils_tokenizer.c\
+				utils_tree_build.c
 
-#READLINE = -lreadline -L/opt/homebrew/opt/readline/lib
-#OBJS_READLINE = -I/opt/homebrew/opt/readline/include
+OBJS			= $(SRCS:.c=.o)
+
+SRCS			= $(addprefix $(SRC_DIR), $(SRC))
+#OBJS 			= $(SRCS:.c=.o)
+
+INC				= ./headers
+
+CC				= cc
+CFLAGS			= -g #-Wall -Wextra -Werror
+READLINE		= -lreadline -L/Users/saseo/.brew/opt/readline/lib 
+OBJS_READLINE	= -I/Users/saseo/.brew/opt/readline/include
+
+#READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
+#OBJS_READLINE	= -I/opt/homebrew/opt/readline/include
 
 
 all : $(NAME)
 
 %.o : %.c
-	$(CC) $(CFLAGS) $(OBJS_READLINE) -c $< -o $@
+	$(CC) -I $(INC) $(CFLAGS) $(OBJS_READLINE) -c $< -o $@
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(READLINE) -o $@ $^
+	$(CC) -I $(INC) $(CFLAGS) $(READLINE) -o $@ $^
 
 clean :
 	rm -rf $(OBJS)

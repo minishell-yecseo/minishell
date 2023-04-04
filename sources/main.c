@@ -101,35 +101,15 @@ static void	set_test_list(t_list **head)
 	*head = ft_lstnew(L_PIPE, "|");
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
 
 	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "a"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "ls"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "-al"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "b"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "c"));
-
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, "<"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "d"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "grep"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "Makefile"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "e"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "f"));
-
-	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
-	ft_lstadd_back(head, ft_lstnew(L_REDIR, ">"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "last"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "wc"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "-l"));
 
 	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
 	ft_lstadd_back(head, ft_lstnew(L_WORD, "cat"));
-}
+
+	ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "wc"));
+	ft_lstadd_back(head, ft_lstnew(L_WORD, "-l"));
+	}
