@@ -25,8 +25,6 @@ int	ft_envpcmp(char *s1, char *s2)
 	len2 = 0;
 	if (!s1 || !s2)
 		return (0);
-	if ((*s1) ==  0 || (*s2) == 0)
-		return (0);	
 	while (s1[len1] && s1[len1] != '=')
 		len1++;
 	while (s2[len2] && s2[len2] != '=')

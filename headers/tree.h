@@ -32,8 +32,6 @@ typedef struct s_tree
 	struct			termios term;
 }					t_tree;
 
-
-
 t_tree	*init_tree(void);
 t_node	*create_node(t_token type);
 void	insert_left(t_node *parent, t_node *child);
@@ -48,35 +46,38 @@ void	exe_cur(t_tree *tree, t_node *cur, char ***envp);
 void	wait_forks(t_tree *tree);
 
 void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp);
-void forked_exe(t_tree *tree, t_node *cur, char ***envp);
-int	check_char(char *s, char c);
-int	ft_strcmp(char *s1, char *s2);
-int	check_built_in(char *s, char **args, char ***envp);
-int	check_path(char **envp);
-int	check_is_path(char *s);
-int check_exefile(t_node *cur, char **envp);
+void	forked_exe(t_tree *tree, t_node *cur, char ***envp);
+int		check_char(char *s, char c);
+int		ft_strcmp(char *s1, char *s2);
+int		check_built_in(char *s, char **args, char ***envp);
+int		check_path(char **envp);
+int		check_is_path(char *s);
+int		check_exefile(t_node *cur, char **envp);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
 void	last_simple_com(t_tree *tree, t_node *cur, char ***envp);
-int	check_built_in(char *s, char **args, char ***envp);
-int	echo(char **args);
+int		check_built_in(char *s, char **args, char ***envp);
+int		echo(char **args);
 
-int	ft_isalpha(int c);
-int	ft_isdigit(int c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
 void	ft_print_err(char *str);
 char	**cp_envp(char **envp);
-int	unset(char **arg, char ***envp);
+int		unset(char **arg, char ***envp);
 char	**del_envp(char **envp, char *str);
 void	free_envp(char ***envp);
 char	*ft_strdup(const char *s1);
-int	export(char **arg, char ***envp);
-int	pwd(void);
-int	cd(char **args, char ***envp);
-int	ft_envpcmp(char *s1, char *s2);
+
+int		export(char **arg, char ***envp);
+int		pwd(void);
+int		cd(char **args, char ***envp);
+int		ft_envpcmp(char *s1, char *s2);
+
 char	*path_strjoin(char const *s1, char const *s2);
-int ft_exit(char **args);
-int	env(char **envp);
-int	one_exe_built_in(char *s, char **args, char ***envp);
-int	only_check_built_in(char *s);
+int 	ft_exit(char **args);
+int		env(char **envp);
+int		one_exe_built_in(char *s, char **args, char ***envp);
+int		only_check_built_in(char *s);
+char	**add_envp(char ***envp, char *str);
 
 #endif
