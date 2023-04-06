@@ -27,6 +27,8 @@ t_tree		*get_tree(char *line);
 t_list		*get_lexical_list(char *line);
 t_list		*lexer(char *line);
 
+//level 01
+//			: Replace all $envp values
 char		*get_line_replace_envp(char *line, char **envp);
 char		*get_replaced_line(char *line, char *dolor, int *len, char **envp);
 int			get_key_len(char *dolor);
@@ -34,10 +36,12 @@ char		*get_line_with_value(char *line, char *dolor, \
 								char *key, char *value);
 char		*get_value(char *key, char **envp);
 char		*get_key_from_envp(char *envp);
-char		*get_value_with_flag(char *envp, int envp_key_len, int find);
+char		*get_value_with_flag(char *envp, int envp_key_len, int find, char *key);
 
 int			syntax(t_list *head);
 
+//level 02
+//			: Build tree with tokenized lists
 t_tree		*tree_builder(t_list *head);
 void		set_pipe(t_node *parent, t_list *start, t_list *last);
 void		set_cmd(t_node *parent, t_list *start, t_list *last);
