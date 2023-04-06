@@ -117,10 +117,10 @@ char	*get_line_with_value(char *line, char *dolor, char *key, char *value)
 {
 	char	*ret;
 	char	*tmp;
-	int		post_line_len;
+	int		pre_line_len;
 
-	post_line_len = ft_strlen(line) - ft_strlen(dolor);
-	ret = ft_substr(line, 0, post_line_len);
+	pre_line_len = ft_strlen(line) - ft_strlen(dolor);
+	ret = ft_substr(line, 0, pre_line_len);
 	if (!ret)
 		exit(0);
 	tmp = ret;
