@@ -5,10 +5,11 @@ SRC_DIR			= sources/
 SRC				= main.c unset.c cd_pwd.c \
 				tree.c exe.c fork.c helpful_func.c simple_cmd.c \
 				exefile.c built_in.c echo.c export.c \
-				utils.c utils_list.c utils_tokenizer.c \
-				utils_tree_build.c ft_strings_5.c\
-				ft_strings.c ft_strings_2.c ft_strings_3.c ft_strings_4.c\
-				exit.c one_built_in.c env.c unset_oldpath.c
+				utils.c utils_list.c utils_replace_envp.c \
+				utils_tree_build.c ft_strings_5.c \
+				ft_strings.c ft_strings_2.c ft_strings_3.c ft_strings_4.c \
+				exit.c one_built_in.c env.c unset_oldpath.c \
+				utils_lexer.c
 
 OBJS			= $(SRCS:.c=.o)
 
