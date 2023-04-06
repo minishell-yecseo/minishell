@@ -6,19 +6,13 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line = "\"ls -al $? $file\"|'cat' '$file'>out|nocmd \"\'$var2\'\"";
-	t_list	*list;
-	int		idx = 0;
+	t_tree	*tree;
 
-	printf("%s\n", line);
-	list = lexer(line, envp);
-	while (list)
-	{
-		printf("[%s]-", list->line);
-		idx++;
-		list = list->next;
-	}
-	printf("\n");
-	return 0;
+	// 이제 get_tree에 line 과 envp 넣어주면 tree 를 알아서 빌드해줍니다.
+	// 아래와 같이 사용하실 수 있습니다.
+	// 하지만 아직 syntax 에러를 처리하지 않았습니다.
+	tree = get_tree(line, envp);
+	return (0);
 }
 */
 
@@ -28,14 +22,7 @@ t_tree	*get_tree(char *line, char **envp)
 	t_tree	*tree;
 	t_list	*list;
 
-	// lexer			: return list of lexical_tokens
-	// syntax checker	: return 0 if syntax has no error else -1
-	// tree builder		: return pointer of tree
-	//					: each level call their lower process functs recursively
-
 	list = lexer(line, envp);//need to implement
-	if (!syntax(&list))
-		return (NULL);
 	tree = tree_builder(list);
 	return (tree);
 }
