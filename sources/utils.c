@@ -1,7 +1,6 @@
 #include "utils.h"
 
 //test main function
-
 /*
 #include <stdio.h>
 int	main(int argc, char **argv, char **envp)
@@ -20,36 +19,26 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 */
-
 //Not Implemeted yet
 t_tree	*get_tree(char *line, char **envp)
 {
 	t_tree	*tree;
 	t_list	*list;
+	int		syntax_flag;
 
-	list = lexer(line, envp);//need to implement
+	syntax_flag = 1;
+	/*
+	syntax_flag = pre_syntax_checker(line);
+	if (!syntax_flag)
+		return (NULL);
+	*/
+	list = lexer(line, envp);
+	syntax_flag = post_syntax_checker(list);
+	if (!syntax_flag)
+		return (NULL);
 	tree = tree_builder(list);
 	free_line_list(list);
 	return (tree);
-}
-
-int	syntax(t_list **head)
-{
-	int	ret;
-
-	ret = 1;
-	free_line_list(*head);//need to implement
-	line_syn_err();//need to implement
-	return (ret);
-}
-
-void	line_syn_err(void)
-{
-	char	*msg;
-
-	msg = "minishell: line has syntax error!\n";
-	g_last_exit_code = 2;
-	write(2, msg, ft_strlen(msg));
 }
 
 void	free_line_list(t_list *head)

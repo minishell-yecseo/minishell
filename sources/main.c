@@ -83,6 +83,8 @@ int	main(int argc, char **argv, char **en)
 		else
 		{
 			tree = get_tree(line, envp);
+			if (!tree)
+				continue ;
 			add_history(line);
 			tree->stdfds[0] = dup(0);
 			tree->stdfds[1] = dup(1);
