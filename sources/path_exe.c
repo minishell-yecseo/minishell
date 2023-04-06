@@ -15,7 +15,7 @@ void	path_exe(char **args, char ***envp)
 		{
 			printf("%s: is a directory\n", args[0]);
 			exit(126);
-        }
+        }   
     }
 	else
 	{
