@@ -16,7 +16,6 @@ t_tree	*tree_builder(t_list *head)
 	return (tree);
 }
 
-// set_pipe 직전, root에 pipe node가 있음.
 void	set_pipe(t_node *parent, t_list *start, t_list *last)
 {
 	t_list	*tmp;
@@ -26,19 +25,14 @@ void	set_pipe(t_node *parent, t_list *start, t_list *last)
 	if (start == NULL)
 		return ;
 	lst_pipe = start;
-	//while (lst_pipe->next != NULL && lst_pipe->next->type != L_PIPE)
-	//	lst_pipe = lst_pipe->next;
 	while (lst_pipe->type != L_PIPE && lst_pipe->next != NULL)
 		lst_pipe = lst_pipe->next;
-	// 왼쪽 node에 CMD type node 만들어서 삽입
 	set_cmd(parent, start, lst_pipe);
-	// 오른쪽에 PIPE type node 만들어서 삽입
 	tmp = lst_pipe;
 	while (tmp->type != L_PIPE && tmp->next != NULL)
 		tmp = tmp->next;
 	node = create_node(PIPE);
 	insert_right(parent, node);
-	// 다시 set_pipe()
 	set_pipe(node, lst_pipe->next, last);
 }
 
@@ -63,7 +57,7 @@ void	set_redir(t_node *parent, t_list *start, t_list *last)
 	while (tmp->type != L_REDIR && tmp != last)
 		tmp = tmp->next;
 	if (tmp->type != L_REDIR)
-		return ;//범위를 다 훑었는데 redir 타입이 없을 경우 그냥 종료
+		return ;
 	node = create_node(REDIR);
 	if (ft_strcmp(tmp->line, "<") == 0)
 		node->cont.redir_type = IN;
