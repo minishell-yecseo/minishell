@@ -6,7 +6,6 @@ t_list	*lexer(char *line, char **envp)
 	char	*replace_line;
 
 	replace_line = get_line_replace_envp(line, envp);
-	//작업..
 	ret = NULL;
 	set_list_from_line(&ret, replace_line);
 	free(replace_line);

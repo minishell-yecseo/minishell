@@ -1,12 +1,11 @@
 #include "utils.h"
 
 //test main function
-#include <stdio.h>
-
 /*
+#include <stdio.h>
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line = "\"ls -al $file\"|'cat' '$file'>out|nocmd \"\'$var2\'\"";
+	char	*line = "\"ls -al $? $file\"|'cat' '$file'>out|nocmd \"\'$var2\'\"";
 	t_list	*list;
 	int		idx = 0;
 

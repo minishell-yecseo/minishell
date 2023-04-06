@@ -5,27 +5,29 @@ char	*get_line_replace_envp(char *line, char **envp)
 	char	*tmp;
 	char	*new;
 	int		len;
-	int		single_quote;
+	char	quote;
 	char	*old;
 
 	new = ft_strdup(line);
 	if (!new)
 		exit(0);
 	tmp = line;
-	single_quote = 0;
+	quote = 0;
 	while (*tmp)
 	{
 		len = 1;
-		if (!single_quote && *tmp == '$')
+		if (quote != '\'' && *tmp == '$')
 		{
 			old = new;
 			new = get_replaced_line(old, tmp, &len, envp);
 			free(old);
 		}
-		else if (!single_quote && *tmp == '\'')
-			single_quote = 1;
-		else if (single_quote && *tmp == '\'')
-			single_quote = 0;
+		else if (!quote && *tmp == '\'')
+			quote = '\'';
+		else if (!quote && *tmp == '\"')
+			quote = '\"';
+		else if (quote && *tmp == quote)
+			quote = 0;
 		tmp += len;
 	}
 	return (new);
