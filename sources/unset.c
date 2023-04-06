@@ -48,6 +48,7 @@ char	**del_envp(char **envp, char *str)
 	int		k;
 	char	**en;
 
+	i = 0;
 	while (envp[i])
 		i++;
 	en = (char **)ft_calloc(sizeof(char *), (i + 1));
