@@ -4,7 +4,7 @@ t_tree	*init_tree(void)
 {
 	t_tree	*tree;
 
-	tree = (t_tree *) malloc(sizeof(t_tree));
+	tree = (t_tree *)ft_calloc(1, sizeof(t_tree));
 	if (!tree)
 		exit(0);
 	tree->root = NULL;
@@ -16,7 +16,7 @@ t_node	*create_node(t_token type)
 {
 	t_node	*node;
 
-	node = (t_node *) malloc(sizeof(t_node));
+	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!node)
 		exit(0);
 	node->type = type;

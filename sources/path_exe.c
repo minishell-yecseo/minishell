@@ -8,7 +8,7 @@ void	path_exe(char **args, char ***envp)
 	{
         if (S_ISREG(s.st_mode))
 		{
-			printf("%s is a file.\n", args[0]);
+			//printf("%s is a file.\n", args[0]);
 			execve(args[0], args, *envp);
         }
 		else if (S_ISDIR(s.st_mode))

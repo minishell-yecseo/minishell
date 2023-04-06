@@ -25,8 +25,6 @@ int	ft_envpcmp(char *s1, char *s2)
 	len2 = 0;
 	if (!s1 || !s2)
 		return (0);
-	//if (!check_char(s2, '='))
-	//	return (0);
 	while (s1[len1] && s1[len1] != '=')
 		len1++;
 	while (s2[len2] && s2[len2] != '=')
@@ -39,6 +37,8 @@ int	ft_envpcmp(char *s1, char *s2)
 			return (0);
 		i++;
 	}
+	if (!check_char(s2, '='))
+		return (2);
 	return (1);
 }
 
@@ -50,7 +50,7 @@ char	**del_envp(char **envp, char *str)
 
 	while (envp[i])
 		i++;
-	en = (char **)malloc(sizeof(char *) * (i + 1));
+	en = (char **)ft_calloc(sizeof(char *), (i + 1));
 	i = 0;
 	while (en[i])
 	{

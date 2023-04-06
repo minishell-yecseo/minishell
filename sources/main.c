@@ -60,42 +60,55 @@ int	main(int argc, char **argv, char **en)
 	//signal(SIGINT, sigint_handler);
 	//signal(SIGQUIT, SIG_IGN); 
 
-	t_tree	*tree;
 	t_node	*root;
 	t_list	*head;
+	t_tree	*tree;
+	char	*line; //= "\"ls -al $? $file\"|'cat' '$file'>out|nocmd \"\'$var2\'\"";
 
-	//tree = init_tree();
-	set_test_list(&head);
-	tree = tree_builder(head);
-
-	//root = create_node(PIPE);
-	//tree->head = root;
-	//set_pipe(root, head->next, ft_lstlast(head));
-
-	tree->stdfds[0] = dup(0);
-	tree->stdfds[1] = dup(1);
+	// 이제 get_tree에 line 과 envp 넣어주면 tree 를 알아서 빌드해줍니다.
+	// 아래와 같이 사용하실 수 있습니다.
+	// 하지만 아직 syntax 에러를 처리하지 않았습니다.
+	
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
-	//int i = 0;
-	//while (envp[i])
-	//{
-	//	printf("%s\n", envp[i]);
-	//	i++;
-	//}
-	traverse(tree, tree->root, &envp);
-	wait_forks(tree);
-	//printf("\n\n\n\n");
-	//i = 0;
-	//while (envp[i])
-	//{
-	//	printf("%s\n", envp[i]);
-	//	i++;
-	//}
-	//dup2(tree->stdfds[0], 0);
-	dup2(tree->stdfds[1], 1);
-	close(tree->stdfds[0]);
-	close(tree->stdfds[1]);
-	printf("$? : %d\n", g_last_exit_code);
+	
+	while (1)
+	{
+		line = readline("> ");
+		tree = get_tree(line, envp);
+
+		tree->stdfds[0] = dup(0);
+		tree->stdfds[1] = dup(1);
+		//int i = 0;
+		//while (envp[i])
+		//{
+		//	printf("%s\n", envp[i]);
+		//	i++;
+		//}
+		traverse(tree, tree->root, &envp);
+		wait_forks(tree);
+		//printf("\n\n\n\n");
+		//i = 0;
+		//while (envp[i])
+		//{
+		//	printf("%s\n", envp[i]);
+		//	i++;
+		//}
+		//dup2(tree->stdfds[0], 0);
+		dup2(tree->stdfds[1], 1);
+		close(tree->stdfds[0]);
+		close(tree->stdfds[1]);
+
+		free_tree(tree);
+		printf("$? : %d\n", g_last_exit_code);
+		free(line);
+		tree->err = 0;
+		tree->last = 0;
+		tree->first = 0;
+		tree->fds[0] = 0;
+		tree->fds[1] = 0;
+	}
+	
 	//char	buffer[100];
 	//read(0, buffer, 100);
 	//printf("%s\n", buffer);

@@ -99,9 +99,9 @@ char	**make_big_arr(char ***envp)
 	i = 0;
 	while ((*envp)[i])
 		i++;
-	en = (char **)malloc(sizeof(char *) * (i + 2));
+	en = (char **)ft_calloc(sizeof(char *), (i + 2));
 	if (!en)
-		exit(1);
+		malloc_fail();
 	return (en);
 }
 
@@ -109,6 +109,7 @@ char	**add_envp(char ***envp, char *str)
 {
 	int		i;
 	int		flag;
+	int		flag2;
 	char	**en;
 
 	en = make_big_arr(envp);
@@ -116,15 +117,20 @@ char	**add_envp(char ***envp, char *str)
 	flag = 0;
 	while ((*envp)[i])
 	{
-		if (ft_envpcmp((*envp)[i], str))
+		flag2 = ft_envpcmp((*envp)[i], str);
+		if (flag2 == 1)
 		{
 			flag = 1;
 			en[i] = ft_strdup(str);
 		}
 		else
+		{
+			if (flag2 == 2)
+				flag = 1;
 			en[i] = ft_strdup((*envp)[i]);
+		}
 		if (!en[i])
-				exit(1);
+				malloc_fail();
 		i++;
 	}
 	if (!flag)

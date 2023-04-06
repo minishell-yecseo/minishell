@@ -44,9 +44,7 @@ int ft_exit(char **args)
 	while (args[i])
 		i++;
 	if (i == 1)
-	{
-		return (0);
-	}
+		exit (0);
 	else if (i > 2)
 	{
 		ft_print_err("exit: too many arguments\n");

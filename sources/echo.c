@@ -6,6 +6,8 @@ int check_n(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	if (*s != '-')
 		return (0);
 	i++;
