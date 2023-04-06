@@ -20,6 +20,8 @@ int check_exefile(t_node *cur, char **envp)
 	char	**paths;
 
 	i = 0;
+	if (!*cur->cont.args[0])
+		return (0);
 	while (envp[i])
 	{
 		if (check_is_path(envp[i]))

@@ -56,6 +56,7 @@ typedef struct s_tree
 	int				fds[2];
 	int				stdfds[2];
 	int				filefds[2];
+	int				is_last_exit;
 	struct			termios term;
 }					t_tree;
 

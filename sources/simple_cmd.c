@@ -108,6 +108,8 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 				last_forked_exe(tree, cur, envp);
 			else if (pid > 0)
 			{
+				if (cur->cont.args[0])
+					tree->is_last_exit = 1;
 				tree->pid = pid;
 				dup2(tree->stdfds[0], 0);
 			}

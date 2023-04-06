@@ -17,16 +17,20 @@ void	wait_forks(t_tree *tree)
 		if (pid == tree->pid)
 		{
 			err = WEXITSTATUS(status);
-			if (err == 2)
-				g_last_exit_code = 127;
-			else if (err == 13)
-				g_last_exit_code = 126;
-			else if (err == 0)
-				g_last_exit_code = 0;
-			else if (err == 1)
-				g_last_exit_code = 1;
-			else
+			if (tree->is_last_exit == 1)
+			{
 				g_last_exit_code = err;
+			}
+			else
+			{
+				if (err == 2)
+					g_last_exit_code = 127;
+				else if (err == 13)
+					g_last_exit_code = 126;
+				else
+					g_last_exit_code = err;
+			}
+			
 		}
 	}
 }
