@@ -109,15 +109,15 @@ void	free_node_simple_cmd(t_node *node)
 void	print_token_type(t_node *node)
 {
 	if (node->type == PIPE)
-		printf("PIPE::");
+		printf("PIPE::\n");
 	else if (node->type == CMD)
-		printf("CMD::");
+		printf("CMD::\n");
 	else if (node->type == NO_CMD)
-		printf("NO_CMD::");
+		printf("NO_CMD::\n");
 	else if (node->type == REDIR)
-		printf("REDIR::");
+		printf("REDIR::\n");
 	else if (node->type == SIMPLE_CMD)
-		printf("SIMPLE_CMD::");
+		printf("SIMPLE_CMD::\n");
 }
 
 void	print_cont(t_cont *cont, t_token type)
