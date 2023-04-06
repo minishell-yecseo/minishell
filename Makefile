@@ -19,7 +19,7 @@ SRCS			= $(addprefix $(SRC_DIR), $(SRC))
 INC				= ./headers
 
 CC				= cc
-CFLAGS			= -g #-Wall -Wextra -Werror
+CFLAGS			= -g -fsanitize=address #-Wall -Wextra -Werror
 READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
 OBJS_READLINE	= -I${HOME}/.brew/opt/readline/include
 

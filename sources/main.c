@@ -102,11 +102,6 @@ int	main(int argc, char **argv, char **en)
 		free_tree(tree);
 		printf("$? : %d\n", g_last_exit_code);
 		free(line);
-		tree->err = 0;
-		tree->last = 0;
-		tree->first = 0;
-		tree->fds[0] = 0;
-		tree->fds[1] = 0;
 	}
 	
 	//char	buffer[100];
