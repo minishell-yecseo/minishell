@@ -6,7 +6,7 @@
 /*   By: saseo <saseo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:31:16 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/06 12:20:59 by saseo            ###   ########.fr       */
+/*   Updated: 2023/04/06 12:40:46 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 //환경변수로 대체
 
 //test main function
-/*
+
 #include <stdio.h>
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line = "cat Makefile | \"$PATH !!\" '$var' $var";
+	char	*line = "cat Makefile |$NOEXIST<a $PATH" ;
 	char	*re;
-	re = get_line_replace_envp(line, envp);
-	printf("re:%s\n", re);
+	re = get_line_replace_envp(line, NULL);
+	printf("%s\n->", line);
+	printf("%s\n", re);
 	free(re);
-	system("leaks a.out");
 	return 0;
 }
-*/
+
 
 char	*get_line_replace_envp(char *line, char **envp)
 {
@@ -85,7 +85,7 @@ char	*get_value(char *key, char **envp)
 	int		find_flag;
 
 	if (!key || !envp || !*envp)
-		return (NULL);
+		return (get_value_with_flag(NULL, 0, 0));
 	find_flag = 0;
 	while (*envp)
 	{
@@ -99,7 +99,8 @@ char	*get_value(char *key, char **envp)
 		envp++;
 	}
 	ret = get_value_with_flag(*envp, ft_strlen(envp_key), find_flag);
-	free(envp_key);
+	if (find_flag)
+		free(envp_key);
 	return (ret);
 }
 
