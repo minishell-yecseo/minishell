@@ -48,9 +48,9 @@ int	traverse(t_tree *tree, t_node *cur, char ***envp)
 		return (0);
 	if (!cur)
 		return (0);
-	//print_token_type(cur);
-	//print_cont(&(cur->cont), cur->type);
-	exe_cur(tree, cur, envp);
+	print_token_type(cur);
+	print_cont(&(cur->cont), cur->type);
+	//exe_cur(tree, cur, envp);
 	traverse(tree, cur->left, envp);
 	traverse(tree, cur->right, envp);
 	return (0);
@@ -58,8 +58,28 @@ int	traverse(t_tree *tree, t_node *cur, char ***envp)
 
 void	free_tree(t_tree *tree)
 {
-	//free tree!
-	return ;
+	t_node	*node;
+	t_node	*tmp;
+
+	if (!tree)
+		return ;
+	node = tree->root;
+	if (tree->root == NULL)
+	{
+		free(tree);
+		return ;
+	}
+	free_tree_node(node);
+	free(tree);
+}
+
+void	free_tree_node(t_node *node)
+{
+	if (node == NULL)
+		return ;
+	free_tree_node(node->left);
+	free_tree_node(node->right);
+	free(node);
 }
 
 void	print_token_type(t_node *node)

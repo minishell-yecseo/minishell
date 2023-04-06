@@ -68,6 +68,7 @@ void	insert_right(t_node *parent, t_node *child);
 int		traverse(t_tree *tree, t_node *cur, char ***envp);
 
 void	free_tree(t_tree *tree);
+void	free_tree_node(t_node *node);
 void	print_token_type(t_node *node);
 void	print_cont(t_cont *cont, t_token type);
 
