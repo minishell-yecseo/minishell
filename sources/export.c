@@ -152,6 +152,7 @@ int	check_add_envp(char *str)
 
 int	export(char **arg, char ***envp)
 {
+	//printf("yes it's in export\n");
 	int	i;
 	int	end;
 

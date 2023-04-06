@@ -20,6 +20,7 @@ int	cd(char **args, char ***envp)
 	
 	if (chdir(args[1]))
 	{
+		ft_print_err("cd: ");
 		perror(args[1]);
 		return (1);
 	}

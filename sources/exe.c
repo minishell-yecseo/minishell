@@ -19,7 +19,6 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 	{
 		pipe(tree->fds);
 		tree->first += 1;
-		//printf("+1\n");
 	}
 	else
 	{
