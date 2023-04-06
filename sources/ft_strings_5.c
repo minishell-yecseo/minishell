@@ -10,7 +10,7 @@ char	*ft_itoa(int n)
 	int				size;
 
 	size = get_size(n);
-	ret = (char *) malloc(sizeof (char) * (size + 1));
+	ret = (char *) ft_calloc((size + 1), sizeof(char));
 	if (!ret)
 		return (0);
 	tmp = ret + size;
