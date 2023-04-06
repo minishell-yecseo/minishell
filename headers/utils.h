@@ -73,4 +73,7 @@ t_list		*ft_lstnew(t_l_type type, char *line);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 
+//here doc utils for replace envps
+char		*here_doc_replace_envp(char *line, char **envp);
+
 #endif
