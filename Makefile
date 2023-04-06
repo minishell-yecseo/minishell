@@ -9,7 +9,7 @@ SRC				= main.c unset.c cd_pwd.c \
 				utils_tree_build.c ft_strings_5.c \
 				ft_strings.c ft_strings_2.c ft_strings_3.c ft_strings_4.c \
 				exit.c one_built_in.c env.c unset_oldpath.c path_exe.c\
-				utils_lexer.c
+				utils_lexer.c here_doc_replace_envp.c
 
 OBJS			= $(SRCS:.c=.o)
 
