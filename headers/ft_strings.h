@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+void		*ft_calloc(size_t count, size_t size);
+void		ft_bzero(void *s, size_t n);
 char		**ft_split(char const *s, char c);
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);

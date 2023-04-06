@@ -50,3 +50,23 @@ static int	get_size(int n)
 	}
 	return (size);
 }
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ret;
+
+	ret = malloc(count * size);
+	if (!ret)
+		return (NULL);
+	ft_bzero(ret, count * size);
+	return (ret);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*tmp;
+
+	tmp = (unsigned char *)s;
+	while (n--)
+		*tmp++ = 0;
+}
