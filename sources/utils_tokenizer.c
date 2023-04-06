@@ -6,7 +6,7 @@
 /*   By: saseo <saseo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:31:16 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/06 12:40:46 by saseo            ###   ########.fr       */
+/*   Updated: 2023/04/06 12:43:56 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //환경변수로 대체
 
 //test main function
-
+/*
 #include <stdio.h>
 int	main(int argc, char **argv, char **envp)
 {
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	free(re);
 	return 0;
 }
-
+*/
 
 char	*get_line_replace_envp(char *line, char **envp)
 {
