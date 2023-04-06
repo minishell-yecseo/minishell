@@ -66,10 +66,11 @@ char	*get_value(char *key, char **envp)
 			find_flag = 1;
 			break ;
 		}
+		envp_key = NULL;
 		free(envp_key);
 		envp++;
 	}
-	ret = get_value_with_flag(*envp, ft_strlen(envp_key), find_flag, key);
+	ret = get_value_with_flag(*envp, envp_key, find_flag, key);
 	if (find_flag)
 		free(envp_key);
 	return (ret);
@@ -96,12 +97,12 @@ char	*get_key_from_envp(char *envp)
 	return (ret);
 }
 
-char	*get_value_with_flag(char *envp, int envp_key_len, int find, char *key)
+char	*get_value_with_flag(char *envp, char *envp_key, int find, char *key)
 {
 	char	*ret;
 
 	if (find)
-		ret = ft_substr(envp, envp_key_len + 1, ft_strlen(envp));
+		ret = ft_substr(envp, ft_strlen(envp_key) + 1, ft_strlen(envp));
 	else if (!find && ft_strcmp(key, "?") == 0)
 		ret = ft_itoa(g_last_exit_code);
 	else if (!find && ft_strcmp(key, "$") == 0)

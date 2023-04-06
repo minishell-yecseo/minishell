@@ -35,7 +35,7 @@ char		*get_line_with_value(char *line, char *dolor, \
 								char *key, char *value);
 char		*get_value(char *key, char **envp);
 char		*get_key_from_envp(char *envp);
-char		*get_value_with_flag(char *envp, int envp_key_len, int find, char *key);
+char		*get_value_with_flag(char *envp, char *envp_key, int find, char *key);
 
 //level 02
 //			: Split tokens and build lists
