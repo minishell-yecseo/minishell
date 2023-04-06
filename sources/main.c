@@ -75,35 +75,41 @@ int	main(int argc, char **argv, char **en)
 	while (1)
 	{
 		line = readline("> ");
-		tree = get_tree(line, envp);
 
-		tree->stdfds[0] = dup(0);
-		tree->stdfds[1] = dup(1);
-		//int i = 0;
-		//while (envp[i])
-		//{
-		//	printf("%s\n", envp[i]);
-		//	i++;
-		//}
-		traverse(tree, tree->root, &envp);
-		wait_forks(tree);
-		//printf("\n\n\n\n");
-		//i = 0;
-		//while (envp[i])
-		//{
-		//	printf("%s\n", envp[i]);
-		//	i++;
-		//}
-		//dup2(tree->stdfds[0], 0);
-		dup2(tree->stdfds[1], 1);
-		close(tree->stdfds[0]);
-		close(tree->stdfds[1]);
-
-		free_tree(tree);
-		printf("$? : %d\n", g_last_exit_code);
+		if (!line)
+			;
+		else if (!*line)
+			;
+		else
+		{
+			tree = get_tree(line, envp);
+			add_history(line);
+			tree->stdfds[0] = dup(0);
+			tree->stdfds[1] = dup(1);
+			//int i = 0;
+			//while (envp[i])
+			//{
+			//	printf("%s\n", envp[i]);
+			//	i++;
+			//}
+			traverse(tree, tree->root, &envp);
+			wait_forks(tree);
+			//printf("\n\n\n\n");
+			//i = 0;
+			//while (envp[i])
+			//{
+			//	printf("%s\n", envp[i]);
+			//	i++;
+			//}
+			//dup2(tree->stdfds[0], 0);
+			dup2(tree->stdfds[1], 1);
+			close(tree->stdfds[0]);
+			close(tree->stdfds[1]);
+			//free_tree(tree);
+			printf("$? : %d\n", g_last_exit_code);
+		}
 		free(line);
 	}
-	
 	//char	buffer[100];
 	//read(0, buffer, 100);
 	//printf("%s\n", buffer);
