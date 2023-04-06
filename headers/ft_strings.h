@@ -21,5 +21,6 @@ int			ft_strcmp(char *s1, char *s2);
 void		ft_strcpy(char *dst, const char *src);
 void		ft_strncpy(char *dest, const char *src, size_t len);
 size_t		ft_strlcpy(char *dest, const char *src, size_t destsize);
+char		*ft_itoa(int n);
 
 #endif
