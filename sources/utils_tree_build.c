@@ -176,7 +176,7 @@ char	**get_args(t_list *start, t_list *last)
 		tmp = tmp->next;
 		size++;
 	}
-	ret = (char **) malloc(sizeof(char *) * (size + 1));
+	ret = (char **) ft_calloc(sizeof(char *) * (size + 1));
 	if (!ret)
 		exit(0);
 	ret[size] = NULL;

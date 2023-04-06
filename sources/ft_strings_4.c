@@ -14,7 +14,7 @@ char	**ft_split(char const *s, char c)
 		printf("it is null string\n");
 		return (0);
 	}
-	arr = (char **)malloc(sizeof(char *) * (check_big(s, c) + 1));
+	arr = (char **)ft_calloc(sizeof(char *) * (check_big(s, c) + 1));
 	if (!arr)
 		return (0);
 	i = 0;
@@ -87,7 +87,7 @@ static char	*make_small(char const *s, int i, int save)
 	int		j;
 	char	*small;
 
-	small = (char *)malloc(sizeof(char) * (i - save + 1));
+	small = (char *)ft_calloc(sizeof(char) * (i - save + 1));
 	if (!small)
 		return (0);
 	j = 0;

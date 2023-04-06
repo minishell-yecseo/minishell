@@ -4,7 +4,7 @@ t_list	*ft_lstnew(t_l_type type, char *line)
 {
 	t_list	*ret;
 
-	ret = (t_list *) malloc(sizeof (t_list));
+	ret = (t_list *) ft_calloc(sizeof(t_list));
 	if (!ret)
 		return (NULL);
 	ret->type = type;
