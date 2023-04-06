@@ -48,9 +48,14 @@ int			add_word(t_list **head, char *line);
 
 //level 03
 //			: check syntax
-int			pre_syntax_checker(char *line);
+//int			pre_syntax_checker(char *line);
+int			quote_syntax_checker(char *line);
+
 int			post_syntax_checker(t_list *head);
-void		line_syn_err(void);//utils.c
+int			redir_syntax_checker(t_list *head);
+int			pipe_syntax_checker(t_list *head);
+
+void		line_syn_err(char *line);//utils.c
 
 //level 04
 //			: Build tree with tokenized lists
