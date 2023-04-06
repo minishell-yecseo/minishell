@@ -6,7 +6,7 @@
 /*   By: saseo <saseo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:31:16 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/06 12:43:56 by saseo            ###   ########.fr       */
+/*   Updated: 2023/04/06 14:22:27 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@
 //환경변수로 대체
 
 //test main function
-/*
 #include <stdio.h>
+/*
+int	g_last_exit_code = 10;
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line = "cat Makefile |$NOEXIST<a $PATH" ;
+	char	*line = "$$ last:$? ls -al PATH:$PATH {$NONO}";
 	char	*re;
+	//re = get_line_replace_envp(line, envp);
 	re = get_line_replace_envp(line, NULL);
 	printf("%s\n->", line);
 	printf("%s\n", re);
 	free(re);
+	system("leaks a.out");
 	return 0;
 }
 */
-
 char	*get_line_replace_envp(char *line, char **envp)
 {
 	char	*tmp;
@@ -69,8 +71,8 @@ char	*get_replaced_line(char *line, char *dolor, int *len, char **envp)
 	char	*key;
 	char	*value;
 
-	*len = get_key_len(dolor);
-	key = ft_substr(dolor, 1, *len);
+	*len = get_key_len(dolor) + 1;
+	key = ft_substr(dolor, 1, *len - 1);
 	value = get_value(key, envp);
 	ret = get_line_with_value(line, dolor, key, value);
 	free(key);
@@ -85,7 +87,7 @@ char	*get_value(char *key, char **envp)
 	int		find_flag;
 
 	if (!key || !envp || !*envp)
-		return (get_value_with_flag(NULL, 0, 0));
+		return (get_value_with_flag(NULL, 0, 0, key));
 	find_flag = 0;
 	while (*envp)
 	{
@@ -98,7 +100,7 @@ char	*get_value(char *key, char **envp)
 		free(envp_key);
 		envp++;
 	}
-	ret = get_value_with_flag(*envp, ft_strlen(envp_key), find_flag);
+	ret = get_value_with_flag(*envp, ft_strlen(envp_key), find_flag, key);
 	if (find_flag)
 		free(envp_key);
 	return (ret);
@@ -125,18 +127,20 @@ char	*get_key_from_envp(char *envp)
 	return (ret);
 }
 
-char	*get_value_with_flag(char *envp, int envp_key_len, int find)
+char	*get_value_with_flag(char *envp, int envp_key_len, int find, char *key)
 {
 	char	*ret;
 
 	if (find)
 		ret = ft_substr(envp, envp_key_len + 1, ft_strlen(envp));
+	else if (!find && ft_strcmp(key, "?") == 0)
+		ret = ft_itoa(g_last_exit_code);
+	else if (!find && ft_strcmp(key, "$") == 0)
+		ret = ft_strjoin("", "");
 	else
-		ret = (char *) malloc(sizeof(char));
+		ret = ft_strjoin("", "");
 	if (!ret)
 		exit(0);
-	if (!find)
-		*ret = 0;
 	return (ret);
 }
 
@@ -171,6 +175,8 @@ int	get_key_len(char *dolor)
 	if (*dolor != '$')
 		return (0);
 	dolor++;
+	if (*dolor == '$' || *dolor == '?')
+		return (1);
 	while (*dolor)
 	{
 		if (*dolor >= ' ' && *dolor <= 47)
