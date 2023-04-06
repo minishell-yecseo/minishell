@@ -76,22 +76,21 @@ int	main(int argc, char **argv, char **en)
 	tree->stdfds[1] = dup(1);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
-	int i = 0;
-	while (envp[i])
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
+	//int i = 0;
+	//while (envp[i])
+	//{
+	//	printf("%s\n", envp[i]);
+	//	i++;
+	//}
 	traverse(tree, tree->root, &envp);
-	
-	printf("\n\n\n\n");
-	i = 0;
-	while (envp[i])
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
 	wait_forks(tree);
+	//printf("\n\n\n\n");
+	//i = 0;
+	//while (envp[i])
+	//{
+	//	printf("%s\n", envp[i]);
+	//	i++;
+	//}
 	//dup2(tree->stdfds[0], 0);
 	dup2(tree->stdfds[1], 1);
 	close(tree->stdfds[0]);
@@ -114,10 +113,10 @@ static void	set_test_list(t_list **head)
 	 *		L_PIPE, L_REDIR, L_WORD
 	 */
 
-	*head = ft_lstnew(L_PIPE, "|");
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "cd"));
-	ft_lstadd_back(head, ft_lstnew(L_WORD, "headers"));
-	//ft_lstadd_back(head, ft_lstnew(L_WORD, "abcdedaaa"));
+	*head = ft_lstnew(L_WORD, "cata");
+	//ft_lstadd_back(head, ft_lstnew(L_PIPE, "|"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, "cd"));
+	//ft_lstadd_back(head, ft_lstnew(L_WORD, ".."));
 	////ft_lstadd_back(head, ft_lstnew(L_WORD, "exit"));
 	////ft_lstadd_back(head, ft_lstnew(L_WORD, "100"));
 	////ft_lstadd_back(head, ft_lstnew(L_WORD, ""));

@@ -12,7 +12,7 @@ void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 		dup2(tree->fds[1], 1);
 	close(tree->fds[1]);
 	if (check_char(cur->cont.args[0], '/'))
-		;//it is file -> fork -> exe
+		path_exe(cur->cont.args, envp);
 	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
 		;
 	else if (!check_path(*envp))
@@ -25,7 +25,7 @@ void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	}
 	else
 	{
-		ft_print_err("cur->cont.args[0]: ");
+		ft_print_err(cur->cont.args[0]);
 		write(2, "command not found\n", 18);
 		exit(1);
 	}
@@ -68,7 +68,7 @@ void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 		dup2(tree->stdfds[1], 1);
 	close(tree->stdfds[1]);
 	if (check_char(cur->cont.args[0], '/'))
-		printf("///\n\n");//it is file -> fork -> exe
+		path_exe(cur->cont.args, envp);
 	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
 		;
 	else if (!check_path(*envp))
@@ -95,8 +95,10 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 {
 	pid_t	pid;
 
+	//printf("last cmd\n");
 	if (tree->err == 0)
 	{
+		//printf("%d\n\n", tree->first);
 		if (tree->first == 0 && only_check_built_in(cur->cont.args[0]))
 			g_last_exit_code = one_exe_built_in(cur->cont.args[0], cur->cont.args, envp);
 		else

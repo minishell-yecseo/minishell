@@ -52,5 +52,7 @@ char	**add_envp(char ***envp, char *str);
 char	**oldpwd_envp(char ***envp, char *str);
 int		f_envpcmp(char *s1, char *s2);
 char	**make_big_arr(char ***envp);
+void	path_exe(char **args, char ***envp);
+
 
 #endif
