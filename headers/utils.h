@@ -48,7 +48,8 @@ int			add_word(t_list **head, char *line);
 
 //level 03
 //			: check syntax
-int			syntax(t_list **head);//utils.c
+int			pre_syntax_checker(char *line);
+int			post_syntax_checker(t_list *head);
 void		line_syn_err(void);//utils.c
 
 //level 04
