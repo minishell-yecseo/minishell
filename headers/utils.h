@@ -27,6 +27,7 @@ t_tree		*get_tree(char *line);
 t_list		*get_lexical_list(char *line);
 t_list		*lexer(char *line);
 
+extern int	g_last_exit_code;
 //level 01
 //			: Replace all $envp values
 char		*get_line_replace_envp(char *line, char **envp);

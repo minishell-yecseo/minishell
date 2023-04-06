@@ -16,6 +16,7 @@
 #include <sys/ioctl.h>
 #include "utils.h"
 
+int		g_last_exit_code;
 void	exe_cur(t_tree *tree, t_node *cur, char ***envp);
 void	wait_forks(t_tree *tree);
 

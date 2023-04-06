@@ -1,7 +1,6 @@
 #include "minishell.h"
 
 static void	set_test_list(t_list **head);
-int	g_last_exit_code;
 
 void	unset_oldpath(char ***envp)
 {
