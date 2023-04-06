@@ -67,7 +67,9 @@ void	set_redir(t_node *parent, t_list *start, t_list *last)
 		node->cont.redir_type = OUT_T;
 	else if (ft_strcmp(tmp->line, ">>") == 0)
 		node->cont.redir_type = OUT_A;
-	node->cont.file_name = tmp->next->line;
+	node->cont.file_name = ft_strdup(tmp->next->line);
+	if (!node->cont.file_name)
+		exit(0);
 	insert_left(parent, node);
 	set_redir(node, tmp->next->next, last);
 }
@@ -89,7 +91,9 @@ void	set_simple_cmd(t_node *parent, t_list *start, t_list *last)
 		word_end = get_word_end_list(start, last);
 		node = create_node(SIMPLE_CMD);
 		node->cont.args = get_args(start, word_end);
-		node->cont.path = start->line;
+		node->cont.path = ft_strdup(start->line);
+		if (!node->cont.path)
+			exit(0);
 	}
 	insert_right(parent, node);
 }

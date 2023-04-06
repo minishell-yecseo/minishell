@@ -48,9 +48,9 @@ int	traverse(t_tree *tree, t_node *cur, char ***envp)
 		return (0);
 	if (!cur)
 		return (0);
-	print_token_type(cur);
-	print_cont(&(cur->cont), cur->type);
-	//exe_cur(tree, cur, envp);
+	//print_token_type(cur);
+	//print_cont(&(cur->cont), cur->type);
+	exe_cur(tree, cur, envp);
 	traverse(tree, cur->left, envp);
 	traverse(tree, cur->right, envp);
 	return (0);
@@ -79,7 +79,31 @@ void	free_tree_node(t_node *node)
 		return ;
 	free_tree_node(node->left);
 	free_tree_node(node->right);
+	free_node_type(node);
 	free(node);
+}
+
+void	free_node_type(t_node *node)
+{
+	if (node->type == REDIR)
+		free(node->cont.file_name);
+	else if (node->type == SIMPLE_CMD)
+		free_node_simple_cmd(node);
+	node = NULL;
+}
+
+void	free_node_simple_cmd(t_node *node)
+{
+	char	**tmp;
+
+	tmp = node->cont.args;
+	free(node->cont.path);
+	while (*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(node->cont.args);
 }
 
 void	print_token_type(t_node *node)
