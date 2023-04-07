@@ -2,7 +2,7 @@ NAME			= minishell
 
 SRC_DIR			= sources/
 
-SRC				= main.c unset.c cd_pwd.c \
+SRC				= main.c unset.c cd_pwd.c export2.c\
 				tree.c exe.c fork.c helpful_func.c simple_cmd.c \
 				exefile.c built_in.c echo.c export.c \
 				utils.c utils_list.c utils_replace_envp.c \

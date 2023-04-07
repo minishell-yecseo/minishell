@@ -58,5 +58,8 @@ void	malloc_fail(void);
 void	print_init_msg(void);
 char	*get_init_logo(void);
 void	no_cmd(t_tree *tree, t_node *cur, char ***envp);
+int		key_cmp(char *s1, char *s2);
+char	**ordering_envp(char **envp);
+void	export_print_envp(char **envp);
 
 #endif
