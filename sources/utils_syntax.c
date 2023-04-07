@@ -38,6 +38,7 @@ int	pre_syntax_checker(char *line)
 int	quoute_pair_syntax_checker(char *line)
 {
 	//let's solve this problem using stack!
+	return (1);
 }
 
 int	post_syntax_checker(t_list *head)
