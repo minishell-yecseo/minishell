@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **en)
 			dup2(tree->stdfds[0], 0);
 			close(tree->stdfds[0]);
 			close(tree->stdfds[1]);
-			//free_tree(tree);
+			free_tree(tree);
 			//printf("$? : %d\n", g_last_exit_code);
 		}
 		free(line);

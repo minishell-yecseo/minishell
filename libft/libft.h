@@ -1,10 +1,23 @@
-#ifndef FT_STRINGS_H
-# define FT_STRINGS_H
+#ifndef LIBFT_H
+# define LIBFT_H
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+
+typedef struct s_stack_node
+{
+	char			quote;
+	struct s_stack_node	*prev;
+	struct s_stack_node	*next;
+}		t_stack_node;
+
+typedef struct s_stack
+{
+	struct s_stack_node	*top;
+	int			size;
+}		t_stack;
 
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
@@ -24,5 +37,10 @@ void		ft_strcpy(char *dst, const char *src);
 void		ft_strncpy(char *dest, const char *src, size_t len);
 size_t		ft_strlcpy(char *dest, const char *src, size_t destsize);
 char		*ft_itoa(int n);
+
+t_stack		*stack_init(void);
+t_stack_node	*ft_new_stack_node(char quote);
+void		ft_push(t_stack *stack, char quote);
+t_stack_node	*ft_pop(t_stack *stack);
 
 #endif
