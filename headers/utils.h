@@ -99,4 +99,8 @@ void		print_list_type(t_list *lst);
 //here doc utils for replace envps
 char		*here_doc_replace_envp(char *line, char **envp);
 
+//error utils
+void	malloc_fail(void);
+void	ft_print_err(char *str);
+
 #endif

@@ -10,7 +10,7 @@ char	*get_line_replace_envp(char *line, char **envp)
 
 	new = ft_strdup(line);
 	if (!new)
-		exit(0);
+		malloc_fail();
 	tmp = line;
 	quote = 0;
 	while (*tmp)
@@ -93,7 +93,7 @@ char	*get_key_from_envp(char *envp)
 	}
 	ret = ft_substr(envp, 0, len);
 	if (!ret)
-		exit(0);
+		malloc_fail();
 	return (ret);
 }
 
@@ -110,7 +110,7 @@ char	*get_value_with_flag(char *envp, char *envp_key, int find, char *key)
 	else
 		ret = ft_strjoin("", "");
 	if (!ret)
-		exit(0);
+		malloc_fail();
 	return (ret);
 }
 
@@ -123,17 +123,17 @@ char	*get_line_with_value(char *line, char *dolor, char *key, char *value)
 	pre_line_len = ft_strlen(line) - ft_strlen(dolor);
 	ret = ft_substr(line, 0, pre_line_len);
 	if (!ret)
-		exit(0);
+		malloc_fail();
 	tmp = ret;
 	ret = ft_strjoin(ret, value);
 	free(tmp);
 	if (!ret)
-		exit(0);
+		malloc_fail();
 	tmp = ret;
 	ret = ft_strjoin(tmp, dolor + ft_strlen(key) + 1);
 	free(tmp);
 	if (!ret)
-		exit(0);
+		malloc_fail();
 	return (ret);
 }
 

@@ -8,8 +8,8 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 				utils.c utils_list.c utils_replace_envp.c \
 				utils_tree_build.c utils_syntax.c\
 				exit.c one_built_in.c env.c unset_oldpath.c path_exe.c\
-				utils_lexer.c err_exit.c here_doc_replace_envp.c \
-				settings.c no_cmd.c
+				utils_lexer.c here_doc_replace_envp.c \
+				settings.c no_cmd.c utils_error.c
 
 
 OBJS			= $(SRCS:.c=.o)

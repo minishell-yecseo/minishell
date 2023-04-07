@@ -11,7 +11,7 @@ t_tree	*tree_builder(t_list *head)
 	tree_set_root(tree, root);
 	last = ft_lstlast(head);
 	if (!last)
-		exit(0);
+		malloc_fail();
 	set_pipe(root, head, last);
 	return (tree);
 }
@@ -69,7 +69,7 @@ void	set_redir(t_node *parent, t_list *start, t_list *last)
 		node->cont.redir_type = OUT_A;
 	node->cont.file_name = ft_strdup(tmp->next->line);
 	if (!node->cont.file_name)
-		exit(0);
+		malloc_fail();
 	insert_left(parent, node);
 	set_redir(node, tmp->next->next, last);
 }
@@ -93,7 +93,7 @@ void	set_simple_cmd(t_node *parent, t_list *start, t_list *last)
 		node->cont.args = get_args(start, word_end);
 		node->cont.path = ft_strdup(start->line);
 		if (!node->cont.path)
-			exit(0);
+			malloc_fail();
 	}
 	insert_right(parent, node);
 }
@@ -178,14 +178,14 @@ char	**get_args(t_list *start, t_list *last)
 	}
 	ret = (char **) ft_calloc((size + 1), sizeof(char *));
 	if (!ret)
-		exit(0);
+		malloc_fail();
 	ret[size] = NULL;
 	idx = 0;
 	while (idx < size)
 	{
 		ret[idx] = ft_strdup(start->line);
 		if (!ret[idx++])
-			exit(0);
+			malloc_fail();
 		start = start->next;
 	}
 	return (ret);

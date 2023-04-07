@@ -27,7 +27,7 @@ void	line_syn_err(char *line)
 	msg = "minishell: syntax error near unexpected token `";
 	msg = ft_strjoin(msg, line);
 	if (!msg)
-		exit(0);
+		malloc_fail();
 	tmp = msg;
 	msg = ft_strjoin(msg, "\'\n");
 	free(tmp);

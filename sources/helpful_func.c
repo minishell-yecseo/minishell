@@ -45,18 +45,6 @@ int	check_is_path(char *s)
 	return (1);
 }
 
-void	ft_print_err(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(2, &str[i], 1);
-		i++;
-	}
-}
-
 char	*path_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
