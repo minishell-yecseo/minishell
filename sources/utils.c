@@ -27,11 +27,6 @@ t_tree	*get_tree(char *line, char **envp)
 	int		syntax_flag;
 
 	syntax_flag = 1;
-	/*
-	syntax_flag = pre_syntax_checker(line);
-	if (!syntax_flag)
-		return (NULL);
-	*/
 	list = lexer(line, envp);
 	if (!list)
 		return (NULL);
