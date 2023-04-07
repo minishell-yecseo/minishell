@@ -109,15 +109,15 @@ void	free_node_simple_cmd(t_node *node)
 void	print_token_type(t_node *node)
 {
 	if (node->type == PIPE)
-		printf("PIPE::\n");
+		printf("PIPE::");
 	else if (node->type == CMD)
-		printf("CMD::\n");
+		printf("CMD::");
 	else if (node->type == NO_CMD)
-		printf("NO_CMD::\n");
+		printf("NO_CMD::");
 	else if (node->type == REDIR)
-		printf("REDIR::\n");
+		printf("REDIR::");
 	else if (node->type == SIMPLE_CMD)
-		printf("SIMPLE_CMD::\n");
+		printf("SIMPLE_CMD::");
 }
 
 void	print_cont(t_cont *cont, t_token type)
@@ -125,14 +125,11 @@ void	print_cont(t_cont *cont, t_token type)
 	char	**tmp;
 
 	if (type == PIPE)
-	{
-		printf("\tpipe fds :%d, %d\n", (cont->fds)[0], (cont->fds)[1]);
-		printf("\tis_pipe :%d\n\n", cont->is_pipe);
-	}
+		printf("\n");
 	else if (type == CMD)
-		printf("\tnone\n\n");
+		printf("\t(CMD)\n\n");
 	else if (type == NO_CMD)
-		printf("\tnone\n\n");
+		printf("\tNO_CMD\n\n");
 	else if (type == REDIR)
 	{
 		printf("\tredirection type :");
@@ -154,7 +151,7 @@ void	print_cont(t_cont *cont, t_token type)
 		printf("\targs :");
 		while (*tmp)
 		{
-			printf("%s ", *tmp);
+			printf("[%s] ", *tmp);
 			tmp++;
 		}
 		printf("\n\n");
