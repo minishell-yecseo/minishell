@@ -39,3 +39,19 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	return (lst);
 }
+
+void	free_line_list(t_list *head)
+{
+	t_list	*cur;
+	t_list	*tmp;
+
+	cur = head;
+	while (cur)
+	{
+		if (cur->type == L_WORD)
+			free(cur->line);
+		tmp = cur;
+		cur = cur->next;
+		free(tmp);
+	}
+}

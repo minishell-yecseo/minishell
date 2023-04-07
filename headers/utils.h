@@ -91,7 +91,7 @@ t_list		*ft_lstlast(t_list *lst);
 int		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_print_list(t_list *lst);
 void		print_list_type(t_list *lst);
-void		free_line_list(t_list *head);//utils.c
+void		free_line_list(t_list *head);
 
 //here doc utils for replace envps
 char		*here_doc_replace_envp(char *line, char **envp);
