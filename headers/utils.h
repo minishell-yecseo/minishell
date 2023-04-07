@@ -63,7 +63,6 @@ void			free_sub_list(t_list *start, t_list *last);
 
 //level 03
 //			: check syntax
-//int			pre_syntax_checker(char *line);
 int			quote_pair_syntax_checker(char *line);
 int			post_syntax_checker(t_list *head);
 int			redir_syntax_checker(t_list *head);
@@ -86,15 +85,13 @@ int			get_redir_num_in_range(t_list *start, t_list *last);
 t_list		*get_word_start_list(t_list *start, t_list *last, int redir_num);
 t_list		*get_word_end_list(t_list *start, t_list *last);
 
-//free utils
-void		free_line_list(t_list *head);//utils.c
-
 //list utils
 t_list		*ft_lstnew(t_l_type type, char *line);
 t_list		*ft_lstlast(t_list *lst);
 int		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_print_list(t_list *lst);
 void		print_list_type(t_list *lst);
+void		free_line_list(t_list *head);
 
 //here doc utils for replace envps
 char		*here_doc_replace_envp(char *line, char **envp);

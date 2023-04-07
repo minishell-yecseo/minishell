@@ -1,16 +1,5 @@
 #include "utils.h"
 
-	/*
-	 * error list
-	 *	1. PIPE type이 맨 앞, 맨 뒤에 나오는 경우//post
-	 *	2. PIPE type 바로 다음에 PIPE type이 나오는 경우//post
-	 *	3. 따옴표 쌍이 맞지 않는 경우// in (list build 시, 환경변수 대체 완료 후 검사)
-	 *	4. REDIR type 다음에 WORD타입이 바로 나오지 않는 경우//post
-
-	 	[환경변수로 대체하기 전]
-		0. 따옴표 개수 확인하기
-	 */
-
 void	quote_err(void)
 {
 	char	*msg;
@@ -36,11 +25,6 @@ void	line_syn_err(char *line)
 	g_last_exit_code = 2;
 	write(2, msg, ft_strlen(msg));
 	free(msg);
-}
-
-int	pre_syntax_checker(char *line)
-{
-	return (1);
 }
 
 int	quote_pair_syntax_checker(char *line)
@@ -86,7 +70,7 @@ int	redir_syntax_checker(t_list *head)
 	while (tmp)
 	{
 		if ((tmp->type == L_REDIR && tmp->next == NULL) ||\
-				(tmp->type == L_REDIR && tmp->next->type != L_WORD))
+		(tmp->type == L_REDIR && tmp->next->type != L_WORD))
 		{
 			ret = 0;
 			break ;
@@ -95,7 +79,7 @@ int	redir_syntax_checker(t_list *head)
 	}
 	if (ret == 0)
 	{
-		line_syn_err(tmp->line);//need to implement
+		line_syn_err(tmp->line);
 		free_line_list(head);
 	}
 	return (ret);

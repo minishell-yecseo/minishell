@@ -40,31 +40,18 @@ t_list	*ft_lstlast(t_list *lst)
 	return (lst);
 }
 
-void	ft_print_list(t_list *lst)
+void	free_line_list(t_list *head)
 {
+	t_list	*cur;
 	t_list	*tmp;
 
-	tmp = lst;
-	while (tmp)
+	cur = head;
+	while (cur)
 	{
-		print_list_type(tmp);
-		printf("[%s]", tmp->line);
-		printf("(%d)\n", tmp->is_end);
-		tmp = tmp->next;
+		if (cur->type == L_WORD)
+			free(cur->line);
+		tmp = cur;
+		cur = cur->next;
+		free(tmp);
 	}
-	printf("\n");
-}
-
-void	print_list_type(t_list *lst)
-{
-	if (lst->type == C_PIPE)
-		printf("PIPE:");
-	else if (lst->type == C_REDIR)
-		printf("REDIR:");
-	else if (lst->type == OTHER)
-		printf("OTHER:");
-	else if (lst->type == QUOTE)
-		printf("QUOTE:");
-	else if (lst->type == ZERO)
-		printf("ZERO:");
 }

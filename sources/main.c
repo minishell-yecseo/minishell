@@ -74,7 +74,9 @@ int	main(int argc, char **argv, char **en)
 	print_init_msg();
 	while (1)
 	{
-		line = readline("minishell-0.1$ ");
+		//색 재밌네여..
+		line = readline("\x1b[38;5;204mminishell-0.1$\x1b[0m ");
+		//line = readline("\x1b[31mminishell-0.1$ \x1b[0m");
 		if (!line)
 			;
 		else if (!*line)

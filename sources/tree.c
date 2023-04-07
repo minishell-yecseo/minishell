@@ -48,8 +48,11 @@ int	traverse(t_tree *tree, t_node *cur, char ***envp)
 		return (0);
 	if (!cur)
 		return (0);
-	//print_token_type(cur);
-	//print_cont(&(cur->cont), cur->type);
+	if (DEBUG)
+	{
+		print_token_type(cur);
+		print_cont(&(cur->cont), cur->type);
+	}
 	exe_cur(tree, cur, envp);
 	traverse(tree, cur->left, envp);
 	traverse(tree, cur->right, envp);
@@ -104,56 +107,4 @@ void	free_node_simple_cmd(t_node *node)
 		tmp++;
 	}
 	free(node->cont.args);
-}
-
-void	print_token_type(t_node *node)
-{
-	if (node->type == PIPE)
-		printf("PIPE::");
-	else if (node->type == CMD)
-		printf("CMD::");
-	else if (node->type == NO_CMD)
-		printf("NO_CMD::");
-	else if (node->type == REDIR)
-		printf("REDIR::");
-	else if (node->type == SIMPLE_CMD)
-		printf("SIMPLE_CMD::");
-}
-
-void	print_cont(t_cont *cont, t_token type)
-{
-	char	**tmp;
-
-	if (type == PIPE)
-		printf("\n");
-	else if (type == CMD)
-		printf("\t(CMD)\n\n");
-	else if (type == NO_CMD)
-		printf("\tNO_CMD\n\n");
-	else if (type == REDIR)
-	{
-		printf("\tredirection type :");
-		if (cont->redir_type == IN)
-			printf("IN\n");
-		else if (cont->redir_type == HERE_DOC)
-			printf("HERE_DOC\n");
-		else if (cont->redir_type == OUT_T)
-			printf("OUT_T\n");
-		else
-			printf(" OUT_A\n");
-		printf("\tfile_name :%s\n", cont->file_name);
-		printf("\tfd :%d\n\n", cont->fd);
-	}
-	else if (type == SIMPLE_CMD)
-	{
-		tmp = cont->args;
-		printf("\n\tpath :%s\n", cont->path);
-		printf("\targs :");
-		while (*tmp)
-		{
-			printf("[%s] ", *tmp);
-			tmp++;
-		}
-		printf("\n\n");
-	}
 }

@@ -11,9 +11,9 @@ void	print_init_msg(void)
 		logo = "";
 	author1 = "yecnam@student.42seoul.kr";
 	author2 = "saseo@student.42seoul.kr";
-	printf("\033[0;34m%s", logo);
-	printf("\033[0mcreated by \033[0;36m%s\033[0m", author1);
-	printf(" | \033[0;36m%s\n\n\033[0m", author2);
+	printf("\x1b[38;5;18m%s", logo);
+	printf("\x1b[0mcreated by \x1b[38;5;74m%s\x1b[0m", author1);
+	printf(" | \x1b[38;5;74m%s\n\n\x1b[0m", author2);
 	if (*logo != '\0')
 		free(logo);
 }
@@ -29,10 +29,10 @@ char	*get_init_logo(void)
 	logo_fd = open(path, O_RDONLY);
 	if (!logo_fd)
 		return ("(Logo file cannot found)\n");
-	logo = (char *) ft_calloc(5400, sizeof(char));
+	logo = (char *) ft_calloc(3000, sizeof(char));
 	if (!logo)
 		return ("(Logo malloc fail)\n");
-	read_byte = read(logo_fd, logo, 5400);
+	read_byte = read(logo_fd, logo, 3000);
 	if (read_byte <= 0)
 		return ("(Logo read fail)\n");
 	close(logo_fd);

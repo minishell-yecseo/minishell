@@ -19,10 +19,6 @@ t_list	*lexer(char *line, char **envp)
 
 void	build_list_with_space(t_list *head)
 {
-	// is_end가 0이면 is_end가 1인 토큰을 찾아서
-	// 그 사이의 line들을 맨 앞 리스트의 line에 붙여준다.
-	// is_end 가 1인 마지막 리스트까지는 모두 삭제
-	// is_end == 0인 리스트의 next는 is_end ==1 인 리스트의 next로 바꿔준다.
 	t_list	*tmp;
 
 	tmp = head;
