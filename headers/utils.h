@@ -7,6 +7,16 @@
 #include "libft.h"
 #include "tree.h"
 
+typedef enum e_char_type
+{
+	ZERO,
+	WHITE_SPACE,
+	QUOTE,
+	C_REDIR,
+	C_PIPE,
+	OTHER
+}	t_char_type;
+
 typedef enum e_l_type
 {
 	L_PIPE,
@@ -18,6 +28,7 @@ typedef struct s_list
 {
 	enum e_l_type		type;
 	char				*line;
+	int			is_end;
 	struct s_list		*prev;
 	struct s_list		*next;
 }			t_list;
@@ -45,6 +56,10 @@ int			add_redir(t_list **head, char *line);
 int			add_quotes(t_list **head, char *line);
 int			add_pipe(t_list **head, char *line);
 int			add_word(t_list **head, char *line);
+int			char_type_for_list(char c);
+void			build_list_with_space(t_list *head);
+void			tokens_to_one(t_list *list);
+void			free_sub_list(t_list *start, t_list *last);
 
 //level 03
 //			: check syntax
@@ -77,7 +92,9 @@ void		free_line_list(t_list *head);//utils.c
 //list utils
 t_list		*ft_lstnew(t_l_type type, char *line);
 t_list		*ft_lstlast(t_list *lst);
-void		ft_lstadd_back(t_list **lst, t_list *new);
+int		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_print_list(t_list *lst);
+void		print_list_type(t_list *lst);
 
 //here doc utils for replace envps
 char		*here_doc_replace_envp(char *line, char **envp);
