@@ -43,6 +43,7 @@ $(LIB) :
 
 clean :
 	rm -rf $(OBJS)
+	$(MAKE) fclean -C $(LIB_DIR)
 
 fclean : clean
 	rm -rf $(NAME)
