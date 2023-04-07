@@ -49,7 +49,7 @@ void	tokens_to_one(t_list *list)
 		new_line = ft_strjoin(list->line, tmp->line);
 		free(list->line);
 		if (!new_line)
-			exit(0);
+			malloc_fail();
 		list->line = new_line;
 		tmp = tmp->next;
 	}
@@ -114,7 +114,7 @@ int	add_redir(t_list **head, char *line)
 	else if (*line == '>' && *(line + 1) == '>')
 		new = ft_lstnew(L_REDIR, ">>");
 	if (!new)
-		exit(0);
+		malloc_fail();
 	new->is_end = 1;
 	ft_lstadd_back(head, new);
 	len = ft_strlen(new->line);
@@ -127,9 +127,8 @@ int	add_pipe(t_list **head, char *line)
 
 	lst = ft_lstnew(L_PIPE, "|");
 	if (!lst)
-		exit(0);
-	if (!ft_lstadd_back(head, lst))
-		exit(0);
+		malloc_fail();
+	ft_lstadd_back(head, lst);
 	lst->is_end = 1;
 	return (1);
 }
@@ -148,9 +147,9 @@ int	add_quotes(t_list **head, char *line)
 		len++;
 	new_line = ft_substr(line + 1, 0, len - 1);
 	if (!new_line)
-		exit(0);
+		malloc_fail();
 	if (!ft_lstadd_back(head, ft_lstnew(L_WORD, new_line)))
-		exit(0);
+		malloc_fail();
 	type = char_type_for_list(line[len + 1]);
 	if (type == QUOTE || type == OTHER)
 		ft_lstlast(*head)->is_end = 0;
@@ -179,9 +178,9 @@ int	add_word(t_list **head, char *line)
 		return (1);
 	new_line = ft_substr(line, 0, len);
 	if (!new_line)
-		exit(0);
+		malloc_fail();
 	if (!ft_lstadd_back(head, ft_lstnew(L_WORD, new_line)))
-		exit(0);
+		malloc_fail();
 	if (char_type_for_list(line[len]) == QUOTE)
 		ft_lstlast(*head)->is_end = 0;
 	else

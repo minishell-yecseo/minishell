@@ -31,7 +31,6 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp);
 int		check_built_in(char *s, char **args, char ***envp);
 int		echo(char **args);
 
-void	ft_print_err(char *str);
 char	**cp_envp(char **envp);
 int		unset(char **arg, char ***envp);
 char	**del_envp(char **envp, char *str);
@@ -53,7 +52,6 @@ char	**oldpwd_envp(char ***envp, char *str);
 int		f_envpcmp(char *s1, char *s2);
 char	**make_big_arr(char ***envp);
 void	path_exe(char **args, char ***envp);
-void	malloc_fail(void);
 
 void	print_init_msg(void);
 char	*get_init_logo(void);
