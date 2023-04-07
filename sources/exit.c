@@ -1,11 +1,19 @@
 #include "minishell.h"
 #include "utils.h"
 
+void print_exit_err(char *str)
+{
+	ft_print_err("exit: ");
+	ft_print_err(str);
+	ft_print_err(": numeric argument required\n");
+	exit(255);
+}
+
 int	exit_atoi(char *str)
 {
-	int			i;
-	long long	pm;
-	long long	sum;
+	int					i;
+	int					pm;
+	unsigned long long	sum;
 
 	sum = 0;
 	pm = 1;
@@ -24,14 +32,12 @@ int	exit_atoi(char *str)
 			i++;
 		}
 		else
-		{
-			ft_print_err("exit: ");
-			ft_print_err(str);
-			ft_print_err(": numeric argument required\n");
-			exit(255);
-		}
+			print_exit_err(str);
+		if ((sum > 9223372036854775807 && pm == 1) || \
+			(sum > 9223372036854775808ULL && pm == -1))
+			print_exit_err(str);
 	}
-	exit(sum * pm);
+	exit((long long)sum * pm);
 }
 
 int ft_exit(char **args)

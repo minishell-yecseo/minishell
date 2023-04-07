@@ -57,5 +57,6 @@ void	malloc_fail(void);
 
 void	print_init_msg(void);
 char	*get_init_logo(void);
+void	no_cmd(t_tree *tree, t_node *cur, char ***envp);
 
 #endif

@@ -44,6 +44,8 @@ int	echo(char **args)
 					j++;
 				}
 			}
+			if (args[i + 1])
+				printf(" ");
 			i++;
 		}
 	}

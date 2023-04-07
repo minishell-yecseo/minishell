@@ -177,7 +177,7 @@ int	export(char **arg, char ***envp)
 			}
 			else
 			{
-				ft_print_err("export : '");
+				ft_print_err("export: '");
 				ft_print_err(arg[i]);
 				ft_print_err("': not a valid identifier\n");
 				end = 1;
