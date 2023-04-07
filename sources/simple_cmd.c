@@ -122,7 +122,4 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 	}
 	else
 		g_last_exit_code = 1;
-	tree->err = 0;
-	tree->last = 0;
-	tree->first = 0;
 }

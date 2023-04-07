@@ -5,7 +5,7 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 {
 	tree->filefds[0] = 0;
 	tree->filefds[1] = 0;
-
+	tree->err = 0;
 	///STDIN, STDTOUT restore
 	//dup2(tree->stdfds[0], 0);
 	//dup2(tree->stdfds[1], 1);
@@ -88,5 +88,7 @@ void	exe_cur(t_tree *tree, t_node *cur, char ***envp)
 		last_simple_com(tree, cur, envp);
 	}	
 	else if (cur->type == NO_CMD)
-		return ;
+	{
+		no_cmd(tree, cur, envp);
+	}
 }
