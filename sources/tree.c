@@ -48,8 +48,11 @@ int	traverse(t_tree *tree, t_node *cur, char ***envp)
 		return (0);
 	if (!cur)
 		return (0);
-	//print_token_type(cur);
-	//print_cont(&(cur->cont), cur->type);
+	if (DEBUG)
+	{
+		print_token_type(cur);
+		print_cont(&(cur->cont), cur->type);
+	}
 	exe_cur(tree, cur, envp);
 	traverse(tree, cur->left, envp);
 	traverse(tree, cur->right, envp);

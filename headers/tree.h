@@ -8,6 +8,10 @@
 # include <errno.h>
 # include <termios.h>
 
+#ifndef DEBUG
+ #define DEBUG 0
+#endif
+
 typedef enum e_token
 {
 	PIPE,
