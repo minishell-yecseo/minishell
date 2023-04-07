@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "ft_strings.h"
+#include "libft.h"
 #include "tree.h"
 
 typedef enum e_l_type
