@@ -33,6 +33,8 @@ t_tree	*get_tree(char *line, char **envp)
 		return (NULL);
 	*/
 	list = lexer(line, envp);
+	if (!list)
+		return (NULL);
 	syntax_flag = post_syntax_checker(list);
 	if (!syntax_flag)
 		return (NULL);

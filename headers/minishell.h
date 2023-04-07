@@ -55,4 +55,7 @@ char	**make_big_arr(char ***envp);
 void	path_exe(char **args, char ***envp);
 void	malloc_fail(void);
 
+void	print_init_msg(void);
+char	*get_init_logo(void);
+
 #endif
