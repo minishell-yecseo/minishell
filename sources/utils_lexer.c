@@ -9,8 +9,6 @@ t_list	*lexer(char *line, char **envp)
 	ret = NULL;
 	set_list_from_line(&ret, replace_line);
 	free(replace_line);
-	if (!ret)
-		exit(0);
 	return (ret);
 }
 
