@@ -64,13 +64,13 @@ void			free_sub_list(t_list *start, t_list *last);
 //level 03
 //			: check syntax
 //int			pre_syntax_checker(char *line);
-int			quote_syntax_checker(char *line);
-
+int			quote_pair_syntax_checker(char *line);
 int			post_syntax_checker(t_list *head);
 int			redir_syntax_checker(t_list *head);
 int			pipe_syntax_checker(t_list *head);
 
 void		line_syn_err(char *line);//utils.c
+void		quote_err(void);
 
 //level 04
 //			: Build tree with tokenized lists

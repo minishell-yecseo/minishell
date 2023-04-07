@@ -11,6 +11,14 @@
 		0. 따옴표 개수 확인하기
 	 */
 
+void	quote_err(void)
+{
+	char	*msg;
+
+	msg = "minishell: syntax error quotation pair dose not match\n";
+	write(2, msg, ft_strlen(msg));
+}
+
 void	line_syn_err(char *line)
 {
 	char	*msg;
@@ -35,9 +43,28 @@ int	pre_syntax_checker(char *line)
 	return (1);
 }
 
-int	quoute_pair_syntax_checker(char *line)
+int	quote_pair_syntax_checker(char *line)
 {
-	//let's solve this problem using stack!
+	int	type;
+	char	quote;
+	char	*tmp;
+
+	quote = 0;
+	tmp = line;
+	while (*tmp)
+	{
+		type = char_type_for_list(*tmp);
+		if (!quote && type == QUOTE)
+			quote = *tmp;
+		else if (quote && *tmp == quote)
+			quote = 0;
+		tmp++;
+	}
+	if (quote != 0)
+	{
+		quote_err();
+		return (0);
+	}
 	return (1);
 }
 
