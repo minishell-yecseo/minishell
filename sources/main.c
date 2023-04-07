@@ -86,7 +86,10 @@ int	main(int argc, char **argv, char **en)
 			tree = get_tree(line, envp);
 			add_history(line);
 			if (!tree)
+			{
+				free(line);
 				continue ;
+			}
 			tree->stdfds[0] = dup(0);
 			tree->stdfds[1] = dup(1);
 			//int i = 0;

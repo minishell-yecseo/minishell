@@ -2,35 +2,31 @@
 
 char	*get_line_replace_envp(char *line, char **envp)
 {
-	char	*tmp;
-	char	*new;
+	char	*new_line;
+	char	*old_line;
 	int		len;
 	char	quote;
-	char	*old;
 
-	new = ft_strdup(line);
-	if (!new)
+	new_line = ft_strdup(line);
+	if (!new_line)
 		malloc_fail();
-	tmp = line;
 	quote = 0;
-	while (*tmp)
+	while (*line)
 	{
 		len = 1;
-		if (quote != '\'' && *tmp == '$')
+		if (quote != '\'' && *line == '$')
 		{
-			old = new;
-			new = get_replaced_line(old, tmp, &len, envp);
-			free(old);
+			old_line = new_line;
+			new_line = get_replaced_line(old_line, line, &len, envp);
+			free(old_line);
 		}
-		else if (!quote && *tmp == '\'')
-			quote = '\'';
-		else if (!quote && *tmp == '\"')
-			quote = '\"';
-		else if (quote && *tmp == quote)
+		else if (!quote && *line == '\'' || *line == '\"')
+			quote = *line;
+		else if (quote && *line == quote)
 			quote = 0;
-		tmp += len;
+		line += len;
 	}
-	return (new);
+	return (new_line);
 }
 
 char	*get_replaced_line(char *line, char *dolor, int *len, char **envp)
@@ -66,8 +62,8 @@ char	*get_value(char *key, char **envp)
 			find_flag = 1;
 			break ;
 		}
-		envp_key = NULL;
 		free(envp_key);
+		envp_key = NULL;
 		envp++;
 	}
 	ret = get_value_with_flag(*envp, envp_key, find_flag, key);
@@ -127,7 +123,7 @@ char	*get_line_with_value(char *line, char *dolor, char *key, char *value)
 	tmp = ret;
 	ret = ft_strjoin(ret, value);
 	free(tmp);
-	if (!ret)
+	if (value && !ret)
 		malloc_fail();
 	tmp = ret;
 	ret = ft_strjoin(tmp, dolor + ft_strlen(key) + 1);
