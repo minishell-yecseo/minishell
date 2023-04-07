@@ -10,7 +10,6 @@ t_list	*lexer(char *line, char **envp)
 	set_list_from_line(&ret, replace_line);
 	// is_end 가 있으면 토큰 합치기
 	build_list_with_space(ret);
-	ft_print_list(ret);
 	free(replace_line);
 	return (ret);
 }
@@ -150,7 +149,6 @@ int	add_quotes(t_list **head, char *line)
 	if (!ft_lstadd_back(head, ft_lstnew(L_WORD, new_line)))
 		exit(0);
 	type = char_type_for_list(line[len + 1]);
-	//printf("		last_quotes line:%s\n", &line[len]);
 	if (type == QUOTE || type == OTHER)
 		ft_lstlast(*head)->is_end = 0;
 	else
