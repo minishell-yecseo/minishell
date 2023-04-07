@@ -99,6 +99,8 @@ int	add_word(t_list **head, char *line)
 			break ;
 		if (line[len] == '<' || line[len] == '>' || line[len] == '|')
 			break ;
+		if (line[len] == '\"' || line[len] == '\'')
+			break ;
 		len++;
 	}
 	if (len == 0)
