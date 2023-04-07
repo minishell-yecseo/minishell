@@ -71,11 +71,10 @@ int	main(int argc, char **argv, char **en)
 	
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
-	
+	print_init_msg();
 	while (1)
 	{
-		line = readline("> ");
-
+		line = readline("minishell-0.1$ ");
 		if (!line)
 			;
 		else if (!*line)
