@@ -9,7 +9,11 @@ t_list	*lexer(char *line, char **envp)
 		return (NULL);
 	replace_line = get_line_replace_envp(line, envp);
 	if (quote_pair_syntax_checker(replace_line) == 0)
+	{
+		if (replace_line)
+			free(replace_line);
 		return (NULL);
+	}
 	ret = NULL;
 	set_list_from_line(&ret, replace_line);
 	build_list_with_space(ret);
