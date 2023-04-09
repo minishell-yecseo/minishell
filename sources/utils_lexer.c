@@ -4,20 +4,28 @@ t_list	*lexer(char *line, char **envp)
 {
 	t_list	*ret;
 	char	*replace_line;
+	int		syntax;
 
-	if (quote_pair_syntax_checker(line) == 0)
+	syntax = quote_pair_syntax_checker(line);
+	if (!syntax)
 		return (NULL);
 	replace_line = get_line_replace_envp(line, envp);
-	if (quote_pair_syntax_checker(replace_line) == 0)
+	syntax = quote_pair_syntax_checker(replace_line);
+	if (!syntax)
 	{
 		if (replace_line)
 			free(replace_line);
 		return (NULL);
 	}
-	ret = NULL;
 	set_list_from_line(&ret, replace_line);
-	build_list_with_space(ret);
 	free(replace_line);
+	build_list_with_space(ret);
+	syntax = post_syntax_checker(ret);
+	if (!syntax)
+	{
+		free_line_list(ret);
+		return (NULL);
+	}
 	return (ret);
 }
 
@@ -169,7 +177,7 @@ int	add_word(t_list **head, char *line)
 	while (line[len])
 	{
 		type = char_type_for_list(line[len]);
-		if (type == WHITE_SPACE || type == C_REDIR ||\
+		if (type == WHITE_SPACE || type == C_REDIR || \
 				type == C_PIPE || type == QUOTE)
 			break ;
 		len++;

@@ -78,10 +78,7 @@ int	redir_syntax_checker(t_list *head)
 		tmp = tmp->next;
 	}
 	if (ret == 0)
-	{
 		line_syn_err(tmp->line);
-		free_line_list(head);
-	}
 	return (ret);
 }
 
@@ -96,7 +93,7 @@ int	pipe_syntax_checker(t_list *head)
 	{
 		if (head->type == L_PIPE && head->next->type == L_PIPE)
 		{
-			line_syn_err("||");
+			line_syn_err("|");
 			return (0);
 		}
 		head = head->next;
