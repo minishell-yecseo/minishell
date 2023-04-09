@@ -145,7 +145,7 @@ int	get_key_len(char *dolor)
 		return (1);
 	while (*dolor)
 	{
-		if (*dolor >= ' ' && *dolor <= 47)
+		if (*dolor != 42 && (*dolor >= ' ' && *dolor <= 47))
 			break ;
 		else if (*dolor >= 58 && *dolor <= 64)
 			break ;
