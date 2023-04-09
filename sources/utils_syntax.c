@@ -84,6 +84,8 @@ int	redir_syntax_checker(t_list *head)
 
 int	pipe_syntax_checker(t_list *head)
 {
+	if (!head)
+		return (1);
 	if (head->type == L_PIPE)
 	{
 		line_syn_err("|");
