@@ -12,7 +12,10 @@ t_tree	*get_tree(char *line, char **envp)
 		return (NULL);
 	syntax_flag = post_syntax_checker(list);
 	if (!syntax_flag)
+	{
+		free_line_list(list);
 		return (NULL);
+	}
 	tree = tree_builder(list);
 	free_line_list(list);
 	return (tree);
