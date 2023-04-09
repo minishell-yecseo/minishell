@@ -2,6 +2,7 @@
 
 void	print_token_type(t_node *node)
 {
+	printf("\x1b[38;5;33m");
 	if (node->type == PIPE)
 		printf("PIPE::");
 	else if (node->type == CMD)
@@ -12,6 +13,7 @@ void	print_token_type(t_node *node)
 		printf("REDIR::");
 	else if (node->type == SIMPLE_CMD)
 		printf("SIMPLE_CMD::");
+	printf("\x1b[0m");
 }
 
 void	print_cont(t_cont *cont, t_token type)
