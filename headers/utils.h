@@ -1,11 +1,11 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "libft.h"
-#include "tree.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include "libft.h"
+# include "tree.h"
 
 typedef enum e_char_type
 {
@@ -28,7 +28,7 @@ typedef struct s_list
 {
 	enum e_l_type		type;
 	char				*line;
-	int			is_end;
+	int					is_end;
 	struct s_list		*prev;
 	struct s_list		*next;
 }			t_list;
@@ -46,7 +46,7 @@ char		*get_line_with_value(char *line, char *dolor, \
 								char *key, char *value);
 char		*get_value(char *key, char **envp);
 char		*get_key_from_envp(char *envp);
-char		*get_value_with_flag(char *envp, char *envp_key, int find, char *key);
+char		*get_value_with_flag(char *envp, char *e_key, int find, char *key);
 
 //level 02
 //			: Split tokens and build lists
@@ -57,9 +57,9 @@ int			add_quotes(t_list **head, char *line);
 int			add_pipe(t_list **head, char *line);
 int			add_word(t_list **head, char *line);
 int			char_type_for_list(char c);
-void			build_list_with_space(t_list *head);
-void			tokens_to_one(t_list *list);
-void			free_sub_list(t_list *start, t_list *last);
+void		build_list_with_space(t_list *head);
+void		tokens_to_one(t_list *list);
+void		free_sub_list(t_list *start, t_list *last);
 
 //level 03
 //			: check syntax
@@ -88,7 +88,7 @@ t_list		*get_word_end_list(t_list *start, t_list *last);
 //list utils
 t_list		*ft_lstnew(t_l_type type, char *line);
 t_list		*ft_lstlast(t_list *lst);
-int		ft_lstadd_back(t_list **lst, t_list *new);
+int			ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_print_list(t_list *lst);
 void		print_list_type(t_list *lst);
 void		free_line_list(t_list *head);
@@ -97,7 +97,7 @@ void		free_line_list(t_list *head);
 char		*here_doc_replace_envp(char *line, char **envp);
 
 //error utils
-void	malloc_fail(void);
-void	ft_print_err(char *str);
+void		malloc_fail(void);
+void		ft_print_err(char *str);
 
 #endif

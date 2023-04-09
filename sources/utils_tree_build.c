@@ -109,7 +109,7 @@ t_list	*get_word_start_list(t_list *start, t_list *last, int redir_num)
 	{
 		if (tmp->type == L_WORD)
 		{
-			if (tmp->prev == NULL || tmp->prev->type == L_WORD ||\
+			if (tmp->prev == NULL || tmp->prev->type == L_WORD || \
 				tmp->prev->type == L_PIPE)
 				break ;
 		}

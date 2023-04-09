@@ -1,16 +1,16 @@
 #ifndef TREE_H
 # define TREE_H
 
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
+
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <errno.h>
 # include <termios.h>
-
-#ifndef DEBUG
- #define DEBUG 0
-#endif
 
 typedef enum e_token
 {
@@ -61,7 +61,7 @@ typedef struct s_tree
 	int				stdfds[2];
 	int				filefds[2];
 	int				is_last_exit;
-	struct			termios term;
+	struct termios	term;
 }					t_tree;
 
 t_tree	*init_tree(void);

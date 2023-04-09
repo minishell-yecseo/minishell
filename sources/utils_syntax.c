@@ -29,7 +29,7 @@ void	line_syn_err(char *line)
 
 int	quote_pair_syntax_checker(char *line)
 {
-	int	type;
+	int		type;
 	char	quote;
 	char	*tmp;
 
@@ -54,7 +54,7 @@ int	quote_pair_syntax_checker(char *line)
 
 int	post_syntax_checker(t_list *head)
 {
-	if (redir_syntax_checker(head) == 0 ||\
+	if (redir_syntax_checker(head) == 0 || \
 		pipe_syntax_checker(head) == 0)
 		return (0);
 	return (1);
@@ -69,7 +69,7 @@ int	redir_syntax_checker(t_list *head)
 	tmp = head;
 	while (tmp)
 	{
-		if ((tmp->type == L_REDIR && tmp->next == NULL) ||\
+		if ((tmp->type == L_REDIR && tmp->next == NULL) || \
 		(tmp->type == L_REDIR && tmp->next->type != L_WORD))
 		{
 			ret = 0;
