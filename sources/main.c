@@ -98,6 +98,8 @@ int	main(int argc, char **argv, char **en)
 			//	printf("%s\n", envp[i]);
 			//	i++;
 			//}
+			here_traverse(tree, tree->root, &envp);
+			tree->here_num = 0;
 			traverse(tree, tree->root, &envp);
 			wait_forks(tree);
 			//printf("\n\n\n\n");
@@ -113,6 +115,7 @@ int	main(int argc, char **argv, char **en)
 			close(tree->stdfds[0]);
 			close(tree->stdfds[1]);
 			free_tree(tree);
+			here_del();
 			//printf("$? : %d\n", g_last_exit_code);
 		}
 		free(line);

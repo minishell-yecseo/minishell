@@ -9,7 +9,9 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 				utils_tree_build.c utils_syntax.c\
 				exit.c one_built_in.c env.c unset_oldpath.c path_exe.c\
 				utils_lexer.c here_doc_replace_envp.c \
-				settings.c no_cmd.c utils_error.c debug.c
+				settings.c no_cmd.c utils_error.c debug.c \
+				get_next_line.c get_next_line_utils.c \
+				here_doc.c
 
 
 OBJS			= $(SRCS:.c=.o)
@@ -23,7 +25,7 @@ LIB_DIR			= ./libft
 LIB			= ./libft/libft.a
 
 CC				= cc
-CFLAGS			= -g #-fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			= #-g #-fsanitize=address #-Wall -Wextra -Werror
 READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
 
 #READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
