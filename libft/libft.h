@@ -38,9 +38,10 @@ void		ft_strncpy(char *dest, const char *src, size_t len);
 size_t		ft_strlcpy(char *dest, const char *src, size_t destsize);
 char		*ft_itoa(int n);
 
-t_stack		*stack_init(void);
+t_stack			*stack_init(void);
 t_stack_node	*ft_new_stack_node(char quote);
-void		ft_push(t_stack *stack, char quote);
+void			ft_push(t_stack *stack, char quote);
 t_stack_node	*ft_pop(t_stack *stack);
+void			ft_free_stack(t_stack *stack);
 
 #endif

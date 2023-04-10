@@ -27,6 +27,19 @@ void	line_syn_err(char *line)
 	free(msg);
 }
 
+int	pre_syntax_checker(char *line)
+{
+	int	syntax;
+
+	syntax = quote_pair_syntax_checker(line);
+	if (!syntax)
+		return (0);
+	syntax = parenthesis_pair_checker(line);
+	if (!syntax)
+		return (0);
+	return (1);
+}
+
 int	quote_pair_syntax_checker(char *line)
 {
 	int		type;
@@ -105,5 +118,53 @@ int	pipe_syntax_checker(t_list *head)
 		line_syn_err("|");
 		return (0);
 	}
+	return (1);
+}
+
+int	parenthesis_pair_checker(char *line)
+{
+	t_stack	*stack;
+	int		syntax;
+
+	stack = stack_init();
+	if (!stack)
+		exit(0);
+	syntax = parenthesis_with_stack(stack, line);
+	ft_free_stack(stack);
+	if (!syntax)
+	{
+		write(2, "syntax error with parenthesis\n", 30);
+		return (0);
+	}
+	return (1);
+}
+
+int	parenthesis_with_stack(t_stack *stack, char *line)
+{
+	t_stack_node	*node;
+	char			quote;
+	char			*tmp;
+
+	tmp = line;
+	quote = 0;
+	while (*tmp)
+	{
+		if (!quote && *tmp == '(')
+			ft_push(stack, *tmp);
+		else if (!quote && *tmp == ')')
+		{
+			node = ft_pop(stack);
+			if (!node)
+				return (0);
+			free(node);
+		}
+		else if (!quote && char_type_for_list(*tmp) == QUOTE)
+			quote = *tmp;
+		else if (quote && quote == *tmp)
+			quote = 0;
+		tmp++;
+	}
+	if (stack->size != 0)
+		return (0);
 	return (1);
 }
