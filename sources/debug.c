@@ -37,7 +37,7 @@ void	print_cont(t_cont *cont, t_token type)
 			printf("OUT_T\n");
 		else
 			printf(" OUT_A\n");
-		printf("\tfile_name :%s\n", cont->file_name);
+		printf("\tfile_name :[%s]\n", cont->file_name);
 		printf("\tfd :%d\n\n", cont->fd);
 	}
 	else if (type == SIMPLE_CMD)
