@@ -51,17 +51,19 @@ typedef struct s_node
 
 typedef struct s_tree
 {
-	struct s_node	*root;
-	int				size;
-	int				last;
-	int				err;
-	pid_t			pid;
-	int				first;
-	int				fds[2];
-	int				stdfds[2];
-	int				filefds[2];
-	int				is_last_exit;
-	struct termios	term;
+	struct s_node		*root;
+	int					size;
+	int					last;
+	int					err;
+	pid_t				pid;
+	int					first;
+	int					fds[2];
+	int					stdfds[2];
+	int					filefds[2];
+	int					here_num;
+	int					is_last_exit;
+	struct sigaction 	sa;
+	struct termios		term;
 }					t_tree;
 
 t_tree	*init_tree(void);

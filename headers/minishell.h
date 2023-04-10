@@ -16,6 +16,10 @@
 # include <sys/ioctl.h>
 # include "utils.h"
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 int		g_last_exit_code;
 void	exe_cur(t_tree *tree, t_node *cur, char ***envp);
 void	wait_forks(t_tree *tree);
@@ -59,5 +63,8 @@ void	no_cmd(t_tree *tree, t_node *cur, char ***envp);
 int		key_cmp(char *s1, char *s2);
 char	**ordering_envp(char **envp);
 void	export_print_envp(char **envp);
+void	here_traverse(t_tree *tree, t_node *cur, char ***envp);
+char	*ft_itos(int n);
+void	here_del(void);
 
 #endif

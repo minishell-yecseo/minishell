@@ -44,7 +44,19 @@ void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
 	}
 	else if (cur->cont.redir_type == HERE_DOC)
 	{
-		;
+		char *itoa = ft_itoa(tree->here_num);
+		char *path = ft_strjoin("/tmp/minishell.here_doc.", itoa);
+		tree->filefds[0] = open(path, O_RDONLY);
+		free(path);
+		free(itoa);
+		if (tree->filefds[0] == -1)
+		{
+			tree->err = 1;
+			perror(cur->cont.file_name);
+		}
+		dup2(tree->filefds[0], 0);
+		close(tree->filefds[0]);
+		tree->here_num += 1;
 	}
 	else if (cur->cont.redir_type == OUT_T)
 	{
