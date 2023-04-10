@@ -1,40 +1,27 @@
 #include "minishell.h"
 
+static char	*get_logo(void);
+
 void	print_init_msg(void)
 {
 	char	*logo;
 	char	*author1;
 	char	*author2;
 
-	logo = get_init_logo();
-	if (!logo)
-		logo = "";
+	logo = get_logo();
 	author1 = "yecnam@student.42seoul.kr";
 	author2 = "saseo@student.42seoul.kr";
-	printf("\x1b[38;5;18m%s", logo);
-	printf("\x1b[0mcreated by \x1b[38;5;74m%s\x1b[0m", author1);
-	printf(" | \x1b[38;5;74m%s\n\n\x1b[0m", author2);
-	if (*logo != '\0')
-		free(logo);
+	printf("\x1b[38;5;87m\x1b[48;5;17m%s\x1b[0;m", logo);
+	printf("\t\t\x1b[38;5;74m%34s\x1b[0;m", author1);
+	printf("\n\t\t\x1b[38;5;74m%34s\n\n\x1b[0;m", author2);
 }
 
-char	*get_init_logo(void)
+static char	*get_logo(void)
 {
 	char	*logo;
-	int	logo_fd;
-	int	read_byte;
-	char	*path;
 
-	path = "settings/logo.txt";
-	logo_fd = open(path, O_RDONLY);
-	if (!logo_fd)
-		return ("(Logo file cannot found)\n");
-	logo = (char *) ft_calloc(3000, sizeof(char));
-	if (!logo)
-		return ("(Logo malloc fail)\n");
-	read_byte = read(logo_fd, logo, 3000);
-	if (read_byte <= 0)
-		return ("(Logo read fail)\n");
-	close(logo_fd);
+	logo = " __  __  _  __  _   ____  _   _  ____  _     _    \n\
+|  \\/  || ||  \\| | (_ (_`| |_| || ===|| |__ | |__ \n\
+|_|\\/|_||_||_|\\__|.__)__)|_| |_||____||____||____|\n";
 	return (logo);
 }
