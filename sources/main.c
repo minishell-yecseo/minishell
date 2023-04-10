@@ -43,7 +43,6 @@ char	**cp_envp(char **envp)
 
 int	main(int argc, char **argv, char **en)
 {
-	struct termios term;
 	char **envp;
 	// 정보들을 담고 있는 cont 구조체 생성.
 	// 모든 type 에서 각기 필요한 정보를
@@ -63,12 +62,13 @@ int	main(int argc, char **argv, char **en)
 	t_node	*root;
 	t_list	*head;
 	t_tree	*tree;
-	char	*line; //= "\"ls -al $? $file\"|'cat' '$file'>out|nocmd \"\'$var2\'\"";
+	char	*line; 
 
 	// 이제 get_tree에 line 과 envp 넣어주면 tree 를 알아서 빌드해줍니다.
 	// 아래와 같이 사용하실 수 있습니다.
 	// 하지만 아직 syntax 에러를 처리하지 않았습니다.
 	
+	minishell_setting();
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
 	print_init_msg();

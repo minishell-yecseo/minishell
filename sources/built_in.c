@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "tree.h"
 
 extern int	g_last_exit_code;
 
