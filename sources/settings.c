@@ -11,7 +11,7 @@ void	print_init_msg(void)
 	logo = get_logo();
 	author1 = "yecnam@student.42seoul.kr";
 	author2 = "saseo@student.42seoul.kr";
-	printf("\x1b[38;5;87m\x1b[48;5;17m%s\x1b[0;m", logo);
+	printf("\x1b[38;5;87m%s\x1b[0;m", logo);
 	printf("\t\t\x1b[38;5;74m%34s\x1b[0;m", author1);
 	printf("\n\t\t\x1b[38;5;74m%34s\n\n\x1b[0;m", author2);
 }
