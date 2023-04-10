@@ -6,6 +6,14 @@ int	cd(char **args, char ***envp)
 	char	*pwd;
 	char	*str;
 
+	
+	if (!args[1])
+	{
+		ft_print_err("cd: please enter relative or absolute path\n");
+		return (1);
+	}
+	if (!*args[1])
+		return (0);
 	str = getcwd(0, 0);
 	if (!str)
 	{
