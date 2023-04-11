@@ -47,6 +47,9 @@ char		*get_line_with_value(char *line, char *dolor, \
 char		*get_value(char *key, char **envp);
 char		*get_key_from_envp(char *envp);
 char		*get_value_with_flag(char *envp, char *e_key, int find, char *key);
+char		*free_and_replace_line(char *old, char *line, int *len, char **envp);
+void		set_quote_flag(char *line, char *flag);
+void		set_heredoc_flag(char *line, char *flag);
 
 //level 02
 //			: Split tokens and build lists

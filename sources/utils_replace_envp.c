@@ -2,30 +2,52 @@
 
 char	*get_line_replace_envp(char *line, char **envp)
 {
-	char	*new_line;
-	char	*old_line;
+	char	*ret;
 	int		len;
 	char	quote;
+	char	heredoc;
 
-	new_line = ft_strdup(line);
-	if (!new_line)
+	ret = ft_strdup(line);
+	if (!ret)
 		malloc_fail();
 	quote = 0;
+	heredoc = 0;
 	while (*line)
 	{
 		len = 1;
-		if (quote != '\'' && *line == '$')
-		{
-			old_line = new_line;
-			new_line = get_replaced_line(old_line, line, &len, envp);
-			free(old_line);
-		}
-		else if (!quote && *line == '\'' || *line == '\"')
-			quote = *line;
-		else if (quote && *line == quote)
-			quote = 0;
+		set_quote_flag(line, &quote);
+		set_heredoc_flag(line, &heredoc);
+		if (quote != '\'' && !heredoc && *line == '$')
+			ret = free_and_replace_line(ret, line, &len, envp);
 		line += len;
 	}
+	return (ret);
+}
+
+void	set_heredoc_flag(char *line, char *flag)
+{
+	if (!*flag && (*line == '<' && *(line + 1) == '<'))
+		*flag = 1;
+	else if (*flag && (*(line - 1) == '$'))
+		*flag = 0;
+}
+
+void	set_quote_flag(char *line, char *flag)
+{
+	if (!*flag && (*line == '\'' || *line == '\"'))
+		*flag = *line;
+	else if (*flag && *flag == *line)
+		*flag = 0;
+}
+
+char	*free_and_replace_line(char *old, char *line, int *len, char **envp)
+{
+	char	*new_line;
+
+	new_line = get_replaced_line(old, line, len, envp);
+	if (new_line == NULL)
+		return (old);
+	free(old);
 	return (new_line);
 }
 
@@ -36,6 +58,8 @@ char	*get_replaced_line(char *line, char *dolor, int *len, char **envp)
 	char	*key;
 	char	*value;
 
+	if (get_key_len(dolor) == 0)
+		return (NULL);
 	*len = get_key_len(dolor) + 1;
 	key = ft_substr(dolor, 1, *len - 1);
 	value = get_value(key, envp);
@@ -138,10 +162,10 @@ int	get_key_len(char *dolor)
 	int	len;
 
 	len = 0;
-	if (*dolor != '$')
-		return (0);
 	dolor++;
-	if (*dolor == '$' || *dolor == '?')
+	if (*dolor == '$')
+		return (0);
+	if (*dolor == '?')
 		return (1);
 	while (*dolor)
 	{
