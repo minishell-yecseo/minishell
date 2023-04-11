@@ -29,6 +29,7 @@ typedef struct s_list
 	enum e_l_type		type;
 	char				*line;
 	int					is_end;
+	int					is_quote;
 	struct s_list		*prev;
 	struct s_list		*next;
 }			t_list;
@@ -63,6 +64,13 @@ int			char_type_for_list(char c);
 void		build_list_with_space(t_list *head);
 void		tokens_to_one(t_list *list);
 void		free_sub_list(t_list *start, t_list *last);
+
+int			build_list_with_asterisk(t_list **head);
+t_list		*get_entry_name_list(int *status);
+void		dup_and_add_list_entry_name(t_list **head, char *name);
+void		join_aster_list(t_list **head, t_list *node, t_list *aster_list);
+//int			replace_asterisk(t_list **aster);
+int			dir_open_err(void);
 
 //level 03
 //			: check syntax

@@ -19,6 +19,7 @@ t_list	*lexer(char *line, char **envp)
 	set_list_from_line(&ret, replace_line);
 	free(replace_line);
 	build_list_with_space(ret);
+	build_list_with_asterisk(&ret);
 	syntax = post_syntax_checker(ret);
 	if (!syntax)
 	{
@@ -162,6 +163,7 @@ int	add_quotes(t_list **head, char *line)
 		ft_lstlast(*head)->is_end = 0;
 	else
 		ft_lstlast(*head)->is_end = 1;
+	ft_lstlast(*head)->is_quote = 1;
 	len++;
 	return (len);
 }
@@ -192,6 +194,7 @@ int	add_word(t_list **head, char *line)
 		ft_lstlast(*head)->is_end = 0;
 	else
 		ft_lstlast(*head)->is_end = 1;
+	ft_lstlast(*head)->is_quote = 0;
 	return (len);
 }
 

@@ -71,14 +71,10 @@ void	ft_print_list(t_list *lst)
 
 void	print_list_type(t_list *lst)
 {
-	if (lst->type == C_PIPE)
+	if (lst->type == L_PIPE)
 		printf("PIPE:");
-	else if (lst->type == C_REDIR)
+	else if (lst->type == L_REDIR)
 		printf("REDIR:");
-	else if (lst->type == OTHER)
-		printf("OTHER:");
-	else if (lst->type == QUOTE)
-		printf("QUOTE:");
-	else if (lst->type == ZERO)
-		printf("ZERO:");
+	else if (lst->type == L_WORD)
+		printf("WORD:");
 }
