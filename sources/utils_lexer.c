@@ -144,7 +144,6 @@ int	add_pipe(t_list **head, char *line)
 
 int	add_quotes(t_list **head, char *line)
 {
-	t_list	*new;
 	char	*new_line;
 	char	quote_type;
 	int		len;
