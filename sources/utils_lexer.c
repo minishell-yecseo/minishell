@@ -16,6 +16,7 @@ t_list	*lexer(char *line, char **envp)
 		free(replace_line);
 		return (NULL);
 	}
+	ret = NULL;
 	set_list_from_line(&ret, replace_line);
 	free(replace_line);
 	build_list_with_space(ret);
@@ -143,7 +144,6 @@ int	add_pipe(t_list **head, char *line)
 
 int	add_quotes(t_list **head, char *line)
 {
-	t_list	*new;
 	char	*new_line;
 	char	quote_type;
 	int		len;
