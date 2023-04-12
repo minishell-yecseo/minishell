@@ -1,10 +1,10 @@
 #include "minishell.h"
 #include "tree.h"
 
-extern int	g_last_exit_code;
-
 void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
+	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	restore_sig();
 	close(tree->stdfds[0]);
 	close(tree->stdfds[1]);
 	close(tree->fds[0]);
@@ -64,6 +64,8 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 
 void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
+	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	restore_sig();
 	if (tree->filefds[1] <= 0)
 		dup2(tree->stdfds[1], 1);
 	close(tree->stdfds[1]);
@@ -95,10 +97,8 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 {
 	pid_t	pid;
 
-	//printf("last cmd\n");
 	if (tree->err == 0)
 	{
-		//printf("%d\n\n", tree->first);
 		if (tree->first == 0 && only_check_built_in(cur->cont.args[0]))
 			g_last_exit_code = one_exe_built_in(cur->cont.args[0], cur->cont.args, envp);
 		else

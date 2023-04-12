@@ -17,10 +17,13 @@ void	wait_forks(t_tree *tree)
 		if (pid == tree->pid)
 		{
 			err = WEXITSTATUS(status);
-			if (tree->is_last_exit == 1)
+			if (WIFSIGNALED(status))
 			{
-				g_last_exit_code = err;
+				g_last_exit_code = 128 + WTERMSIG(status);
+				write(1, "\n", 1);
 			}
+			else if (tree->is_last_exit == 1)
+				g_last_exit_code = err;
 			else
 			{
 				if (err == 2)
@@ -30,7 +33,6 @@ void	wait_forks(t_tree *tree)
 				else
 					g_last_exit_code = err;
 			}
-			
 		}
 	}
 }

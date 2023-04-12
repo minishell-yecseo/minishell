@@ -62,8 +62,11 @@ typedef struct s_tree
 	int					filefds[2];
 	int					here_num;
 	int					is_last_exit;
-	struct sigaction 	sa;
+	int					here_doc;
+	struct sigaction 	old;
+	struct sigaction 	sig;
 	struct termios		term;
+	struct termios		new;
 }					t_tree;
 
 t_tree	*init_tree(void);
