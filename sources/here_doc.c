@@ -32,16 +32,22 @@ int	here_traverse(t_tree *tree, t_node *cur, char ***envp)
 	{
 		if (cur->cont.redir_type == HERE_DOC)
 		{
-			printf("before loop : %d\n", tree->here_doc);
 			if (tree->here_doc != 1)
 			{
 				pid = fork();
 				if (pid == 0)
 				{
-					sigaction(SIGINT, &tree->old, 0);
-					char *input;
-					char *path = ft_strjoin("/tmp/minishell.here_doc.", ft_itoa(tree->here_num));
+					struct sigaction	sig;
 
+					sig.sa_handler = SIG_DFL;
+					sigaction(SIGINT, &sig, 0);
+					char *input;
+					char *num;
+					char *path;
+
+					num = ft_itoa(tree->here_num);
+					path = ft_strjoin("/tmp/minishell.here_doc.", num);
+					free(num);
 					tree->filefds[1] = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 					while (1)
 					{
@@ -68,11 +74,9 @@ int	here_traverse(t_tree *tree, t_node *cur, char ***envp)
 					waitpid(pid, &status, 0);
 					if (WIFSIGNALED(status))
 					{
-						printf("\n");
 						tree->here_doc = 1;
 						g_last_exit_code = 1;
-						return (1);
-					}
+					}	
 				}
 				else
 				{

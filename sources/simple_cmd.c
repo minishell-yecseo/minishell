@@ -3,6 +3,8 @@
 
 void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
+	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	restore_sig();
 	close(tree->stdfds[0]);
 	close(tree->stdfds[1]);
 	close(tree->fds[0]);
@@ -63,6 +65,7 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	restore_sig();
 	if (tree->filefds[1] <= 0)
 		dup2(tree->stdfds[1], 1);
 	close(tree->stdfds[1]);

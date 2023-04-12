@@ -52,7 +52,6 @@ int	main(int argc, char **argv, char **en)
 	t_list	*head;
 	t_tree	*tree;
 	char	*line;
-	struct sigaction	old;
 	struct sigaction	sig;
 	struct termios		old_term;
 	struct termios		term;
@@ -61,7 +60,7 @@ int	main(int argc, char **argv, char **en)
 	// 아래와 같이 사용하실 수 있습니다.
 	// 하지만 아직 syntax 에러를 처리하지 않았습니다.
 	
-	minishell_sig_setting(&old, &sig, &old_term, &term);
+	minishell_sig_setting(&sig, &old_term, &term);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
 	print_init_msg();
@@ -83,7 +82,6 @@ int	main(int argc, char **argv, char **en)
 			}
 			tree->stdfds[0] = dup(0);
 			tree->stdfds[1] = dup(1);
-			tree->old = old;
 			tree->sig = sig;
 			tree->term = old_term;
 			tree->new = term;
@@ -95,15 +93,15 @@ int	main(int argc, char **argv, char **en)
 				tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
 				traverse(tree, tree->root, &envp);
 				wait_forks(tree);
-				dup2(tree->stdfds[1], 1);
-				dup2(tree->stdfds[0], 0);
-				close(tree->stdfds[0]);
-				close(tree->stdfds[1]);
-				free_tree(tree);
+				tcsetattr(STDIN_FILENO, TCSANOW, &term);
 			}
+			dup2(tree->stdfds[1], 1);
+			dup2(tree->stdfds[0], 0);
+			close(tree->stdfds[0]);
+			close(tree->stdfds[1]);
+			free_tree(tree);
 			here_del();
 			change_sig(tree);
-			tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		}
 		free(line);
 	}

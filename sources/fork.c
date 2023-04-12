@@ -19,13 +19,11 @@ void	wait_forks(t_tree *tree)
 			err = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
 			{
-				printf("hi");
 				g_last_exit_code = 128 + WTERMSIG(status);
+				write(1, "\n", 1);
 			}
 			else if (tree->is_last_exit == 1)
-			{
 				g_last_exit_code = err;
-			}
 			else
 			{
 				if (err == 2)
