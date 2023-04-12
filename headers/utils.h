@@ -105,6 +105,10 @@ t_list		*get_word_end_list(t_list *start, t_list *last);
 t_list		*ft_lstnew(t_l_type type, char *line);
 t_list		*ft_lstlast(t_list *lst);
 int			ft_lstadd_back(t_list **lst, t_list *new);
+void		sort_list_by_line(t_list **head);
+int			get_list_len(t_list *node);
+void		list_swap_with_next(t_list **head, t_list *node);
+
 void		ft_print_list(t_list *lst);
 void		print_list_type(t_list *lst);
 void		free_line_list(t_list *head);

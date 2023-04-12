@@ -22,7 +22,7 @@ void	line_syn_err(char *line)
 	free(tmp);
 	if (!msg)
 		exit(0);
-	g_last_exit_code = 2;
+	g_last_exit_code = 258;
 	write(2, msg, ft_strlen(msg));
 	free(msg);
 }
