@@ -40,12 +40,12 @@ void	restore_sig(void)
 	sigaction(SIGQUIT, &sig, 0);
 }
 
-void	minishell_sig_setting(struct sigaction *sig, struct termios *old_term, struct termios *term)
+void	minishell_sig_setting(struct sigaction *sig, \
+		struct termios *old_term, struct termios *term)
 {
 	(*sig).sa_handler = signal_handler;
 	sigaction(SIGINT, sig, 0);
 	sigaction(SIGQUIT, sig, 0);
-
 	tcgetattr(STDIN_FILENO, term);
 	tcgetattr(STDIN_FILENO, old_term);
 	(*term).c_lflag &= ~ECHOCTL;

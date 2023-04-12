@@ -6,13 +6,6 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 	tree->filefds[0] = 0;
 	tree->filefds[1] = 0;
 	tree->err = 0;
-	///STDIN, STDTOUT restore
-	//dup2(tree->stdfds[0], 0);
-	//dup2(tree->stdfds[1], 1);
-	//close(tree->stdfds[0]);
-	//close(tree->stdfds[1]);
-	//tree->stdfds[0] = dup(0);
-	//tree->stdfds[1] = dup(1);
 	if (cur->left == 0)
 		return ;
 	if (cur->right->left != 0)
@@ -26,53 +19,74 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 	}
 }
 
+void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
+{
+	char	*itoa;
+	char	*path;
+
+	itoa = ft_itoa(tree->here_num);
+	path = ft_strjoin("/tmp/minishell.here_doc.", itoa);
+	if (!itoa || !path)
+		func_err("heredoc: malloc");
+	tree->filefds[0] = open(path, O_RDONLY);
+	free(path);
+	free(itoa);
+	if (tree->filefds[0] == -1)
+	{
+		tree->err = 1;
+		perror(cur->cont.file_name);
+	}
+	if (dup2(tree->filefds[0], 0) == -1)
+		func_err("dup2");
+	if (close(tree->filefds[0]) == -1)
+		func_err("close");
+	tree->here_num += 1;
+}
+
+void	exe_in(t_tree *tree, t_node *cur, char ***envp)
+{
+	tree->filefds[0] = open(cur->cont.file_name, O_RDONLY);
+	if (tree->filefds[0] == -1)
+	{
+		tree->err = 1;
+		perror(cur->cont.file_name);
+	}
+	if (dup2(tree->filefds[0], 0) == -1)
+		func_err("dup2");
+	if (close(tree->filefds[0]) == -1)
+		func_err("close");
+}
+
+void	exe_out_t(t_tree *tree, t_node *cur, char ***envp)
+{
+	tree->filefds[1] = open(cur->cont.file_name, \
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (tree->filefds[1] == -1)
+	{
+		tree->err = 1;
+		perror(cur->cont.file_name);
+		return ;
+	}
+	if (dup2(tree->filefds[1], 1) == -1)
+		func_err("dup2");
+	if (close(tree->filefds[1]) == -1)
+		func_err("close");
+}
+
 void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
 {
 	if (tree->err != 0)
-			return ;
+		return ;
 	if (cur->cont.redir_type == IN)
-	{
-		tree->filefds[0] = open(cur->cont.file_name, O_RDONLY);
-		//printf("%d\n\n", tree->filefds[0]);
-		if (tree->filefds[0] == -1)
-		{
-			tree->err = 1;
-			perror(cur->cont.file_name);
-		}
-		dup2(tree->filefds[0], 0);
-		close(tree->filefds[0]);
-	}
+		exe_in(tree, cur, envp);
 	else if (cur->cont.redir_type == HERE_DOC)
-	{
-		char *itoa = ft_itoa(tree->here_num);
-		char *path = ft_strjoin("/tmp/minishell.here_doc.", itoa);
-		tree->filefds[0] = open(path, O_RDONLY);
-		free(path);
-		free(itoa);
-		if (tree->filefds[0] == -1)
-		{
-			tree->err = 1;
-			perror(cur->cont.file_name);
-		}
-		dup2(tree->filefds[0], 0);
-		close(tree->filefds[0]);
-		tree->here_num += 1;
-	}
+		exe_heredoc(tree, cur, envp);
 	else if (cur->cont.redir_type == OUT_T)
-	{
-		tree->filefds[1] = open(cur->cont.file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (tree->filefds[1] == -1)
-		{
-			tree->err = 1;
-			perror(cur->cont.file_name);
-			return ;
-		}
-		dup2(tree->filefds[1], 1);
-		close(tree->filefds[1]);
-	}
+		exe_out_t(tree, cur, envp);
 	else if (cur->cont.redir_type == OUT_A)
 	{
-		tree->filefds[1] = open(cur->cont.file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
+		tree->filefds[1] = open(cur->cont.file_name, \
+					O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (tree->filefds[1] == -1)
 		{
 			tree->err = 1;

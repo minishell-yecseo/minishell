@@ -1,10 +1,9 @@
 #include "minishell.h"
 #include "tree.h"
 
-
 int	one_exe_built_in(char *s, char **args, char ***envp)
 {
-	int out;
+	int	out;
 
 	if (!ft_strcmp(s, "echo"))
 		out = echo(args);

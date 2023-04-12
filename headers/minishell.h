@@ -74,5 +74,6 @@ void	restore_sig(void);
 void	change_sig(t_tree *tree);
 void	ignore_sig(void);
 void	program_end(struct termios old_term);
+void	func_err(char *str);
 
 #endif

@@ -1,12 +1,27 @@
 #include "minishell.h"
 #include "tree.h"
 
+void	update_pwd(char ***envp, char *s)
+{
+	char	*str;
+	char	*pwd;
+
+	str = getcwd(0, 0);
+	if (!str)
+		func_err("getcwd");
+	pwd = ft_strjoin(s, str);
+	if (!pwd)
+		func_err("strjoin");
+	*envp = add_envp(envp, pwd);
+	free(str);
+	free(pwd);
+}
+
 int	cd(char **args, char ***envp)
 {
 	char	*pwd;
 	char	*str;
 
-	
 	if (!args[1])
 	{
 		ft_print_err("cd: please enter relative or absolute path\n");
@@ -14,43 +29,20 @@ int	cd(char **args, char ***envp)
 	}
 	if (!*args[1])
 		return (0);
-	str = getcwd(0, 0);
-	if (!str)
-	{
-		perror(args[0]);
-		exit(3);
-	}
-	pwd = ft_strjoin("OLDPWD=", str);
-	*envp = add_envp(envp, pwd);
-	free(str);
-	free(pwd);
-	
-	
+	update_pwd(envp, "OLDPWD=");
 	if (chdir(args[1]))
 	{
 		ft_print_err("cd: ");
 		perror(args[1]);
 		return (1);
 	}
-
-
-	str = getcwd(0, 0);
-	if (!str)
-	{
-		perror(args[0]);
-		exit(3);
-	}
-
-	pwd = ft_strjoin("PWD=", str);
-	*envp = add_envp(envp, pwd);
-	free(str);
-	free(pwd);
+	update_pwd(envp, "PWD=");
 	return (0);
 }
 
 int	pwd(void)
 {
-	char *str;
+	char	*str;
 
 	str = getcwd(0, 0);
 	if (!str)
@@ -62,11 +54,3 @@ int	pwd(void)
 	free(str);
 	return (0);
 }
-
-
-// int main()
-// {
-// 	char *a[] = {"cd", "tdest", 0};
-// 	cd(a, 0);
-// 	pwd();
-// }

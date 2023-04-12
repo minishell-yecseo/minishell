@@ -10,7 +10,8 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 				exit.c one_built_in.c env.c unset_oldpath.c path_exe.c\
 				utils_lexer.c here_doc_replace_envp.c \
 				settings.c no_cmd.c utils_error.c debug.c \
-				here_doc.c utils_asterisk.c signal.c program_end.c
+				here_doc.c utils_asterisk.c signal.c program_end.c \
+				func_err.c
 
 
 OBJS			= $(SRCS:.c=.o)

@@ -1,0 +1,20 @@
+Makefile
+a
+headers
+libft
+minishell
+sources
+test.sh
+total 392
+drwxr-xr-x  12 yecnam  2022_seoul     408 Apr 12 21:44 .
+drwxr-xr-x  24 yecnam  2022_seoul     816 Apr 12 13:43 ..
+drwxr-xr-x  15 yecnam  2022_seoul     510 Apr 12 21:05 .git
+-rw-r--r--   1 yecnam  2022_seoul     488 Apr  6 17:21 .gitignore
+drwxr-xr-x   3 yecnam  2022_seoul     102 Apr 10 15:40 .vscode
+-rw-r--r--   1 yecnam  2022_seoul    1262 Apr 12 21:25 Makefile
+-rw-r--r--   1 yecnam  2022_seoul      51 Apr 12 21:44 a
+drwxr-xr-x   5 yecnam  2022_seoul     170 Apr 12 14:28 headers
+drwxr-xr-x  54 yecnam  2022_seoul    1836 Apr 12 21:43 libft
+-rwxr-xr-x   1 yecnam  2022_seoul  181072 Apr 12 21:43 minishell
+drwxr-xr-x  72 yecnam  2022_seoul    2448 Apr 12 21:43 sources
+-rw-r--r--   1 yecnam  2022_seoul     999 Apr  7 17:18 test.sh
