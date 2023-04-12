@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "utils.h"
 
 int	build_list_with_asterisk(t_list **head)
 {

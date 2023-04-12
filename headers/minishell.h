@@ -8,7 +8,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-# include <dirent.h>
 # include <sys/stat.h>
 # include <string.h>
 # include <termios.h>
