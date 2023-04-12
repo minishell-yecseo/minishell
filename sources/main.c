@@ -33,21 +33,6 @@ char	**cp_envp(char **envp)
 int	main(int argc, char **argv, char **en)
 {
 	char **envp;
-	// 정보들을 담고 있는 cont 구조체 생성.
-	// 모든 type 에서 각기 필요한 정보를
-	// cont 구조체를 참고하여 사용하면 됨.
-	//
-	// 일단 당장 연습용으로
-	// 실행부는 tree.c 에 있는 traverse 함수를 수정하여
-	// 사용하면 됩니다.
-
-	//터미널 및 시그널 처리
-	//tcgetattr(STDIN_FILENO, &term);
-    //term.c_lflag &= ~(ECHOCTL);
-    //tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	//signal(SIGINT, sigint_handler);
-	//signal(SIGQUIT, SIG_IGN); 
-
 	t_node	*root;
 	t_list	*head;
 	t_tree	*tree;

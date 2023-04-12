@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "tree.h"
 
-void forked_exe(t_tree *tree, t_node *cur, char ***envp)
+void	forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
 	restore_sig();
@@ -16,13 +16,9 @@ void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
 		;
 	else if (!check_path(*envp))
-	{
 		execve(cur->cont.args[0], cur->cont.args, *envp);
-	}
 	else if (check_exefile(cur, *envp))
-	{
 		execve(cur->cont.path, cur->cont.args, *envp);
-	}
 	else
 	{
 		ft_print_err(cur->cont.args[0]);
@@ -35,8 +31,8 @@ void forked_exe(t_tree *tree, t_node *cur, char ***envp)
 
 void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 {
-	pid_t pid;
-	
+	pid_t	pid;
+
 	if (tree->err == 0)
 	{
 		pid = fork();
@@ -62,7 +58,7 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 	}
 }
 
-void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
+void	last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
 	restore_sig();
@@ -80,9 +76,7 @@ void last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 		exit(2);
 	}
 	else if (check_exefile(cur, *envp))
-	{
 		execve(cur->cont.path, cur->cont.args, *envp);
-	}
 	else
 	{
 		ft_print_err(cur->cont.args[0]);
@@ -100,7 +94,8 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 	if (tree->err == 0)
 	{
 		if (tree->first == 0 && only_check_built_in(cur->cont.args[0]))
-			g_last_exit_code = one_exe_built_in(cur->cont.args[0], cur->cont.args, envp);
+			g_last_exit_code = \
+			one_exe_built_in(cur->cont.args[0], cur->cont.args, envp);
 		else
 		{
 			pid = fork();
@@ -114,10 +109,7 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 				dup2(tree->stdfds[0], 0);
 			}
 			else
-			{
-				perror("fork");
-				exit(3);
-			}
+				func_err("fork");
 		}
 	}
 	else

@@ -6,7 +6,7 @@ void	free_envp(char ***envp)
 	int	i;
 
 	i = 0;
-	while((*envp)[i])
+	while ((*envp)[i])
 	{
 		free((*envp)[i]);
 		i++;
@@ -42,6 +42,16 @@ int	ft_envpcmp(char *s1, char *s2)
 	return (1);
 }
 
+char	**make_big_del_arr(char **envp, int i)
+{
+	char	**en;
+
+	en = (char **)ft_calloc(sizeof(char *), (i + 1));
+	if (!en)
+		func_err("calloc");
+	return (en);
+}
+
 char	**del_envp(char **envp, char *str)
 {
 	int		i;
@@ -51,15 +61,7 @@ char	**del_envp(char **envp, char *str)
 	i = 0;
 	while (envp[i])
 		i++;
-	en = (char **)ft_calloc(sizeof(char *), (i + 1));
-	i = 0;
-	while (en[i])
-	{
-		en[i] = 0;
-		i++;
-	}
-	if (!en)
-		exit(1);
+	en = make_big_del_arr(envp, i);
 	i = 0;
 	k = 0;
 	while (envp[i])

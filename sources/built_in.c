@@ -1,10 +1,8 @@
 #include "minishell.h"
 
-extern int	g_last_exit_code;
-
 int	only_check_built_in(char *s)
 {
-	int out;
+	int	out;
 
 	if (!ft_strcmp(s, "echo"))
 		return (1);
@@ -26,7 +24,7 @@ int	only_check_built_in(char *s)
 
 int	check_built_in(char *s, char **args, char ***envp)
 {
-	int out;
+	int	out;
 
 	if (!ft_strcmp(s, "echo"))
 		out = echo(args);

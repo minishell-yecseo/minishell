@@ -7,6 +7,8 @@ void	no_cmd(t_tree *tree, t_node *cur, char ***envp)
 		close(tree->fds[1]);
 		close(tree->fds[0]);
 	}
-	dup2(tree->stdfds[0], 0);
-	dup2(tree->stdfds[1], 1);
+	if (dup2(tree->stdfds[0], 0) == -1)
+		func_err("dup2");
+	if (dup2(tree->stdfds[1], 1) == -1)
+		func_err("dup2");
 }
