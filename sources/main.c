@@ -7,17 +7,6 @@ void	unset_oldpath(char ***envp)
 	*envp = oldpwd_envp(envp, "OLDPWD");
 }
 
-void	sigint_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf(">\n");
-		rl_replace_line("", 1);
-		rl_on_new_line();
-    	rl_redisplay();
-	}
-}
-
 char	**cp_envp(char **envp)
 {
 	int		i;
@@ -62,23 +51,25 @@ int	main(int argc, char **argv, char **en)
 	t_node	*root;
 	t_list	*head;
 	t_tree	*tree;
-	char	*line; 
+	char	*line;
+	struct sigaction	old;
+	struct sigaction	sig;
+	struct termios		old_term;
+	struct termios		term;
 
 	// 이제 get_tree에 line 과 envp 넣어주면 tree 를 알아서 빌드해줍니다.
 	// 아래와 같이 사용하실 수 있습니다.
 	// 하지만 아직 syntax 에러를 처리하지 않았습니다.
 	
-	minishell_setting();
+	minishell_sig_setting(&old, &sig, &old_term, &term);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
 	print_init_msg();
 	while (1)
 	{
-		//색 재밌네여..
 		line = readline("\x1b[38;5;204mminishell-0.1$\x1b[0m ");
-		//line = readline("\x1b[31mminishell-0.1$ \x1b[0m");
 		if (!line)
-			;
+			program_end(old_term);
 		else if (!*line)
 			;
 		else
@@ -92,37 +83,30 @@ int	main(int argc, char **argv, char **en)
 			}
 			tree->stdfds[0] = dup(0);
 			tree->stdfds[1] = dup(1);
-			//int i = 0;
-			//while (envp[i])
-			//{
-			//	printf("%s\n", envp[i]);
-			//	i++;
-			//}
+			tree->old = old;
+			tree->sig = sig;
+			tree->term = old_term;
+			tree->new = term;
+			ignore_sig();
 			here_traverse(tree, tree->root, &envp);
-			tree->here_num = 0;
-			traverse(tree, tree->root, &envp);
-			wait_forks(tree);
-			//printf("\n\n\n\n");
-			//i = 0;
-			//while (envp[i])
-			//{
-			//	printf("%s\n", envp[i]);
-			//	i++;
-			//}
-			//dup2(tree->stdfds[0], 0);
-			dup2(tree->stdfds[1], 1);
-			dup2(tree->stdfds[0], 0);
-			close(tree->stdfds[0]);
-			close(tree->stdfds[1]);
-			free_tree(tree);
+			if (!tree->here_doc)
+			{
+				tree->here_num = 0;
+				tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
+				traverse(tree, tree->root, &envp);
+				wait_forks(tree);
+				dup2(tree->stdfds[1], 1);
+				dup2(tree->stdfds[0], 0);
+				close(tree->stdfds[0]);
+				close(tree->stdfds[1]);
+				free_tree(tree);
+			}
 			here_del();
-			//printf("$? : %d\n", g_last_exit_code);
+			change_sig(tree);
+			tcsetattr(STDIN_FILENO, TCSANOW, &term);
 		}
 		free(line);
 	}
-	//char	buffer[100];
-	//read(0, buffer, 100);
-	//printf("%s\n", buffer);
 	return 0;
 }
 

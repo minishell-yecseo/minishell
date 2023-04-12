@@ -14,7 +14,10 @@
 # include <termios.h>
 # include <term.h>
 # include <sys/ioctl.h>
+# include <sys/signal.h>
+# include <signal.h> 
 # include "utils.h"
+
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -63,8 +66,13 @@ void	no_cmd(t_tree *tree, t_node *cur, char ***envp);
 int		key_cmp(char *s1, char *s2);
 char	**ordering_envp(char **envp);
 void	export_print_envp(char **envp);
-void	here_traverse(t_tree *tree, t_node *cur, char ***envp);
+int		here_traverse(t_tree *tree, t_node *cur, char ***envp);
 char	*ft_itos(int n);
 void	here_del(void);
+void	minishell_sig_setting(struct sigaction *old_sig, struct sigaction *sig, struct termios *old_term, struct termios *term);
+void	restore_sig(t_tree *tree);
+void	change_sig(t_tree *tree);
+void	ignore_sig(void);
+void	program_end(struct termios old_term);
 
 #endif

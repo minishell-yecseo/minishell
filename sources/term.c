@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	minishell_setting(void)
+void	term_setting(void)
 {
 	
 }
