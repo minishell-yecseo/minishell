@@ -5,6 +5,7 @@ int	build_list_with_asterisk(t_list **head)
 	t_list	*node;
 	t_list	*aster_list;
 	t_list	*next;
+	int		is_next_to_heredoc;
 	int		status;
 
 	node = *head;
@@ -12,7 +13,8 @@ int	build_list_with_asterisk(t_list **head)
 	{
 		next = node->next;
 		aster_list = NULL;
-		if (node->type == L_WORD && node->is_quote == 0)
+		set_here_doc_flag(node, &is_next_to_heredoc);
+		if (node->type == L_WORD && node->is_quote == 0 && !is_next_to_heredoc)
 		{
 			if (ft_strcmp("*", node->line) == 0 || \
 					ft_strcmp("./*", node->line) == 0)
@@ -25,6 +27,17 @@ int	build_list_with_asterisk(t_list **head)
 		node = next;
 	}
 	return (1);
+}
+
+void	set_here_doc_flag(t_list *node, int *is_next_to_heredoc)
+{
+	if (node->prev == NULL)
+		*is_next_to_heredoc = 0;
+	else if (node->prev->type == L_REDIR && \
+			ft_strcmp(node->prev->line, "<<") == 0)
+		*is_next_to_heredoc = 1;
+	else
+		*is_next_to_heredoc = 0;
 }
 
 void	join_aster_list(t_list **head, t_list *node, t_list *aster_list)
