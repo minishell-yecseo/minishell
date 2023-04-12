@@ -80,6 +80,7 @@ t_list	*get_entry_name_list(int *status)
 	}
 	closedir(dir);
 	*status = 1;
+	sort_list_by_line(&ret);
 	return (ret);
 }
 
