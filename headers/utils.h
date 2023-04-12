@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <dirent.h>
 # include "libft.h"
 # include "tree.h"
 
@@ -66,6 +67,7 @@ void		tokens_to_one(t_list *list);
 void		free_sub_list(t_list *start, t_list *last);
 
 int			build_list_with_asterisk(t_list **head);
+void		set_here_doc_flag(t_list *node, int *is_next_to_heredoc);
 t_list		*get_entry_name_list(int *status);
 void		dup_and_add_list_entry_name(t_list **head, char *name);
 void		join_aster_list(t_list **head, t_list *node, t_list *aster_list);
