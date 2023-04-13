@@ -14,7 +14,7 @@ void	free_path(char **s)
 	free(s);
 }
 
-int check_exefile(t_node *cur, char **envp)
+int	check_exefile(t_node *cur, char **envp)
 {
 	int		i;
 	char	**paths;
@@ -48,15 +48,3 @@ int check_exefile(t_node *cur, char **envp)
 		return (0);
 	return (1);
 }
-
-//int main(int a, char **av, char **en)
-//{
-//	t_node *cur;
-
-//	cur = (t_node *)malloc(sizeof(t_node));
-//	char *s[] = {"ls", "-al"};
-//	cur->cont.args = s;
-//	check_exefile(cur, en); 
-//	printf("%s\n", cur->cont.path);
-//	system("leaks minishell");
-//}

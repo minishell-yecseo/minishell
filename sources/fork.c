@@ -6,9 +6,9 @@ extern int	g_last_exit_code;
 
 void	wait_forks(t_tree *tree)
 {
-	int err;
-	int status;
-	int pid;
+	int	err;
+	int	status;
+	int	pid;
 
 	pid = 0;
 	while (pid != -1)
@@ -36,3 +36,4 @@ void	wait_forks(t_tree *tree)
 		}
 	}
 }
+
