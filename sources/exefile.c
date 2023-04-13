@@ -14,6 +14,24 @@ void	free_path(char **s)
 	free(s);
 }
 
+void	find_path(t_node *cur, char **paths)
+{
+	int	i;
+
+	i = 0;
+	while (paths[i])
+	{
+		cur->cont.path = path_strjoin(paths[i], cur->cont.args[0]);
+		if (!cur->cont.path)
+			func_err("strjoin");
+		if (access(cur->cont.path, F_OK) == 0)
+			break ;
+		free(cur->cont.path);
+		cur->cont.path = 0;
+		i++;
+	}
+}
+
 int	check_exefile(t_node *cur, char **envp)
 {
 	int		i;
@@ -30,19 +48,8 @@ int	check_exefile(t_node *cur, char **envp)
 	}
 	paths = ft_split(envp[i], ':');
 	if (!paths)
-		exit(1);
-	i = 0;
-	while (paths[i])
-	{
-		cur->cont.path = path_strjoin(paths[i], cur->cont.args[0]);
-		if (!cur->cont.path)
-			exit(1);
-		if (access(cur->cont.path, F_OK) == 0)
-			break ;
-		free(cur->cont.path);
-		cur->cont.path = 0;
-		i++;
-	}
+		func_err("malloc");
+	find_path(cur, paths);
 	free_path(paths);
 	if (cur->cont.path == 0)
 		return (0);

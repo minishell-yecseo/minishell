@@ -2,7 +2,7 @@
 
 void	malloc_fail(void)
 {
-	ft_print_err("malloc fail :(\n");
+	perror("malloc");
 	exit(1);
 }
 

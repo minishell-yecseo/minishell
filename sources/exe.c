@@ -10,36 +10,12 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 		return ;
 	if (cur->right->left != 0)
 	{
-		pipe(tree->fds);
+		if (pipe(tree->fds) == -1)
+			func_err("pipe");
 		tree->first += 1;
 	}
 	else
 		tree->last = 1;
-}
-
-void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
-{
-	char	*itoa;
-	char	*path;
-
-	itoa = ft_itoa(tree->here_num);
-	path = ft_strjoin("/tmp/minishell.here_doc.", itoa);
-	if (!itoa || !path)
-		func_err("heredoc: malloc");
-	tree->filefds[0] = open(path, O_RDONLY);
-	free(path);
-	free(itoa);
-	if (tree->filefds[0] == -1)
-	{
-		tree->err = 1;
-		perror(cur->cont.file_name);
-		return ;
-	}
-	if (dup2(tree->filefds[0], 0) == -1)
-		func_err("dup2");
-	if (close(tree->filefds[0]) == -1)
-		func_err("close");
-	tree->here_num += 1;
 }
 
 void	exe_in(t_tree *tree, t_node *cur, char ***envp)
@@ -92,8 +68,10 @@ void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
 			tree->err = 1;
 			perror(cur->cont.file_name);
 		}
-		dup2(tree->filefds[1], 1);
-		close(tree->filefds[1]);
+		if (dup2(tree->filefds[1], 1) == -1)
+			func_err("dup2");
+		if (close(tree->filefds[1]) == -1)
+			func_err("close");
 	}
 }
 

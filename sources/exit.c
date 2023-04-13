@@ -9,15 +9,13 @@ void	print_exit_err(char *str)
 	exit(255);
 }
 
-int	exit_atoi(char *str)
+int	exit_atoi(char *str, int i)
 {
-	int					i;
 	int					pm;
 	unsigned long long	sum;
 
 	sum = 0;
 	pm = 1;
-	i = 0;
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
@@ -40,7 +38,7 @@ int	exit_atoi(char *str)
 	exit((long long)sum * pm);
 }
 
-int	ft_exit(char **args)
+int	ft_exit(char **args, t_tree *tree)
 {
 	int		i;
 	char	out_code;
@@ -56,6 +54,8 @@ int	ft_exit(char **args)
 		ft_print_err("exit: too many arguments\n");
 		return (1);
 	}
-	exit_atoi(args[1]);
+	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	here_del();
+	exit_atoi(args[1], 0);
 	return (0);
 }

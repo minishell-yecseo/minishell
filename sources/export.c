@@ -11,7 +11,7 @@ char	**make_big_arr(char ***envp)
 		i++;
 	en = (char **)ft_calloc(sizeof(char *), (i + 2));
 	if (!en)
-		malloc_fail();
+		func_err("malloc");
 	return (en);
 }
 
@@ -35,7 +35,7 @@ char	**add_envp(char ***envp, char *str)
 		if (flag2 == 1 || flag2 == 2)
 			flag = 1;
 		if (!en[i])
-			malloc_fail();
+			func_err("malloc");
 	}
 	if (!flag)
 		en[i++] = ft_strdup(str);
@@ -60,6 +60,13 @@ int	check_add_envp(char *str)
 	return (1);
 }
 
+void	print_export_fail(char *s)
+{
+	ft_print_err("export: '");
+	ft_print_err(s);
+	ft_print_err("': not a valid identifier\n");
+}
+
 int	export(char **arg, char ***envp)
 {
 	int	i;
@@ -81,9 +88,7 @@ int	export(char **arg, char ***envp)
 		}
 		else
 		{
-			ft_print_err("export: '");
-			ft_print_err(arg[i]);
-			ft_print_err("': not a valid identifier\n");
+			print_export_fail(arg[i]);
 			end = 1;
 		}
 		i++;

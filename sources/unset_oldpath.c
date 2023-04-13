@@ -46,7 +46,7 @@ char	**oldpwd_envp(char ***envp, char *str)
 		else
 			en[i] = ft_strdup((*envp)[i]);
 		if (!en[i])
-			exit(1);
+			func_err("malloc");
 		i++;
 	}
 	if (!flag)

@@ -22,7 +22,7 @@ int	only_check_built_in(char *s)
 		return (0);
 }
 
-int	check_built_in(char *s, char **args, char ***envp)
+int	check_built_in(t_tree *tree, char *s, char **args, char ***envp)
 {
 	int	out;
 
@@ -39,7 +39,7 @@ int	check_built_in(char *s, char **args, char ***envp)
 	else if (!ft_strcmp(s, "env"))
 		out = env(*envp);
 	else if (!ft_strcmp(s, "exit"))
-		out = ft_exit(args);
+		out = ft_exit(args, tree);
 	else
 		return (0);
 	exit(out);

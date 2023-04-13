@@ -57,7 +57,7 @@ char	*path_strjoin(char const *s1, char const *s2)
 	len2 = ft_strlen(s2);
 	str = (char *)malloc(sizeof(char) * (len1 + len2 + 2));
 	if (!str)
-		return (0);
+		func_err("close");
 	while (i < len1)
 	{
 		str[i] = s1[i];
@@ -71,4 +71,23 @@ char	*path_strjoin(char const *s1, char const *s2)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+void	here_del(void)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
+	while (1)
+	{
+		path = ft_strjoin("/tmp/minishell.here_doc.", ft_itoa(i));
+		if (!path)
+			func_err("malloc");
+		if (unlink(path) != 0)
+			break ;
+		i++;
+		free(path);
+	}
+	free(path);
 }

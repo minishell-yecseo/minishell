@@ -1,6 +1,19 @@
 #include "minishell.h"
 #include "tree.h"
 
+void	free_envp(char ***envp)
+{
+	int	i;
+
+	i = 0;
+	while ((*envp)[i])
+	{
+		free((*envp)[i]);
+		i++;
+	}
+	free(*envp);
+}
+
 int	key_cmp(char *s1, char *s2)
 {
 	int	i;

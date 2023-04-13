@@ -117,7 +117,8 @@ void		free_line_list(t_list *head);
 char		*here_doc_replace_envp(char *line, char **envp);
 
 //error utils
-void		malloc_fail(void);
 void		ft_print_err(char *str);
+void		func_err(char *str);
+void		malloc_fail(void);
 
 #endif
