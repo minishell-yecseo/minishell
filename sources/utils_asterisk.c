@@ -97,12 +97,3 @@ void	dup_and_add_list_entry_name(t_list **head, char *name)
 		malloc_fail();
 	ft_lstadd_back(head, node);
 }
-
-int	dir_open_err(void)
-{
-	char	*msg;
-
-	msg = "minishell: open current directory failed\n";
-	write(2, msg, ft_strlen(msg));
-	return (0);
-}
