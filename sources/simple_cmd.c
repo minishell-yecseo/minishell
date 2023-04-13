@@ -13,7 +13,7 @@ void	forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	close(tree->fds[1]);
 	if (check_char(cur->cont.args[0], '/'))
 		path_exe(cur->cont.args, envp);
-	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
+	else if (check_built_in(tree, cur->cont.args[0], cur->cont.args, envp))
 		;
 	else if (!check_path(*envp))
 		execve(cur->cont.args[0], cur->cont.args, *envp);
@@ -45,10 +45,7 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 			close(tree->fds[0]);
 		}
 		else
-		{
-			perror("fork");
-			exit(1);
-		}
+			func_err("fork");
 	}
 	else
 	{
@@ -68,7 +65,7 @@ void	last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	close(tree->stdfds[1]);
 	if (check_char(cur->cont.args[0], '/'))
 		path_exe(cur->cont.args, envp);
-	else if (check_built_in(cur->cont.args[0], cur->cont.args, envp))
+	else if (check_built_in(tree, cur->cont.args[0], cur->cont.args, envp))
 		;
 	else if (!check_path(*envp))
 	{
@@ -88,6 +85,15 @@ void	last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	exit(1);
 }
 
+void	last_com(t_tree *tree, pid_t pid)
+{
+	tree->pid = pid;
+	if (close(tree->fds[1]) == -1)
+		func_err("close");
+	if (close(tree->fds[0]) == -1)
+		func_err("close");
+}
+
 void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 {
 	pid_t	pid;
@@ -96,7 +102,7 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 	{
 		if (tree->first == 0 && only_check_built_in(cur->cont.args[0]))
 			g_last_exit_code = \
-			one_exe_built_in(cur->cont.args[0], cur->cont.args, envp);
+			one_exe_built_in(tree, cur->cont.args[0], cur->cont.args, envp);
 		else
 		{
 			pid = fork();
@@ -106,9 +112,7 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 			{
 				if (!ft_strcmp(cur->cont.args[0], "exit"))
 					tree->is_last_exit = 1;
-				tree->pid = pid;
-				close(tree->fds[1]);
-				close(tree->fds[0]);
+				last_com(tree, pid);
 			}
 			else
 				func_err("fork");
