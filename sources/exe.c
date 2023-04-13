@@ -33,6 +33,7 @@ void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
 	{
 		tree->err = 1;
 		perror(cur->cont.file_name);
+		return ;
 	}
 	if (dup2(tree->filefds[0], 0) == -1)
 		func_err("dup2");
@@ -48,6 +49,7 @@ void	exe_in(t_tree *tree, t_node *cur, char ***envp)
 	{
 		tree->err = 1;
 		perror(cur->cont.file_name);
+		return ;
 	}
 	if (dup2(tree->filefds[0], 0) == -1)
 		func_err("dup2");
