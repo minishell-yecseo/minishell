@@ -33,7 +33,6 @@ int	quote_pair_syntax_checker(char *line)
 	if (quote != 0)
 	{
 		quote_err();
-		free(line);
 		return (0);
 	}
 	return (1);

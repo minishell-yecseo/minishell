@@ -6,13 +6,14 @@ t_list	*lexer(char *line, char **envp)
 	char	*replace_line;
 	int		syntax;
 
-	syntax = pre_syntax_checker(line);
-	if (!syntax)
+	if (!pre_syntax_checker(line))
 		return (NULL);
 	replace_line = get_line_replace_envp(line, envp);
-	syntax = quote_pair_syntax_checker(replace_line);
-	if (!syntax)
+	if (!quote_pair_syntax_checker(replace_line))
+	{
+		free(replace_line);
 		return (NULL);
+	}
 	ret = NULL;
 	set_list_from_line(&ret, replace_line);
 	free(replace_line);
