@@ -85,15 +85,6 @@ void	last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	exit(1);
 }
 
-void	last_com(t_tree *tree, pid_t pid)
-{
-	tree->pid = pid;
-	if (close(tree->fds[1]) == -1)
-		func_err("close");
-	if (close(tree->fds[0]) == -1)
-		func_err("close");
-}
-
 void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 {
 	pid_t	pid;
@@ -112,7 +103,7 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 			{
 				if (!ft_strcmp(cur->cont.args[0], "exit"))
 					tree->is_last_exit = 1;
-				last_com(tree, pid);
+				tree->pid = pid;
 			}
 			else
 				func_err("fork");
