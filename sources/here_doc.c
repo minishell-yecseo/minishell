@@ -21,8 +21,7 @@ void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
 	}
 	if (dup2(tree->filefds[0], 0) == -1)
 		func_err("dup2");
-	if (close(tree->filefds[0]) == -1)
-		func_err("close");
+	close(tree->filefds[0]);
 	tree->here_num += 1;
 }
 
