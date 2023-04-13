@@ -69,6 +69,13 @@ typedef struct s_tree
 	struct termios		new;
 }					t_tree;
 
+typedef struct s_set
+{
+	struct sigaction	sig;
+	struct termios		old_term;
+	struct termios		term;
+}						t_set;
+
 t_tree	*init_tree(void);
 void	tree_set_root(t_tree *tree, t_node *node);
 t_node	*create_node(t_token type);

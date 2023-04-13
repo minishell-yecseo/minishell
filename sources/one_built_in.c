@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "tree.h"
 
-int	one_exe_built_in(char *s, char **args, char ***envp)
+int	one_exe_built_in(t_tree *tree, char *s, char **args, char ***envp)
 {
 	int	out;
 
@@ -18,7 +18,7 @@ int	one_exe_built_in(char *s, char **args, char ***envp)
 	else if (!ft_strcmp(s, "env"))
 		out = env(*envp);
 	else if (!ft_strcmp(s, "exit"))
-		out = ft_exit(args);
+		out = ft_exit(args, tree);
 	else
 		return (-1);
 	return (out);

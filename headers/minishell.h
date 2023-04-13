@@ -29,12 +29,11 @@ void	wait_forks(t_tree *tree);
 void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp);
 void	forked_exe(t_tree *tree, t_node *cur, char ***envp);
 int		check_char(char *s, char c);
-int		check_built_in(char *s, char **args, char ***envp);
 int		check_path(char **envp);
 int		check_is_path(char *s);
 int		check_exefile(t_node *cur, char **envp);
 void	last_simple_com(t_tree *tree, t_node *cur, char ***envp);
-int		check_built_in(char *s, char **args, char ***envp);
+int		check_built_in(t_tree *tree, char *s, char **args, char ***envp);
 int		echo(char **args);
 
 char	**cp_envp(char **envp);
@@ -48,9 +47,9 @@ int		cd(char **args, char ***envp);
 int		ft_envpcmp(char *s1, char *s2);
 
 char	*path_strjoin(char const *s1, char const *s2);
-int		ft_exit(char **args);
+int		ft_exit(char **args, t_tree *tree);
 int		env(char **envp);
-int		one_exe_built_in(char *s, char **args, char ***envp);
+int		one_exe_built_in(t_tree *tree, char *s, char **args, char ***envp);
 int		only_check_built_in(char *s);
 char	**add_envp(char ***envp, char *str);
 
@@ -74,5 +73,6 @@ void	change_sig(t_tree *tree);
 void	ignore_sig(void);
 void	program_end(struct termios old_term);
 void	func_err(char *str);
+void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp);
 
 #endif
