@@ -53,6 +53,7 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 	else
 	{
 		close(tree->fds[1]);
+		dup2(tree->fds[0], 0);
 		close(tree->fds[0]);
 		tree->err = 0;
 	}
@@ -106,7 +107,8 @@ void	last_simple_com(t_tree *tree, t_node *cur, char ***envp)
 				if (!ft_strcmp(cur->cont.args[0], "exit"))
 					tree->is_last_exit = 1;
 				tree->pid = pid;
-				dup2(tree->stdfds[0], 0);
+				close(tree->fds[1]);
+				close(tree->fds[0]);
 			}
 			else
 				func_err("fork");
