@@ -57,7 +57,7 @@ char	*path_strjoin(char const *s1, char const *s2)
 	len2 = ft_strlen(s2);
 	str = (char *)malloc(sizeof(char) * (len1 + len2 + 2));
 	if (!str)
-		func_err("close");
+		func_err("malloc");
 	while (i < len1)
 	{
 		str[i] = s1[i];
