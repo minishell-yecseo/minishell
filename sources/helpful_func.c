@@ -17,7 +17,7 @@ int	check_char(char *s, char c)
 int	check_path(char **envp)
 {
 	int	i;
-	
+
 	i = 0;
 	while (envp[i])
 	{
@@ -69,6 +69,6 @@ char	*path_strjoin(char const *s1, char const *s2)
 		str[i] = s2[i - len1 - 1];
 		i++;
 	}
-	str[i] = 0;
+	str[i] = '\0';
 	return (str);
 }

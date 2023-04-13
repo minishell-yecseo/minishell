@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "utils.h"
 
-void print_exit_err(char *str)
+void	print_exit_err(char *str)
 {
 	ft_print_err("exit: ");
 	ft_print_err(str);
@@ -40,7 +40,7 @@ int	exit_atoi(char *str)
 	exit((long long)sum * pm);
 }
 
-int ft_exit(char **args)
+int	ft_exit(char **args)
 {
 	int		i;
 	char	out_code;
@@ -59,9 +59,3 @@ int ft_exit(char **args)
 	exit_atoi(args[1]);
 	return (0);
 }
-
-//int main()
-//{
-//	char *args[] = {"exit", 0, 0};
-//	ft_exit(args);
-//}

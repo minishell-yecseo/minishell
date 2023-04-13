@@ -68,54 +68,25 @@ int	export(char **arg, char ***envp)
 	i = 1;
 	end = 0;
 	if (!arg[1])
-		export_print_envp(*envp);
-	else
 	{
-		while (arg[i])
+		export_print_envp(*envp);
+		return (end);
+	}
+	while (arg[i])
+	{
+		if (check_add_envp(arg[i]) == 1)
 		{
-			if (check_add_envp(arg[i]) == 1)
-			{
-				*envp = add_envp(envp, arg[i]);
-				end = 0;
-			}
-			else
-			{
-				ft_print_err("export: '");
-				ft_print_err(arg[i]);
-				ft_print_err("': not a valid identifier\n");
-				end = 1;
-			}
-			i++;
+			*envp = add_envp(envp, arg[i]);
+			end = 0;
 		}
+		else
+		{
+			ft_print_err("export: '");
+			ft_print_err(arg[i]);
+			ft_print_err("': not a valid identifier\n");
+			end = 1;
+		}
+		i++;
 	}
 	return (end);
 }
-
-//int main(int argc, char **argv, char **en)
-//{
-//	char **envp;
-
-//	envp = cp_envp(en);
-//	int i = 0;
-//	//while (envp[i])
-//	//{
-//	//	printf("%s\n", envp[i]);
-//	//	i++;
-//	//}
-//	char *str_arr[] = {"export", "ZZZZZZZZZ=hi", "a", "a=a", "1", "SADF1!=A" ,0};
-//	char *str2[] = {"unset", "ZZZZZZZZZ", "asdf=", "1", 0};
-//	export(str_arr, &envp);
-	
-//	unset(str2, &envp);
-
-//	char *str_arr2[] = {"export", 0};
-//	export(str_arr2, &envp);
-//	//i = 0;
-//	// while (envp[i])
-//	// {
-//	// 	printf("%s\n", envp[i]);
-//	// 	i++;
-//	// }
-//	free_envp(&envp);
-//	system("leaks minishell");
-//}

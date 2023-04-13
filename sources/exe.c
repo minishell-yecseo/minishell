@@ -14,9 +14,7 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 		tree->first += 1;
 	}
 	else
-	{
 		tree->last = 1;
-	}
 }
 
 void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
@@ -102,19 +100,13 @@ void	exe_cur(t_tree *tree, t_node *cur, char ***envp)
 	if (cur->type == PIPE)
 		exe_pipe(tree, cur);
 	else if (cur->type == CMD)
-		;
+		return ;
 	else if (cur->type == REDIR)
 		exe_redir(tree, cur, envp);
 	else if (cur->type == SIMPLE_CMD && tree->last == 0)
-	{
 		exe_simple_com(tree, cur, envp);
-	}
 	else if (cur->type == SIMPLE_CMD && tree->last == 1)
-	{
 		last_simple_com(tree, cur, envp);
-	}	
 	else if (cur->type == NO_CMD)
-	{
 		no_cmd(tree, cur, envp);
-	}
 }

@@ -34,7 +34,6 @@ char	**ordering_envp(char **envp)
 	int		i;
 	int		j;
 
-	
 	en = cp_envp(envp);
 	i = 0;
 	while (en[i])
@@ -43,7 +42,7 @@ char	**ordering_envp(char **envp)
 		while (en[j])
 		{
 			if (en[j][0] == 0)
-				break;
+				break ;
 			if (key_cmp(en[i], en[j]) > 0)
 			{
 				tmp = en[i];
