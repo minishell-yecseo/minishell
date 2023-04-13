@@ -43,6 +43,7 @@ void	tree_start(t_tree *tree, char *line, char **envp, t_set sa)
 {
 	tree = get_tree(line, envp);
 	add_history(line);
+	free(line);
 	if (!tree)
 		return ;
 	tree_set_exe(tree, sa);
@@ -65,6 +66,11 @@ void	tree_start(t_tree *tree, char *line, char **envp, t_set sa)
 	change_sig(tree);
 }
 
+void test()
+{
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **en)
 {
 	char	**envp;
@@ -72,6 +78,10 @@ int	main(int argc, char **argv, char **en)
 	char	*line;
 	t_set	sa;			
 
+	atexit(test);
+	//char *hi;
+	//hi = (char *)malloc(3000000);
+	//hi = 0;
 	minishell_sig_setting(&sa.sig, &sa.old_term, &sa.term);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
@@ -82,11 +92,12 @@ int	main(int argc, char **argv, char **en)
 		line = readline("\x1b[38;5;204mminishell-0.1$\x1b[0m ");
 		if (!line)
 			program_end(sa.old_term);
+		else if (!*line)
+			free(line);
 		else if (*line)
 		{
 			tree_start(tree, line, envp, sa);
 		}
-		free(line);
 	}
 	return (0);
 }
