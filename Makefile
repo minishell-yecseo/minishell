@@ -13,7 +13,8 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 				here_doc.c utils_asterisk.c signal.c program_end.c \
 				func_err.c \
 				utils_lexer_2.c utils_lexer_3.c utils_list_2.c \
-				utils_replace_envp_2.c utils_tree_build_2.c utils_syntax_2.c
+				utils_replace_envp_2.c utils_tree_build_2.c utils_syntax_2.c \
+				tree_2.c traverse.c
 
 
 OBJS			= $(SRCS:.c=.o)

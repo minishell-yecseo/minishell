@@ -22,6 +22,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
+int		traverse(t_tree *tree, t_node *cur, char ***envp);
 int		g_last_exit_code;
 void	exe_cur(t_tree *tree, t_node *cur, char ***envp);
 void	wait_forks(t_tree *tree);
