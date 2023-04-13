@@ -33,8 +33,6 @@ char	**cp_envp(char **envp)
 int	main(int argc, char **argv, char **en)
 {
 	char				**envp;
-	t_node				*root;
-	t_list				*head;
 	t_tree				*tree;
 	char				*line;
 	struct sigaction	sig;
@@ -50,9 +48,7 @@ int	main(int argc, char **argv, char **en)
 		line = readline("\x1b[38;5;204mminishell-0.1$\x1b[0m ");
 		if (!line)
 			program_end(old_term);
-		else if (!*line)
-			;
-		else
+		else if (*line)
 		{
 			tree = get_tree(line, envp);
 			add_history(line);
