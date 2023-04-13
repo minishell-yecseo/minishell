@@ -69,13 +69,13 @@ int	main(int argc, char **argv, char **en)
 				tree->here_num = 0;
 				tcsetattr(STDIN_FILENO, TCSANOW, &old_term);
 				traverse(tree, tree->root, &envp);
+				dup2(tree->stdfds[1], 1);
+				dup2(tree->stdfds[0], 0);
+				close(tree->stdfds[0]);
+				close(tree->stdfds[1]);
 				wait_forks(tree);
 				tcsetattr(STDIN_FILENO, TCSANOW, &term);
 			}
-			dup2(tree->stdfds[1], 1);
-			dup2(tree->stdfds[0], 0);
-			close(tree->stdfds[0]);
-			close(tree->stdfds[1]);
 			free_tree(tree);
 			here_del();
 			change_sig(tree);
