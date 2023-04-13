@@ -5,11 +5,16 @@ void	here_del(void)
 {
 	int		i;
 	char	*path;
+	char	*num;
 
 	i = 0;
 	while (1)
 	{
-		path = ft_strjoin("/tmp/minishell.here_doc.", ft_itoa(i));
+		num = ft_itoa(i);
+		if (!num)
+			malloc_fail();
+		path = ft_strjoin("/tmp/minishell.here_doc.", num);
+		free(num);
 		if (!path)
 			malloc_fail();
 		if (unlink(path) != 0)
@@ -45,6 +50,8 @@ int	here_traverse(t_tree *tree, t_node *cur, char ***envp)
 				num = ft_itoa(tree->here_num);
 				path = ft_strjoin("/tmp/minishell.here_doc.", num);
 				free(num);
+				if (!path)
+					malloc_fail();
 				tree->filefds[1] = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				while (1)
 				{
