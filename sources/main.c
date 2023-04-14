@@ -68,7 +68,7 @@ void	tree_start(t_tree *tree, char *line, char **envp, t_set sa)
 
 void test()
 {
-	system("leaks minishell");
+	system("leaks --list -- $PPID");
 }
 
 int	main(int argc, char **argv, char **en)
@@ -78,10 +78,7 @@ int	main(int argc, char **argv, char **en)
 	char	*line;
 	t_set	sa;			
 
-	atexit(test);
-	//char *hi;
-	//hi = (char *)malloc(3000000);
-	//hi = 0;
+	//atexit(test);
 	minishell_sig_setting(&sa.sig, &sa.old_term, &sa.term);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
