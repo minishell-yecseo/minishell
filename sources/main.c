@@ -39,21 +39,21 @@ void	tree_set_exe(t_tree *tree, t_set sa)
 	tree->new = sa.term;
 }
 
-void	tree_start(t_tree *tree, char *line, char **envp, t_set sa)
+void	tree_start(t_tree *tree, char *line, char ***envp, t_set sa)
 {
-	tree = get_tree(line, envp);
+	tree = get_tree(line, *envp);
 	add_history(line);
 	free(line);
 	if (!tree)
 		return ;
 	tree_set_exe(tree, sa);
 	ignore_sig();
-	here_traverse(tree, tree->root, &envp);
+	here_traverse(tree, tree->root, envp);
 	if (!tree->here_doc)
 	{
 		tree->here_num = 0;
 		tcsetattr(STDIN_FILENO, TCSANOW, &sa.old_term);
-		traverse(tree, tree->root, &envp);
+		traverse(tree, tree->root, envp);
 		dup2(tree->stdfds[1], 1);
 		dup2(tree->stdfds[0], 0);
 		close(tree->stdfds[0]);
@@ -70,7 +70,7 @@ void test()
 {
 	system("leaks --list -- $PPID");
 }
-
+//"\x1b[38;5;204mminishell-0.1$\x1b[0m "
 int	main(int argc, char **argv, char **en)
 {
 	char	**envp;
@@ -86,14 +86,14 @@ int	main(int argc, char **argv, char **en)
 	print_init_msg();
 	while (1)
 	{
-		line = readline("\x1b[38;5;204mminishell-0.1$\x1b[0m ");
+		line = readline("minishell-0.1$ ");
 		if (!line)
 			program_end(sa.old_term);
 		else if (!*line)
 			free(line);
 		else if (*line)
 		{
-			tree_start(tree, line, envp, sa);
+			tree_start(tree, line, &envp, sa);
 		}
 	}
 	return (0);
