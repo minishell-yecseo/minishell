@@ -76,13 +76,16 @@ char	*path_strjoin(char const *s1, char const *s2)
 void	here_del(void)
 {
 	int		i;
+	char	*num;
 	char	*path;
 
 	i = 0;
 	while (1)
 	{
-		path = ft_strjoin("/tmp/minishell.here_doc.", ft_itoa(i));
-		if (!path)
+		num = ft_itoa(i);
+		path = ft_strjoin("/tmp/minishell.here_doc.", num);
+		free(num);
+		if (!path || !num)
 			func_err("malloc");
 		if (unlink(path) != 0)
 			break ;

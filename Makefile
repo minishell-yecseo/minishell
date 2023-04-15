@@ -27,7 +27,7 @@ LIB_DIR			= ./libft
 LIB			= ./libft/libft.a
 
 CC				= cc
-CFLAGS			= -g3 -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			= -g #-fsanitize=address #-Wall -Wextra -Werror
 READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
 
 #READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib

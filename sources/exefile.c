@@ -19,6 +19,7 @@ void	find_path(t_node *cur, char **paths)
 	int	i;
 
 	i = 0;
+	free(cur->cont.path);
 	while (paths[i])
 	{
 		cur->cont.path = path_strjoin(paths[i], cur->cont.args[0]);
