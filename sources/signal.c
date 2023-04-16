@@ -9,6 +9,7 @@ void	signal_handler(int sig)
 	}
 	if (sig == SIGINT)
 	{
+		g_last_exit_code = 1;
 		write(1, "\n", 1);
 		rl_replace_line("", 1);
 		rl_on_new_line();
