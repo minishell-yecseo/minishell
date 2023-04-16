@@ -64,6 +64,6 @@ int	ft_exit(char **args, t_tree *tree)
 		ft_print_err("exit: too many arguments\n");
 		return (1);
 	}
-	exit (end);
+	exit_end(tree, end);
 	return (0);
 }
