@@ -19,9 +19,8 @@ void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
 		perror(cur->cont.file_name);
 		return ;
 	}
-	if (dup2(tree->filefds[0], 0) == -1)
-		func_err("dup2");
-	close(tree->filefds[0]);
+	ft_dup2(tree->filefds[0], 0);
+	ft_close(tree->filefds[0]);
 	tree->here_num += 1;
 }
 
@@ -65,7 +64,7 @@ void	here_doc_fork(t_tree *tree, t_node *cur, char ***envp)
 	tree->filefds[1] = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	get_here_line(tree, cur, envp);
 	free(path);
-	close(tree->filefds[1]);
+	ft_close(tree->filefds[1]);
 	//system("leaks minishell");
 	exit(0);
 }

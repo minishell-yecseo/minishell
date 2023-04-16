@@ -5,12 +5,12 @@ void	forked_exe(t_tree *tree, t_node *cur, char ***envp)
 {
 	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
 	restore_sig();
-	close(tree->stdfds[0]);
-	close(tree->stdfds[1]);
-	close(tree->fds[0]);
+	ft_close(tree->stdfds[0]);
+	ft_close(tree->stdfds[1]);
+	ft_close(tree->fds[0]);
 	if (tree->filefds[1] <= 0)
-		dup2(tree->fds[1], 1);
-	close(tree->fds[1]);
+		ft_dup2(tree->fds[1], 1);
+	ft_close(tree->fds[1]);
 	if (check_char(cur->cont.args[0], '/'))
 		path_exe(cur->cont.args, envp);
 	else if (check_built_in(tree, cur->cont.args[0], cur->cont.args, envp))
@@ -40,18 +40,18 @@ void	exe_simple_com(t_tree *tree, t_node *cur, char ***envp)
 			forked_exe(tree, cur, envp);
 		else if (pid > 0)
 		{
-			close(tree->fds[1]);
-			dup2(tree->fds[0], 0);
-			close(tree->fds[0]);
+			ft_close(tree->fds[1]);
+			ft_dup2(tree->fds[0], 0);
+			ft_close(tree->fds[0]);
 		}
 		else
 			func_err("fork");
 	}
 	else
 	{
-		close(tree->fds[1]);
-		dup2(tree->fds[0], 0);
-		close(tree->fds[0]);
+		ft_close(tree->fds[1]);
+		ft_dup2(tree->fds[0], 0);
+		ft_close(tree->fds[0]);
 		tree->err = 0;
 	}
 }
@@ -61,8 +61,8 @@ void	last_forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
 	restore_sig();
 	if (tree->filefds[1] <= 0)
-		dup2(tree->stdfds[1], 1);
-	close(tree->stdfds[1]);
+		ft_dup2(tree->stdfds[1], 1);
+	ft_close(tree->stdfds[1]);
 	if (check_char(cur->cont.args[0], '/'))
 		path_exe(cur->cont.args, envp);
 	else if (check_built_in(tree, cur->cont.args[0], cur->cont.args, envp))

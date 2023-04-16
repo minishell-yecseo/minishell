@@ -10,7 +10,7 @@ char	*here_doc_replace_envp(char *line, char **envp)
 
 	new = ft_strdup(line);
 	if (!new)
-		exit(0);
+		func_err("strdup");
 	tmp = line;
 	quote = 0;
 	while (*tmp)
@@ -20,6 +20,8 @@ char	*here_doc_replace_envp(char *line, char **envp)
 		{
 			old = new;
 			new = get_replaced_line(old, tmp, &len, envp);
+			if (!new)
+				func_err("strdup");
 			free(old);
 		}
 		tmp += len;

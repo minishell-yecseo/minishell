@@ -27,9 +27,8 @@ void	exe_in(t_tree *tree, t_node *cur, char ***envp)
 		perror(cur->cont.file_name);
 		return ;
 	}
-	if (dup2(tree->filefds[0], 0) == -1)
-		func_err("dup2");
-	close(tree->filefds[0]);
+	ft_dup2(tree->filefds[0], 0);
+	ft_close(tree->filefds[0]);
 }
 
 void	exe_out_t(t_tree *tree, t_node *cur, char ***envp)
@@ -42,9 +41,8 @@ void	exe_out_t(t_tree *tree, t_node *cur, char ***envp)
 		perror(cur->cont.file_name);
 		return ;
 	}
-	if (dup2(tree->filefds[1], 1) == -1)
-		func_err("dup2");
-	close(tree->filefds[1]);
+	ft_dup2(tree->filefds[1], 1);
+	ft_close(tree->filefds[1]);
 }
 
 void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
@@ -66,9 +64,8 @@ void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
 			tree->err = 1;
 			perror(cur->cont.file_name);
 		}
-		if (dup2(tree->filefds[1], 1) == -1)
-			func_err("dup2");
-		close(tree->filefds[1]);
+		ft_dup2(tree->filefds[1], 1);
+		ft_close(tree->filefds[1]);
 	}
 }
 
