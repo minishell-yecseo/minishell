@@ -35,12 +35,20 @@ int	exit_atoi(char *str, int i)
 			(sum > 9223372036854775808ULL && pm == -1))
 			print_exit_err(str);
 	}
-	exit((long long)sum * pm);
+	return (sum * pm);
+}
+
+void	exit_end(t_tree *tree, int end)
+{
+	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	here_del();
+	exit(end);
 }
 
 int	ft_exit(char **args, t_tree *tree)
 {
 	int		i;
+	int		end;
 	char	out_code;
 
 	ft_print_err("exit\n");
@@ -48,14 +56,14 @@ int	ft_exit(char **args, t_tree *tree)
 	while (args[i])
 		i++;
 	if (i == 1)
-		exit (0);
-	else if (i > 2)
+		exit_end(tree, 0);
+	else
+		end = exit_atoi(args[1], 0);
+	if (i > 2)
 	{
 		ft_print_err("exit: too many arguments\n");
 		return (1);
 	}
-	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
-	here_del();
-	exit_atoi(args[1], 0);
+	exit (end);
 	return (0);
 }
