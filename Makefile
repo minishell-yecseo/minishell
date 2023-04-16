@@ -28,16 +28,16 @@ LIB			= ./libft/libft.a
 
 CC				= cc
 CFLAGS			= -g #-fsanitize=address #-Wall -Wextra -Werror
-# READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
+READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
 
-READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
-OBJS_READLINE	= -I/opt/homebrew/opt/readline/include
+# READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
+# OBJS_READLINE	= -I/opt/homebrew/opt/readline/include
 
 
 all : $(NAME)
 
 %.o : %.c
-	$(CC) $(INC) $(CFLAGS) $(OBJS_READLINE) -c $< -o $@
+	$(CC) $(INC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS) $(LIB)
 	$(CC) $(INC) $(CFLAGS) $(LIB) $(READLINE) -o $@ $^
