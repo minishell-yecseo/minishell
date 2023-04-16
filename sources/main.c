@@ -63,7 +63,6 @@ void	tree_start(t_tree *tree, char *line, char ***envp, t_set sa)
 	}
 	free_tree(tree);
 	here_del();
-	change_sig(tree);
 }
 
 void test()
@@ -94,7 +93,10 @@ int	main(int argc, char **argv, char **en)
 		else if (*line)
 		{
 			tree_start(tree, line, &envp, sa);
+			sigaction(SIGINT, &sa.sig, 0);
+			sigaction(SIGQUIT, &sa.sig, 0);
 		}
+		
 	}
 	return (0);
 }
