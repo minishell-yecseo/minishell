@@ -63,6 +63,7 @@ void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
 		{
 			tree->err = 1;
 			perror(cur->cont.file_name);
+			return ;
 		}
 		ft_dup2(tree->filefds[1], 1);
 		ft_close(tree->filefds[1]);
