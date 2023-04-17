@@ -11,6 +11,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <termios.h>
+# include "libft.h"
 
 typedef enum e_token
 {
@@ -82,7 +83,7 @@ t_node	*create_node(t_token type);
 void	insert_left(t_node *parent, t_node *child);
 void	insert_right(t_node *parent, t_node *child);
 
-int		traverse(t_tree *tree, t_node *cur, char ***envp);
+//int		traverse(t_tree *tree, t_node *cur, char ***envp);
 
 void	free_tree(t_tree *tree);
 void	free_tree_node(t_node *node);

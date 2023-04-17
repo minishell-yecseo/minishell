@@ -2,22 +2,23 @@
 
 int	add_redir(t_list **head, char *line)
 {
-	t_list	*new;
+	t_list	*new_list;
 	int		len;
 
+	new_list = NULL;
 	if (*line == '<' && *(line + 1) != '<')
-		new = ft_lstnew(L_REDIR, "<");
+		new_list = ft_lstnew(L_REDIR, "<");
 	else if (*line == '<' && *(line + 1) == '<')
-		new = ft_lstnew(L_REDIR, "<<");
+		new_list = ft_lstnew(L_REDIR, "<<");
 	else if (*line == '>' && *(line + 1) != '>')
-		new = ft_lstnew(L_REDIR, ">");
+		new_list = ft_lstnew(L_REDIR, ">");
 	else if (*line == '>' && *(line + 1) == '>')
-		new = ft_lstnew(L_REDIR, ">>");
-	if (!new)
+		new_list = ft_lstnew(L_REDIR, ">>");
+	if (!new_list)
 		malloc_fail();
-	new->is_end = 1;
-	ft_lstadd_back(head, new);
-	len = ft_strlen(new->line);
+	new_list->is_end = 1;
+	ft_lstadd_back(head, new_list);
+	len = ft_strlen(new_list->line);
 	return (len);
 }
 
@@ -25,6 +26,8 @@ int	add_pipe(t_list **head, char *line)
 {
 	t_list	*lst;
 
+	if (!line || *line != '|')
+		return (0);
 	lst = ft_lstnew(L_PIPE, "|");
 	if (!lst)
 		malloc_fail();
@@ -37,9 +40,7 @@ int	add_quotes(t_list **head, char *line)
 {
 	t_list	*new_list;
 	char	*new_line;
-	char	quote_type;
 	int		len;
-	int		type;
 
 	len = get_quotes_len_for_list(line);
 	new_line = ft_substr(line, 1, len - 1);
