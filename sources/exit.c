@@ -1,15 +1,22 @@
 #include "minishell.h"
 #include "utils.h"
 
-void	print_exit_err(char *str)
+void	exit_end(t_tree *tree, int end)
+{
+	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
+	here_del();
+	exit(end);
+}
+
+void	print_exit_err(char *str, t_tree *tree)
 {
 	ft_print_err("exit: ");
 	ft_print_err(str);
 	ft_print_err(": numeric argument required\n");
-	exit(255);
+	exit_end(tree, 255);
 }
 
-int	exit_atoi(char *str, int i)
+int	exit_atoi(char *str, int i, t_tree *tree)
 {
 	int					pm;
 	unsigned long long	sum;
@@ -30,19 +37,12 @@ int	exit_atoi(char *str, int i)
 			i++;
 		}
 		else
-			print_exit_err(str);
+			print_exit_err(str, tree);
 		if ((sum > 9223372036854775807 && pm == 1) || \
 			(sum > 9223372036854775808ULL && pm == -1))
-			print_exit_err(str);
+			print_exit_err(str, tree);
 	}
 	return (sum * pm);
-}
-
-void	exit_end(t_tree *tree, int end)
-{
-	tcsetattr(STDIN_FILENO, TCSANOW, &tree->term);
-	here_del();
-	exit(end);
 }
 
 int	ft_exit(char **args, t_tree *tree)
@@ -57,7 +57,7 @@ int	ft_exit(char **args, t_tree *tree)
 	if (i == 1)
 		exit_end(tree, 0);
 	else
-		end = exit_atoi(args[1], 0);
+		end = exit_atoi(args[1], 0, tree);
 	if (i > 2)
 	{
 		ft_print_err("exit: too many arguments\n");
