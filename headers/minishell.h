@@ -75,5 +75,7 @@ void	ignore_sig(void);
 void	program_end(struct termios old_term);
 void	func_err(char *str);
 void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp);
+void	ft_close(int fd);
+void	ft_dup2(int fd1, int fd2);
 
 #endif

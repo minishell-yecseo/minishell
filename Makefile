@@ -11,10 +11,9 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 				utils_lexer.c here_doc_replace_envp.c \
 				settings.c no_cmd.c utils_error.c debug.c \
 				here_doc.c utils_asterisk.c signal.c program_end.c \
-				func_err.c \
-				utils_lexer_2.c utils_lexer_3.c utils_list_2.c \
-				utils_replace_envp_2.c utils_tree_build_2.c utils_syntax_2.c \
-				tree_2.c traverse.c
+				func_err.c with_err_func.c \
+				utils_lexer_2.c utils_lexer_3.c utils_lexer_4.c utils_list_2.c \
+				utils_replace_envp_2.c utils_tree_build_2.c utils_syntax_2.c
 
 
 OBJS			= $(SRCS:.c=.o)
@@ -28,11 +27,11 @@ LIB_DIR			= ./libft
 LIB			= ./libft/libft.a
 
 CC				= cc
-CFLAGS			= -g3 -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			= -g #-fsanitize=address #-Wall -Wextra -Werror
 READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
 
-#READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
-#OBJS_READLINE	= -I/opt/homebrew/opt/readline/include
+# READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
+# OBJS_READLINE	= -I/opt/homebrew/opt/readline/include
 
 
 all : $(NAME)

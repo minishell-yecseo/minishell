@@ -73,3 +73,20 @@ int	char_type_for_list(char c)
 	else
 		return (OTHER);
 }
+
+void	set_quotes_list_end_var(t_list *quote_list, char *line, int len)
+{
+	int	type;
+
+	type = char_type_for_list(line[len]);
+	if (type == ZERO)
+		quote_list->is_end = 1;
+	else if (type != ZERO)
+	{
+		type = char_type_for_list(line[len + 1]);
+		if (type == QUOTE || type == OTHER)
+			quote_list->is_end = 0;
+		else
+			quote_list->is_end = 1;
+	}
+}

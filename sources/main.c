@@ -34,37 +34,44 @@ void	tree_set_exe(t_tree *tree, t_set sa)
 {
 	tree->stdfds[0] = dup(0);
 	tree->stdfds[1] = dup(1);
+	if (tree->stdfds[0] == -1 || tree->stdfds[1] == -1)
+		func_err("dup");
 	tree->sig = sa.sig;
 	tree->term = sa.old_term;
 	tree->new = sa.term;
 }
 
-void	tree_start(t_tree *tree, char *line, char **envp, t_set sa)
+void	tree_start(t_tree *tree, char *line, char ***envp, t_set sa)
 {
-	tree = get_tree(line, envp);
+	tree = get_tree(line, *envp);
 	add_history(line);
+	free(line);
 	if (!tree)
 		return ;
 	tree_set_exe(tree, sa);
 	ignore_sig();
-	here_traverse(tree, tree->root, &envp);
+	here_traverse(tree, tree->root, envp);
 	if (!tree->here_doc)
 	{
 		tree->here_num = 0;
 		tcsetattr(STDIN_FILENO, TCSANOW, &sa.old_term);
-		traverse(tree, tree->root, &envp);
-		dup2(tree->stdfds[1], 1);
-		dup2(tree->stdfds[0], 0);
-		close(tree->stdfds[0]);
-		close(tree->stdfds[1]);
+		traverse(tree, tree->root, envp);
+		ft_dup2(tree->stdfds[1], 1);
+		ft_dup2(tree->stdfds[0], 0);
+		ft_close(tree->stdfds[0]);
+		ft_close(tree->stdfds[1]);
 		wait_forks(tree);
 		tcsetattr(STDIN_FILENO, TCSANOW, &sa.term);
 	}
 	free_tree(tree);
 	here_del();
-	change_sig(tree);
 }
 
+void test()
+{
+	system("leaks --list -- $PPID");
+}
+//"\x1b[38;5;204mminishell-0.1$\x1b[0m "
 int	main(int argc, char **argv, char **en)
 {
 	char	**envp;
@@ -72,6 +79,7 @@ int	main(int argc, char **argv, char **en)
 	char	*line;
 	t_set	sa;			
 
+	//atexit(test);
 	minishell_sig_setting(&sa.sig, &sa.old_term, &sa.term);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
@@ -79,14 +87,18 @@ int	main(int argc, char **argv, char **en)
 	print_init_msg();
 	while (1)
 	{
-		line = readline("\x1b[38;5;204mminishell-0.1$\x1b[0m ");
+		line = readline("minishell-0.1$ ");
 		if (!line)
 			program_end(sa.old_term);
+		else if (!*line)
+			free(line);
 		else if (*line)
 		{
-			tree_start(tree, line, envp, sa);
+			tree_start(tree, line, &envp, sa);
+			sigaction(SIGINT, &sa.sig, 0);
+			sigaction(SIGQUIT, &sa.sig, 0);
 		}
-		free(line);
+		
 	}
 	return (0);
 }

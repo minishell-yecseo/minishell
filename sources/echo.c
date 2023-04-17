@@ -24,22 +24,31 @@ int	check_n(char *s)
 
 void	echo_exe(char **args, int i, int j)
 {
+	int	flag;
+
+	flag = 0;
 	i = 2;
 	while (args[i])
 	{
-		j = 0;
-		while (args[i][j])
+		if (check_n(args[i]) && flag == 0)
+			;
+		else
 		{
-			if (args[i][j] == '\n')
-				j++;
-			else
+			flag = 1;
+			j = 0;
+			while (args[i][j])
 			{
-				printf("%c", args[i][j]);
-				j++;
+				if (args[i][j] == '\n')
+					j++;
+				else
+				{
+					printf("%c", args[i][j]);
+					j++;
+				}
 			}
+			if (args[i + 1])
+				printf(" ");
 		}
-		if (args[i + 1])
-			printf(" ");
 		i++;
 	}
 }

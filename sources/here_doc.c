@@ -19,15 +19,15 @@ void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
 		perror(cur->cont.file_name);
 		return ;
 	}
-	if (dup2(tree->filefds[0], 0) == -1)
-		func_err("dup2");
-	close(tree->filefds[0]);
+	ft_dup2(tree->filefds[0], 0);
+	ft_close(tree->filefds[0]);
 	tree->here_num += 1;
 }
 
 void	get_here_line(t_tree *tree, t_node *cur, char ***envp)
 {
 	char	*input;
+	char	*tmp;
 
 	while (1)
 	{
@@ -36,15 +36,19 @@ void	get_here_line(t_tree *tree, t_node *cur, char ***envp)
 			break ;
 		if (!ft_strcmp(input, cur->cont.file_name))
 			break ;
+		tmp = input;
 		input = here_doc_replace_envp(input, *envp);
+		free(tmp);
 		write(tree->filefds[1], input, ft_strlen(input));
 		write(tree->filefds[1], "\n", 1);
 		free(input);
 	}
+	if (input)
+		free(input);
 }
 
 void	here_doc_fork(t_tree *tree, t_node *cur, char ***envp)
-{
+{	
 	struct sigaction	sig;
 	char				*input;
 	char				*num;
@@ -54,12 +58,14 @@ void	here_doc_fork(t_tree *tree, t_node *cur, char ***envp)
 	sigaction(SIGINT, &sig, 0);
 	num = ft_itoa(tree->here_num);
 	path = ft_strjoin("/tmp/minishell.here_doc.", num);
+	if (!num || !path)
+		func_err("heredoc: malloc");
 	free(num);
 	tree->filefds[1] = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	get_here_line(tree, cur, envp);
 	free(path);
-	free(input);
-	close(tree->filefds[1]);
+	ft_close(tree->filefds[1]);
+	//system("leaks minishell");
 	exit(0);
 }
 
