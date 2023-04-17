@@ -4,7 +4,6 @@ t_list	*lexer(char *line, char **envp)
 {
 	t_list	*ret;
 	char	*replace_line;
-	int		syntax;
 
 	if (!pre_syntax_checker(line))
 		return (NULL);
@@ -19,8 +18,7 @@ t_list	*lexer(char *line, char **envp)
 	free(replace_line);
 	build_list_with_space(ret);
 	build_list_with_asterisk(&ret);
-	syntax = post_syntax_checker(ret);
-	if (!syntax)
+	if (!post_syntax_checker(ret))
 	{
 		free_line_list(ret);
 		return (NULL);
