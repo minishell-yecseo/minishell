@@ -62,7 +62,7 @@ int	char_type_for_list(char c)
 {
 	if (c == '\0')
 		return (ZERO);
-	else if (c == ' ' || c > 8 && c < 14)
+	else if (c == ' ' || (c > 8 && c < 14))
 		return (WHITE_SPACE);
 	else if (c == '<' || c == '>')
 		return (C_REDIR);

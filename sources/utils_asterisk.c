@@ -58,7 +58,6 @@ void	join_aster_list(t_list **head, t_list *node, t_list *aster_list)
 t_list	*get_entry_name_list(int *status)
 {
 	t_list			*ret;
-	char			*line;
 	struct dirent	*dp;
 	DIR				*dir;
 

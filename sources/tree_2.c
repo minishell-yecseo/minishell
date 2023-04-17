@@ -10,7 +10,6 @@ void	tree_set_root(t_tree *tree, t_node *root)
 void	free_tree(t_tree *tree)
 {
 	t_node	*node;
-	t_node	*tmp;
 
 	if (!tree)
 		return ;

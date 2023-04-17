@@ -38,7 +38,6 @@ char	*free_and_replace_line(char *old, char *line, int *len, char **envp)
 char	*get_replaced_line(char *line, char *dolor, int *len, char **envp)
 {
 	char	*ret;
-	char	*tmp;
 	char	*key;
 	char	*value;
 
