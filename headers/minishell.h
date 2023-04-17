@@ -22,6 +22,10 @@
 #  define BUFFER_SIZE 42
 # endif
 
+void	minishell_start_setting(char ***envp, char **en, t_tree **tree);
+void    unset_oldpath(char ***envp);
+void	tree_set_exe(t_tree *tree, t_set sa);
+void    tree_start(t_tree *tree, char *line, char ***envp, t_set sa);
 int		traverse(t_tree *tree, t_node *cur, char ***envp);
 int		g_last_exit_code;
 void	exe_cur(t_tree *tree, t_node *cur, char ***envp);

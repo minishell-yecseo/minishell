@@ -8,6 +8,6 @@ void	ft_dup2(int fd1, int fd2)
 
 void	ft_close(int fd)
 {
-	if (close(fd) ==  -1)
+	if (close(fd) == -1)
 		func_err("close");
 }

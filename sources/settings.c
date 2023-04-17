@@ -2,6 +2,43 @@
 
 static char	*get_logo(void);
 
+void	minishell_start_setting(char ***envp, char **en, t_tree **tree)
+{
+	*envp = cp_envp(en);
+	unset_oldpath(envp);
+	here_del();
+	print_init_msg();
+	*tree = NULL;
+}
+
+void	unset_oldpath(char ***envp)
+{
+	*envp = oldpwd_envp(envp, "OLDPWD");
+}
+
+char	**cp_envp(char **envp)
+{
+	int		i;
+	char	**en;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	en = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!en)
+		func_err("malloc");
+	i = 0;
+	while (envp[i])
+	{
+		en[i] = ft_strdup(envp[i]);
+		if (!en[i])
+			func_err("strdup");
+		i++;
+	}
+	en[i] = 0;
+	return (en);
+}
+
 void	print_init_msg(void)
 {
 	char	*logo;

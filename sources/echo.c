@@ -30,9 +30,7 @@ void	echo_exe(char **args, int i, int j)
 	i = 2;
 	while (args[i])
 	{
-		if (check_n(args[i]) && flag == 0)
-			;
-		else
+		if (!check_n(args[i]) && flag != 0)
 		{
 			flag = 1;
 			j = 0;
