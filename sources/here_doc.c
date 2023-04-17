@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "tree.h"
 
-void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp)
+void	exe_heredoc(t_tree *tree, t_node *cur)
 {
 	char	*itoa;
 	char	*path;
@@ -50,7 +50,6 @@ void	get_here_line(t_tree *tree, t_node *cur, char ***envp)
 void	here_doc_fork(t_tree *tree, t_node *cur, char ***envp)
 {	
 	struct sigaction	sig;
-	char				*input;
 	char				*num;
 	char				*path;
 

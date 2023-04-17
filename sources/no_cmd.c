@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	no_cmd(t_tree *tree, t_node *cur, char ***envp)
+void	no_cmd(t_tree *tree)
 {
 	if (tree->last != 1)
 	{

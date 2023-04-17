@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-static void	set_test_list(t_list **head);
-
 void	unset_oldpath(char ***envp)
 {
 	*envp = oldpwd_envp(envp, "OLDPWD");
@@ -67,11 +65,7 @@ void	tree_start(t_tree *tree, char *line, char ***envp, t_set sa)
 	here_del();
 }
 
-void test()
-{
-	system("leaks --list -- $PPID");
-}
-//"\x1b[38;5;204mminishell-0.1$\x1b[0m "
+//"\x1b[38;5;204mminishell-0.1$\x1b[0m "n
 int	main(int argc, char **argv, char **en)
 {
 	char	**envp;
@@ -79,12 +73,14 @@ int	main(int argc, char **argv, char **en)
 	char	*line;
 	t_set	sa;			
 
-	//atexit(test);
+	if (argc != 1 || argv[1] != 0)
+		exit(1);
 	minishell_sig_setting(&sa.sig, &sa.old_term, &sa.term);
 	envp = cp_envp(en);
 	unset_oldpath(&envp);
 	here_del();
 	print_init_msg();
+	tree = 0;
 	while (1)
 	{
 		line = readline("minishell-0.1$ ");
@@ -98,7 +94,6 @@ int	main(int argc, char **argv, char **en)
 			sigaction(SIGINT, &sa.sig, 0);
 			sigaction(SIGQUIT, &sa.sig, 0);
 		}
-		
 	}
 	return (0);
 }
