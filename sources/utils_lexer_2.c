@@ -35,55 +35,43 @@ int	add_pipe(t_list **head, char *line)
 
 int	add_quotes(t_list **head, char *line)
 {
+	t_list	*new_list;
 	char	*new_line;
 	char	quote_type;
 	int		len;
 	int		type;
 
-	len = 1;
-	quote_type = *line;
-	while (line[len] != quote_type && line[len] != '\0')
-		len++;
-	new_line = ft_substr(line + 1, 0, len - 1);
+	len = get_quotes_len_for_list(line);
+	new_line = ft_substr(line, 1, len - 1);
 	if (!new_line)
 		malloc_fail();
-	if (!ft_lstadd_back(head, ft_lstnew(L_WORD, new_line)))
+	new_list = ft_lstnew(L_WORD, new_line);
+	if (!new_list)
 		malloc_fail();
-	type = char_type_for_list(line[len + 1]);
-	if (type == QUOTE || type == OTHER)
-		ft_lstlast(*head)->is_end = 0;
-	else
-		ft_lstlast(*head)->is_end = 1;
-	ft_lstlast(*head)->is_quote = 1;
+	ft_lstadd_back(head, new_list);
+	set_quotes_list_end_var(new_list, line, len);
+	new_list->is_quote = 1;
 	len++;
 	return (len);
 }
 
 int	add_word(t_list **head, char *line)
 {
+	t_list	*new_list;
 	char	*new_line;
 	int		len;
-	int		c;
 
-	len = 0;
-	while (line[len])
-	{
-		c = char_type_for_list(line[len]);
-		if (c == WHITE_SPACE || c == C_REDIR || c == C_PIPE || c == QUOTE)
-			break ;
-		len++;
-	}
+	len = get_word_len_for_list(line);
 	if (len == 0)
 		return (1);
 	new_line = ft_substr(line, 0, len);
 	if (!new_line)
 		malloc_fail();
-	if (!ft_lstadd_back(head, ft_lstnew(L_WORD, new_line)))
+	new_list = ft_lstnew(L_WORD, new_line);
+	if (!new_list)
 		malloc_fail();
-	if (char_type_for_list(line[len]) == QUOTE)
-		ft_lstlast(*head)->is_end = 0;
-	else
-		ft_lstlast(*head)->is_end = 1;
-	ft_lstlast(*head)->is_quote = 0;
+	ft_lstadd_back(head, new_list);
+	set_word_list_end_var(new_list, line, len);
+	new_list->is_quote = 0;
 	return (len);
 }

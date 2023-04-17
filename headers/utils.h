@@ -66,6 +66,11 @@ void		build_list_with_space(t_list *head);
 void		tokens_to_one(t_list *list);
 void		free_sub_list(t_list *start, t_list *last);
 
+int		get_quotes_len_for_list(char *line);
+void		set_quotes_list_end_var(t_list *quote_list, char *line, int len);
+int		get_word_len_for_list(char *line);
+void		set_word_list_end_var(t_list *word_list, char *line, int len);
+
 int			build_list_with_asterisk(t_list **head);
 void		set_here_doc_flag(t_list *node, int *is_next_to_heredoc);
 t_list		*get_entry_name_list(int *status);
