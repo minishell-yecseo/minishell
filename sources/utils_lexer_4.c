@@ -3,7 +3,7 @@
 int	get_quotes_len_for_list(char *line)
 {
 	int		len;
-	char		quote_type;
+	char	quote_type;
 
 	len = 1;
 	quote_type = *line;
@@ -15,7 +15,7 @@ int	get_quotes_len_for_list(char *line)
 int	get_word_len_for_list(char *line)
 {
 	int		len;
-	char		c;
+	char	c;
 
 	len = 0;
 	while (line[len])

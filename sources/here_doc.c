@@ -64,7 +64,6 @@ void	here_doc_fork(t_tree *tree, t_node *cur, char ***envp)
 	get_here_line(tree, cur, envp);
 	free(path);
 	ft_close(tree->filefds[1]);
-	//system("leaks minishell");
 	exit(0);
 }
 
