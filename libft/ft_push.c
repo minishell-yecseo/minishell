@@ -1,6 +1,6 @@
 #include "libft.h"
 
-void		ft_push(t_stack *stack, char quote)
+void	ft_push(t_stack *stack, char quote)
 {
 	t_stack_node	*new_node;
 
