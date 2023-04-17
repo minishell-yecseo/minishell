@@ -2,8 +2,6 @@
 
 int	only_check_built_in(char *s)
 {
-	int	out;
-
 	if (!ft_strcmp(s, "echo"))
 		return (1);
 	else if (!ft_strcmp(s, "cd"))
