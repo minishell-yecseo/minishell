@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/17 16:34:45 by yecnam            #+#    #+#              #
+#    Updated: 2023/04/17 16:35:14 by yecnam           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME			= minishell
 
 SRC_DIR			= sources/
@@ -17,9 +29,7 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 
 
 OBJS			= $(SRCS:.c=.o)
-
 SRCS			= $(addprefix $(SRC_DIR), $(SRC))
-#OBJS 			= $(SRCS:.c=.o)
 
 INC			= -I./headers -I./libft -I${HOME}/.brew/opt/readline/include
 
@@ -29,10 +39,6 @@ LIB			= ./libft/libft.a
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror
 READLINE		= -lreadline -L${HOME}/.brew/opt/readline/lib
-
-# READLINE		= -lreadline -L/opt/homebrew/opt/readline/lib
-# OBJS_READLINE	= -I/opt/homebrew/opt/readline/include
-
 
 all : $(NAME)
 

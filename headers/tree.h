@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 16:30:36 by yecnam            #+#    #+#             */
+/*   Updated: 2023/04/17 16:32:45 by yecnam           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TREE_H
 # define TREE_H
 
@@ -64,7 +76,7 @@ typedef struct s_tree
 	int					here_num;
 	int					is_last_exit;
 	int					here_doc;
-	struct sigaction	old;
+	struct sigaction	dold;
 	struct sigaction	sig;
 	struct termios		term;
 	struct termios		new;
