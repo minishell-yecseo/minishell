@@ -59,6 +59,7 @@ int	echo(char **args)
 	int	j;
 
 	i = 0;
+	j = 0;
 	if (check_n(args[1]))
 		echo_exe(args, i, j);
 	else

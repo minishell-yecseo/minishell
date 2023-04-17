@@ -19,9 +19,6 @@ void	update_pwd(char ***envp, char *s)
 
 int	cd(char **args, char ***envp)
 {
-	char	*pwd;
-	char	*str;
-
 	if (!args[1])
 	{
 		ft_print_err("cd: please enter relative or absolute path\n");

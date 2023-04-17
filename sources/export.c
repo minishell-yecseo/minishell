@@ -67,18 +67,6 @@ void	print_export_fail(char *s)
 	ft_print_err("': not a valid identifier\n");
 }
 
-
-void	ttest_double_array(char **array)
-{
-	int	index;
-
-	index = 0;
-	while (array[index])
-	{
-		dprintf(2, "%s\n", array[index]);
-		index++;
-	}
-}
 int	export(char **arg, char ***envp)
 {
 	int	i;

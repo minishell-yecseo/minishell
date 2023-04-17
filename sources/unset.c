@@ -29,7 +29,7 @@ int	ft_envpcmp(char *s1, char *s2)
 	return (1);
 }
 
-char	**make_big_del_arr(char **envp, int i)
+char	**make_big_del_arr(int i)
 {
 	char	**en;
 
@@ -48,7 +48,7 @@ char	**del_envp(char **envp, char *str)
 	i = 0;
 	while (envp[i])
 		i++;
-	en = make_big_del_arr(envp, i);
+	en = make_big_del_arr(i);
 	i = 0;
 	k = 0;
 	while (envp[i])
@@ -67,7 +67,7 @@ char	**del_envp(char **envp, char *str)
 	return (en);
 }
 
-int	check_unset_envp(char *str, char ***envp)
+int	check_unset_envp(char *str)
 {
 	int		i;
 
@@ -92,7 +92,7 @@ int	unset(char **arg, char ***envp)
 	i = 1;
 	while (arg[i])
 	{
-		if (check_unset_envp(arg[i], envp) == 1)
+		if (check_unset_envp(arg[i]) == 1)
 		{
 			*envp = del_envp(*envp, arg[i]);
 			end = 0;

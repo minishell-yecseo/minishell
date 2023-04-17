@@ -18,7 +18,7 @@ void	exe_pipe(t_tree *tree, t_node *cur)
 		tree->last = 1;
 }
 
-void	exe_in(t_tree *tree, t_node *cur, char ***envp)
+void	exe_in(t_tree *tree, t_node *cur)
 {
 	tree->filefds[0] = open(cur->cont.file_name, O_RDONLY);
 	if (tree->filefds[0] == -1)
@@ -31,7 +31,7 @@ void	exe_in(t_tree *tree, t_node *cur, char ***envp)
 	ft_close(tree->filefds[0]);
 }
 
-void	exe_out_t(t_tree *tree, t_node *cur, char ***envp)
+void	exe_out_t(t_tree *tree, t_node *cur)
 {
 	tree->filefds[1] = open(cur->cont.file_name, \
 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -45,16 +45,16 @@ void	exe_out_t(t_tree *tree, t_node *cur, char ***envp)
 	ft_close(tree->filefds[1]);
 }
 
-void	exe_redir(t_tree *tree, t_node *cur, char ***envp)
+void	exe_redir(t_tree *tree, t_node *cur)
 {
 	if (tree->err != 0)
 		return ;
 	if (cur->cont.redir_type == IN)
-		exe_in(tree, cur, envp);
+		exe_in(tree, cur);
 	else if (cur->cont.redir_type == HERE_DOC)
-		exe_heredoc(tree, cur, envp);
+		exe_heredoc(tree, cur);
 	else if (cur->cont.redir_type == OUT_T)
-		exe_out_t(tree, cur, envp);
+		exe_out_t(tree, cur);
 	else if (cur->cont.redir_type == OUT_A)
 	{
 		tree->filefds[1] = open(cur->cont.file_name, \
@@ -77,11 +77,11 @@ void	exe_cur(t_tree *tree, t_node *cur, char ***envp)
 	else if (cur->type == CMD)
 		return ;
 	else if (cur->type == REDIR)
-		exe_redir(tree, cur, envp);
+		exe_redir(tree, cur);
 	else if (cur->type == SIMPLE_CMD && tree->last == 0)
 		exe_simple_com(tree, cur, envp);
 	else if (cur->type == SIMPLE_CMD && tree->last == 1)
 		last_simple_com(tree, cur, envp);
 	else if (cur->type == NO_CMD)
-		no_cmd(tree, cur, envp);
+		no_cmd(tree);
 }

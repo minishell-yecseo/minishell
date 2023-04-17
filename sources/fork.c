@@ -29,6 +29,7 @@ void	wait_forks(t_tree *tree)
 	pid_t	pid;
 
 	pid = 0;
+	err = 0;
 	while (pid != -1)
 	{
 		pid = waitpid(-1, &status, 0);

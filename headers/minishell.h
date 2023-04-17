@@ -61,7 +61,7 @@ void	path_exe(char **args, char ***envp);
 
 void	print_init_msg(void);
 char	*get_init_logo(void);
-void	no_cmd(t_tree *tree, t_node *cur, char ***envp);
+void	no_cmd(t_tree *tree);
 int		key_cmp(char *s1, char *s2);
 char	**ordering_envp(char **envp);
 void	export_print_envp(char **envp);
@@ -74,7 +74,7 @@ void	change_sig(t_tree *tree);
 void	ignore_sig(void);
 void	program_end(struct termios old_term);
 void	func_err(char *str);
-void	exe_heredoc(t_tree *tree, t_node *cur, char ***envp);
+void	exe_heredoc(t_tree *tree, t_node *cur);
 void	ft_close(int fd);
 void	ft_dup2(int fd1, int fd2);
 

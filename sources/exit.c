@@ -49,7 +49,6 @@ int	ft_exit(char **args, t_tree *tree)
 {
 	int		i;
 	int		end;
-	char	out_code;
 
 	ft_print_err("exit\n");
 	i = 0;
