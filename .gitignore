@@ -1,5 +1,14 @@
+#minishell
+minishell
+
+# Mac
+.DS_Store
+
 # Prerequisites
 *.d
+
+#vscode
+.vscode/*
 
 # Object files
 *.o
