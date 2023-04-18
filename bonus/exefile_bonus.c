@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:31:09 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/18 18:44:45 by yecnam           ###   ########.fr       */
+/*   Updated: 2023/04/18 19:02:58 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*del_first_path(char *s)
 		new[i - 5] = s[i];
 		i++;
 	}
-	new[i] = 0;
+	new[i - 5] = 0;
 	free(s);
 	return (new);
 }
