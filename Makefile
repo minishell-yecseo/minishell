@@ -6,7 +6,7 @@
 #    By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:34:45 by yecnam            #+#    #+#              #
-#    Updated: 2023/04/18 16:35:15 by yecnam           ###   ########.fr        #
+#    Updated: 2023/04/18 18:41:18 by yecnam           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ BONUS_SRC		= main_bonus.c unset_bonus.c cd_pwd_bonus.c export2_bonus.c\
 				utils_tree_build_bonus.c utils_syntax_bonus.c\
 				exit_bonus.c one_built_in_bonus.c env_bonus.c unset_oldpath_bonus.c path_exe_bonus.c\
 				utils_lexer_bonus.c here_doc_replace_envp_bonus.c \
-				settings_bonus.c no_cmd_bonus.c utils_error_bonus.c \
+				settings_bonus.c no_cmd_bonus.c utils_error_bonus.c update_lv_bonus.c\
 				here_doc_bonus.c utils_asterisk_bonus.c signal_bonus.c program_end_bonus.c \
 				func_err_bonus.c with_err_func_bonus.c tree_2_bonus.c tree_setting_bonus.c traverse_bonus.c\
 				utils_lexer_2_bonus.c utils_lexer_3_bonus.c utils_lexer_4_bonus.c utils_list_2_bonus.c \

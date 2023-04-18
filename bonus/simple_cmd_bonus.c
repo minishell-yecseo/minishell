@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_cmd_bonus.c                                 :+:      :+:    :+:   */
+/*   simple_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saseo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 19:22:53 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/17 19:22:55 by saseo            ###   ########.fr       */
+/*   Created: 2023/04/17 16:31:52 by yecnam            #+#    #+#             */
+/*   Updated: 2023/04/17 19:12:53 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	forked_exe(t_tree *tree, t_node *cur, char ***envp)
 	else
 	{
 		ft_print_err(cur->cont.args[0]);
-		write(2, "command not found\n", 18);
+		ft_print_err(": command not found\n");
 		exit(1);
 	}
 	perror(cur->cont.args[0]);

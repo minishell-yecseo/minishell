@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings_bonus.c                                   :+:      :+:    :+:   */
+/*   settings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saseo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 19:22:40 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/17 19:22:41 by saseo            ###   ########.fr       */
+/*   Created: 2023/04/17 16:31:47 by yecnam            #+#    #+#             */
+/*   Updated: 2023/04/18 17:42:09 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ void	minishell_start_setting(char ***envp, char **en, t_tree **tree)
 
 void	unset_oldpath(char ***envp)
 {
+	char	*lv;
+
+	lv = update_lv(*envp);
+	update_pwd(envp, "PWD=");
 	*envp = oldpwd_envp(envp, "OLDPWD");
+	*envp = oldpwd_envp(envp, lv);
+	free(lv);
 }
 
 char	**cp_envp(char **envp)
