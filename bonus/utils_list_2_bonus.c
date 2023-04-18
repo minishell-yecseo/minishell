@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_2_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saseo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 19:24:29 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/17 19:24:30 by saseo            ###   ########.fr       */
+/*   Created: 2023/04/17 16:30:58 by saseo             #+#    #+#             */
+/*   Updated: 2023/04/18 18:44:25 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	list_swap_with_next(t_list **head, t_list *node)
 		*head = node->next;
 	next_tmp = node->next->next;
 	node->next->next = node;
+	node->next->prev = node->prev;
 	if (node->prev)
 		(node->prev)->next = node->next;
 	node->prev = node->next;

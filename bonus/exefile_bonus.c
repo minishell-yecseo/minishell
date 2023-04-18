@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exefile_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saseo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 19:20:41 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/17 19:20:44 by saseo            ###   ########.fr       */
+/*   Created: 2023/04/17 16:31:09 by yecnam            #+#    #+#             */
+/*   Updated: 2023/04/18 18:44:45 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,28 @@ void	find_path(t_node *cur, char **paths)
 	}
 }
 
+char	*del_first_path(char *s)
+{
+	char	*new;
+	int		i;
+
+	i = 5;
+	while (s[i])
+		i++;
+	new = (char *)malloc(sizeof(char) * (i + 1));
+	if (!new)
+		func_err("malloc");
+	i = 5;
+	while (s[i])
+	{
+		new[i - 5] = s[i];
+		i++;
+	}
+	new[i] = 0;
+	free(s);
+	return (new);
+}
+
 int	check_exefile(t_node *cur, char **envp)
 {
 	int		i;
@@ -60,8 +82,10 @@ int	check_exefile(t_node *cur, char **envp)
 		i++;
 	}
 	paths = ft_split(envp[i], ':');
+	paths[0] = del_first_path(paths[0]);
 	if (!paths)
 		func_err("malloc");
+	i = 0;
 	find_path(cur, paths);
 	free_path(paths);
 	if (cur->cont.path == 0)
