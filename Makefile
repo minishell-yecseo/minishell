@@ -6,7 +6,7 @@
 #    By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:34:45 by yecnam            #+#    #+#              #
-#    Updated: 2023/04/17 16:56:48 by saseo            ###   ########.fr        #
+#    Updated: 2023/04/18 16:35:15 by yecnam           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC				= main.c unset.c cd_pwd.c export2.c\
 				utils_tree_build.c utils_syntax.c\
 				exit.c one_built_in.c env.c unset_oldpath.c path_exe.c\
 				utils_lexer.c here_doc_replace_envp.c \
-				settings.c no_cmd.c utils_error.c \
+				settings.c no_cmd.c utils_error.c update_lv.c\
 				here_doc.c utils_asterisk.c signal.c program_end.c \
 				func_err.c with_err_func.c tree_2.c tree_setting.c traverse.c\
 				utils_lexer_2.c utils_lexer_3.c utils_lexer_4.c utils_list_2.c \
