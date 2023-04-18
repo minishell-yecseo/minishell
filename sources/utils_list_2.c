@@ -6,7 +6,7 @@
 /*   By: saseo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:30:58 by saseo             #+#    #+#             */
-/*   Updated: 2023/04/17 16:31:00 by saseo            ###   ########.fr       */
+/*   Updated: 2023/04/18 16:30:34 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	list_swap_with_next(t_list **head, t_list *node)
 		*head = node->next;
 	next_tmp = node->next->next;
 	node->next->next = node;
+	node->next->prev = node->prev;
 	if (node->prev)
 		(node->prev)->next = node->next;
 	node->prev = node->next;
