@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:34:18 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/17 16:34:19 by yecnam           ###   ########.fr       */
+/*   Updated: 2023/04/18 16:36:02 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void			ft_strcpy(char *dst, const char *src);
 void			ft_strncpy(char *dest, const char *src, size_t len);
 size_t			ft_strlcpy(char *dest, const char *src, size_t destsize);
 char			*ft_itoa(int n);
+int				ft_atoi(const char *str);
 
 t_stack			*stack_init(void);
 t_stack_node	*ft_new_stack_node(char quote);
