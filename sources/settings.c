@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:31:47 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/18 16:14:14 by yecnam           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:42:09 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	unset_oldpath(char ***envp)
 	char	*lv;
 
 	lv = update_lv(*envp);
+	update_pwd(envp, "PWD=");
 	*envp = oldpwd_envp(envp, "OLDPWD");
 	*envp = oldpwd_envp(envp, lv);
 	free(lv);
