@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:30:28 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/18 17:42:39 by yecnam           ###   ########.fr       */
+/*   Updated: 2023/04/19 13:43:51 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
+# define MSG_1 "minishell-1.1"
+# define MSG_2 "$ "
+# define COL_1 "\1\e[38;5;211m\2"
+# define COL_2 "\1\e[38;5;225m\2"
+# define RESET_COL "\1\e[0m\2"
 
 int		g_last_exit_code;
 

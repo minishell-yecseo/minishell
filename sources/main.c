@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:31:35 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/19 12:54:38 by saseo            ###   ########.fr       */
+/*   Updated: 2023/04/19 13:37:38 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **en)
 	minishell_start_setting(&envp, en, &tree);
 	while (1)
 	{
-		line = readline("minishell-1.1$ ");
+		line = readline(COL_1 MSG_1 COL_2 MSG_2 RESET_COL);
 		if (!line)
 			program_end(sa.old_term);
 		else if (!*line)
