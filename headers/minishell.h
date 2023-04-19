@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:30:28 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/17 16:33:01 by yecnam           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:42:39 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	*ft_itos(int n);
 void	here_del(void);
 void	minishell_sig_setting(struct sigaction *sig, struct termios *old_term, \
 								struct termios *term);
+char	*update_lv(char **envp);
 void	restore_sig(void);
 void	change_sig(t_tree *tree);
 void	ignore_sig(void);
@@ -94,5 +95,6 @@ void	func_err(char *str);
 void	exe_heredoc(t_tree *tree, t_node *cur);
 void	ft_close(int fd);
 void	ft_dup2(int fd1, int fd2);
+void	update_pwd(char ***envp, char *s);
 
 #endif

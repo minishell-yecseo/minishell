@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:31:01 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/17 16:32:46 by yecnam           ###   ########.fr       */
+/*   Updated: 2023/04/18 15:29:19 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,24 @@ int	check_n(char *s)
 
 void	echo_exe(char **args, int i, int j)
 {
-	int	flag;
-
-	flag = 0;
-	i = 2;
+	i = 1;
+	while (check_n(args[i]))
+		i++;
 	while (args[i])
 	{
-		if (!check_n(args[i]) && flag != 0)
+		j = 0;
+		while (args[i][j])
 		{
-			flag = 1;
-			j = 0;
-			while (args[i][j])
+			if (args[i][j] == '\n')
+				j++;
+			else
 			{
-				if (args[i][j] == '\n')
-					j++;
-				else
-				{
-					printf("%c", args[i][j]);
-					j++;
-				}
+				printf("%c", args[i][j]);
+				j++;
 			}
-			if (args[i + 1])
-				printf(" ");
 		}
+		if (args[i + 1])
+			printf(" ");
 		i++;
 	}
 }

@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_exe_bonus.c                                   :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 16:31:42 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/18 18:44:37 by yecnam           ###   ########.fr       */
+/*   Created: 2022/11/11 21:39:43 by yecnam            #+#    #+#             */
+/*   Updated: 2022/11/11 21:49:55 by yecnam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void	path_exe(char **args, char ***envp)
+int	ft_atoi(const char *str)
 {
-	struct stat	s;
+	int	i;
+	int	pm;
+	int	sum;
 
-	if (stat(args[0], &s) == 0)
+	sum = 0;
+	pm = 1;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || \
+			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		if (S_ISREG(s.st_mode))
-			execve(args[0], args, *envp);
-		else if (S_ISDIR(s.st_mode))
-		{
-			printf("%s: is a directory\n", args[0]);
-			exit(126);
-		}
+		if (str[i] == '-')
+			pm = -1;
+		i++;
 	}
-	else
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		perror(args[0]);
-		exit(127);
+		sum = sum * 10 + str[i] - 48;
+		i++;
 	}
+	return (sum * pm);
 }
