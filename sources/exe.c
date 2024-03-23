@@ -6,7 +6,7 @@
 /*   By: yecnam <yecnam@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:31:06 by yecnam            #+#    #+#             */
-/*   Updated: 2023/04/17 16:32:54 by yecnam           ###   ########.fr       */
+/*   Updated: 2024/03/23 18:49:54 by saseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ void	exe_out_t(t_tree *tree, t_node *cur)
 	ft_close(tree->filefds[1]);
 }
 
+void	exe_out_a(t_tree *tree, t_node *cur)
+{
+	tree->filefds[1] = open(cur->cont.file_name, \
+				O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (tree->filefds[1] == -1)
+	{
+		tree->err = 1;
+		perror(cur->cont.file_name);
+		return ;
+	}
+	ft_dup2(tree->filefds[1], 1);
+	ft_close(tree->filefds[1]);
+}
+
 void	exe_redir(t_tree *tree, t_node *cur)
 {
 	if (tree->err != 0)
@@ -68,18 +82,7 @@ void	exe_redir(t_tree *tree, t_node *cur)
 	else if (cur->cont.redir_type == OUT_T)
 		exe_out_t(tree, cur);
 	else if (cur->cont.redir_type == OUT_A)
-	{
-		tree->filefds[1] = open(cur->cont.file_name, \
-					O_RDWR | O_CREAT | O_APPEND, 0644);
-		if (tree->filefds[1] == -1)
-		{
-			tree->err = 1;
-			perror(cur->cont.file_name);
-			return ;
-		}
-		ft_dup2(tree->filefds[1], 1);
-		ft_close(tree->filefds[1]);
-	}
+		exe_out_a(tree, cur);
 }
 
 void	exe_cur(t_tree *tree, t_node *cur, char ***envp)
